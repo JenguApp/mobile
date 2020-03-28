@@ -4,14 +4,14 @@
 
 export const environment = {
     production: false,
-    api_url: 'http://dev-api.projectathenia.com/v1/',
-    websocket_url: 'ws://dev-socket.projectathenia.com/',
-    app_name: 'Project Athenia',
+    api_url: 'http://api.jengu.app/v1/',
+    websocket_url: 'ws://socket.jengu.app/',
+    app_name: 'Jengu',
     stripe_publishable_key: 'pk_test_xHnP657roth55lBchLpLg6Af00vfCLYpDk',
     branding_image_url: null,
     forgot_password_url: null,
     sign_up_enabled: true,
-    subscriptions_enabled: true,
+    subscriptions_enabled: false,
 };
 
 /*
