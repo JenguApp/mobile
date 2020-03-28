@@ -1,0 +1,41 @@
+<app-logged-out-header></app-logged-out-header>
+
+<ion-content padding>
+
+    <div id="sign-in-content">
+
+        <img *ngIf="getBrandingImageUrl()" id="logo" [src]="getBrandingImageUrl()">
+
+        <form [formGroup]="form" padding>
+            <ion-item>
+                <ion-label position="stacked">Email Address</ion-label>
+                <ion-input type="email" ngDefaultControl formControlName="email" [formControl]="form.controls.email"></ion-input>
+            </ion-item>
+
+            <div color="alert" *ngIf="submitted && !form.controls.email.valid" class="validator-error">
+                Please enter a valid email address.
+            </div>
+
+            <ion-item>
+                <ion-label position="stacked">Password <small>(at least 6 characters)</small></ion-label>
+                <ion-input type="password" ngDefaultControl formControlName="password" [formControl]="form.controls.password"></ion-input>
+            </ion-item>
+
+            <div *ngIf="submitted && !form.controls.password.valid" class="validator-error">
+                Please enter a valid 6 digit password.
+            </div>
+
+            <div class="submit-wrapper">
+                <a *ngIf="getForgotPasswordUrl()" [href]="getForgotPasswordUrl()">I forgot my password</a>
+                <ion-button large (click)="submit()">Sign In</ion-button>
+            </div>
+        </form>
+
+        <p *ngIf="signUpEnabled()">Don't have an account?<br/><span class="link" (click)="goToSignUp()">Click here to sign up.</span></p>
+    </div>
+
+</ion-content>
+
+<footer>
+    Copyright 2019, {{getBrandingName()}}
+</footer>
