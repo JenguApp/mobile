@@ -43,3 +43,7 @@ $ ionic cordova build ios --prod --release -- --buildFlag="-UseModernBuildSystem
 _Special note - If you are having issues archiving in Xcode then simply turn off automatic signing, and then turn it back on._ 
 
 _Special note #2 - While using cordova ios <5, the builds will need to have `-- --buildFlag="-UseModernBuildSystem=0"` appended to them._
+
+## Parent Project
+
+This project is based on Athenia version 0.6.0
