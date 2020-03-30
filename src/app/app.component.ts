@@ -65,27 +65,11 @@ export class AppComponent {
     }
 
     /**
-     * Takes the user to a page that is passed in properl
-     * @param page
-     */
-    goTo(page: string) {
-        this.menuCtl.close('side-menu').catch(console.error);
-        this.navCtl.navigateBack(page).catch(console.error);
-    }
-
-    /**
      * Whether or not the user is logged in
      * This is used for component binding
      */
     isLoggedIn() {
         return AppComponent.LOGGED_IN;
-    }
-
-    /**
-     * Whether or not this app has subscriptions enabled
-     */
-    hasSubscriptions() {
-        return environment.subscriptions_enabled;
     }
 
     /**

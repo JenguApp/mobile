@@ -18,6 +18,7 @@ import { RequestHandlerProvider } from './providers/request-handler/request-hand
 import { StorageProvider } from './providers/storage/storage';
 import { AuthManagerProvider } from './providers/auth-manager/auth-manager';
 import { RequestsProvider } from './providers/requests/requests';
+import {ComponentsModule} from './components/components.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -25,7 +26,8 @@ import { RequestsProvider } from './providers/requests/requests';
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
-        AppRoutingModule
+        AppRoutingModule,
+        ComponentsModule
     ],
     providers: [
         StatusBar,

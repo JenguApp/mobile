@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {RatingBarComponent} from './rating-bar/rating-bar.component';
 import {ArticleEditorComponent} from './article-editor/article-editor.component';
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
+import {MenuComponent} from './menu/menu.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import {ArticleViewerComponent} from './article-viewer/article-viewer.component'
         ArticleViewerComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
+        MenuComponent,
         RatingBarComponent,
     ],
     exports: [
@@ -26,6 +28,7 @@ import {ArticleViewerComponent} from './article-viewer/article-viewer.component'
         ArticleViewerComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
+        MenuComponent,
         RatingBarComponent,
     ],
 })
