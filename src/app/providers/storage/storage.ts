@@ -61,4 +61,18 @@ export class StorageProvider {
     }
 
     // Put all custom storage variables below
+    /**
+     * Saves the current application state
+     * @param currentState
+     */
+    saveCurrentState(currentState: string): Promise<any> {
+        return this.storage.setItem('state', currentState);
+    }
+
+    /**
+     * Loads the current state that has been stored
+     */
+    loadCurrentState(): Promise<string> {
+        return this.storage.getItem('state');
+    }
 }
