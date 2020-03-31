@@ -11,6 +11,7 @@ import { Stripe } from '@ionic-native/stripe/ngx';
 import {File} from '@ionic-native/file/ngx';
 import {FileOpener} from '@ionic-native/file-opener/ngx';
 import {FirebaseX} from '@ionic-native/firebase-x/ngx';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +42,7 @@ import {ComponentsModule} from './components/components.module';
         File,
         FileOpener,
         FirebaseX,
+        Geolocation,
 
         // App providers
         RequestHandlerProvider,

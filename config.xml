@@ -3,7 +3,7 @@
     <name>Project Athenia</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -99,5 +99,4 @@
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <plugin name="cordova-plugin-advanced-http" spec="2.0.7" />
     <plugin name="cordova-plugin-stripe" spec="1.5.3" />
-    <allow-navigation href="http://localhost:8100" sessionid="0e5b3b3c" />
 </widget>
