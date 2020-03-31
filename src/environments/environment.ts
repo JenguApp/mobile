@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    api_url: 'http://api.tradeskills.academy/v1/',
+    api_url: 'https://api.sgcinternational.org/v1/',
     websocket_url: 'ws://socket.jengu.app/',
     app_name: 'Jengu',
     stripe_publishable_key: 'pk_test_xHnP657roth55lBchLpLg6Af00vfCLYpDk',

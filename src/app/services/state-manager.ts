@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {StorageProvider} from '../providers/storage/storage';
+import {Events} from '@ionic/angular';
 
 export type State = 'request' | 'deliver';
 
@@ -16,8 +17,11 @@ export class StateManagerService {
     /**
      * Default Constructor
      * @param storageProvider
+     * @param events
      */
-    constructor(private storageProvider: StorageProvider) {}
+    constructor(private storageProvider: StorageProvider,
+                private events: Events)
+    {}
 
     /**
      * Gets the current state stored properly
@@ -27,8 +31,10 @@ export class StateManagerService {
             return Promise.resolve(this.currentState);
         } else {
             return this.storageProvider.loadCurrentState().then(state => {
-                this.currentState = state.length > 0 ? state as State : 'request';
+                this.currentState = state as State;
                 return Promise.resolve(this.currentState);
+            }).catch(() => {
+                return Promise.resolve('request' as State);
             });
         }
     }
@@ -39,6 +45,7 @@ export class StateManagerService {
      */
     setCurrentState(currentState: State) {
         this.currentState = currentState;
+        this.events.publish('state-changed', currentState);
         this.storageProvider.saveCurrentState(currentState).catch(console.error);
     }
 }

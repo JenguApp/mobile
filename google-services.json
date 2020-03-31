@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "577120916528",
+    "firebase_url": "https://jengu-app.firebaseio.com",
+    "project_id": "jengu-app",
+    "storage_bucket": "jengu-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577120916528:android:3f4e609219e9e0762989f5",
+        "android_client_info": {
+          "package_name": "app.jengu.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577120916528-bpovuk63li30fmg4s48tk4uo9o1o7b6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApJcw9wqVS6u7WmHofS2ct2sVX6zFCmwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577120916528-bpovuk63li30fmg4s48tk4uo9o1o7b6k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "577120916528-se2k6k3lvrttsbjjh02va74qu8omm9si.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.jengu.mobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

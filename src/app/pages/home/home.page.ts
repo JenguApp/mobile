@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
+import {Events} from '@ionic/angular';
 
 /**
  * Main home page of the app
@@ -20,8 +21,10 @@ export class HomePage extends BasePage implements OnInit {
     /**
      *
      * @param stateManager
+     * @param events
      */
-    constructor(private stateManager: StateManagerService) {
+    constructor(private stateManager: StateManagerService,
+                private events: Events) {
         super();
     }
 
@@ -31,6 +34,9 @@ export class HomePage extends BasePage implements OnInit {
     ngOnInit(): void {
         this.stateManager.getCurrentState().then(state => {
             this.currentState = state;
-        })
+        });
+        this.events.subscribe('state-changed', (state => {
+            this.currentState = state;
+        }))
     }
 }
