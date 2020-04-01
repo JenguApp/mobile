@@ -20,6 +20,7 @@ import { StorageProvider } from './providers/storage/storage';
 import { AuthManagerProvider } from './providers/auth-manager/auth-manager';
 import { RequestsProvider } from './providers/requests/requests';
 import {ComponentsModule} from './components/components.module';
+import {GoogleMaps} from '@ionic-native/google-maps/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -43,6 +44,7 @@ import {ComponentsModule} from './components/components.module';
         FileOpener,
         FirebaseX,
         Geolocation,
+        GoogleMaps,
 
         // App providers
         RequestHandlerProvider,

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
 import {Events, Platform} from '@ionic/angular';
-import {Coordinates, Geolocation, Geoposition} from '@ionic-native/geolocation/ngx';
+import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 
 /**

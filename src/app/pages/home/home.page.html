@@ -6,13 +6,8 @@
         Request
     </div>
 
-    <div *ngIf="currentState == 'deliver'">
-        Deliver
-    </div>
-
-    <div *ngIf="currentPosition">
-        <p>Lat: {{currentPosition.coords.latitude}}</p>
-        <p>Long: {{currentPosition.coords.longitude}}</p>
+    <div *ngIf="currentState == 'deliver'" id="deliver">
+        <app-deliver-map *ngIf="currentPosition" [lat]="currentPosition.coords.latitude" [lng]="currentPosition.coords.longitude"></app-deliver-map>
     </div>
 
 </ion-content>

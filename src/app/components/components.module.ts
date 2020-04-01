@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {RatingBarComponent} from './rating-bar/rating-bar.component';
 import {ArticleEditorComponent} from './article-editor/article-editor.component';
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
+import {DeliverMapComponent} from './deliver-map/deliver-map.component';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import {ArticleViewerComponent} from './article-viewer/article-viewer.component'
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         RatingBarComponent,
+        DeliverMapComponent,
     ],
     exports: [
         ArticleEditorComponent,
@@ -27,6 +29,7 @@ import {ArticleViewerComponent} from './article-viewer/article-viewer.component'
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         RatingBarComponent,
+        DeliverMapComponent,
     ],
 })
 export class ComponentsModule {}

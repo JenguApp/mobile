@@ -12,7 +12,7 @@ export class StateManagerService {
     /**
      * The currently loaded state
      */
-    currentState: State;
+    currentState: State = null;
 
     /**
      * Default Constructor
