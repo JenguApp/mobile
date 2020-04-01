@@ -26,11 +26,12 @@
     "@angular/pwa": "^0.803.19",
     "@angular/router": "^8.2.14",
     "@angular/service-worker": "^8.2.14",
-    "@ionic-native/core": "^5.17.0",
+    "@ionic-native/core": "^5.22.0-beta-1",
     "@ionic-native/file": "^5.17.1",
     "@ionic-native/file-opener": "^5.17.1",
     "@ionic-native/firebase-x": "^5.17.0",
     "@ionic-native/geolocation": "^5.23.0",
+    "@ionic-native/google-maps": "^5.0.0-beta.27",
     "@ionic-native/http": "^5.17.0",
     "@ionic-native/native-storage": "^5.17.0",
     "@ionic-native/splash-screen": "^5.17.0",
@@ -48,6 +49,8 @@
     "cordova-plugin-file-opener2": "^2.2.1",
     "cordova-plugin-firebasex": "^7.0.1",
     "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
+    "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.1.2",
     "cordova-plugin-nativestorage": "2.3.2",
@@ -111,7 +114,11 @@
       "cordova-plugin-file-opener2": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-geolocation": {}
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-googlemaps": {
+        "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
+        "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
+      }
     },
     "platforms": [
       "android",
