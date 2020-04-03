@@ -1,0 +1,31 @@
+<form>
+  <ion-item>
+    <ion-label>Instructions</ion-label>
+    <ion-textarea #description></ion-textarea>
+  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let lineItem of lineItems">
+      <ion-input [value]="lineItem.name"></ion-input>
+      <ion-button>Remove Item</ion-button>
+      <div *ngIf="lineItem.asset; else noAsset;" class="image">
+        <img *ngIf="lineItem.asset" src="{{lineItem.asset.url}}">
+        <ion-button>Remove Image</ion-button>
+      </div>
+      <ng-template #noAsset>
+        <ion-button>Add Image</ion-button>
+      </ng-template>
+    </ion-item>
+
+    <ion-item>
+      <ion-input #newItemText></ion-input>
+      <div *ngIf="newItemAsset; else noAsset;" class="image">
+        <img *ngIf="newItemAsset" src="{{newItemAsset.url}}">
+        <ion-button>Remove Image</ion-button>
+      </div>
+      <ng-template #noAsset>
+        <ion-button>Add Image</ion-button>
+      </ng-template>
+      <ion-button>Add Item</ion-button>
+    </ion-item>
+  </ion-list>
+</form>

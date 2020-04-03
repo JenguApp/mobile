@@ -8,6 +8,7 @@ import {RatingBarComponent} from './rating-bar/rating-bar.component';
 import {ArticleEditorComponent} from './article-editor/article-editor.component';
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
 import {DeliverMapComponent} from './deliver-map/deliver-map.component';
+import {RequestFormComponent} from './request-form/request-form.component';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import {DeliverMapComponent} from './deliver-map/deliver-map.component';
         LoggedOutHeaderComponent,
         RatingBarComponent,
         DeliverMapComponent,
+        RequestFormComponent,
     ],
     exports: [
         ArticleEditorComponent,
@@ -30,6 +32,7 @@ import {DeliverMapComponent} from './deliver-map/deliver-map.component';
         LoggedOutHeaderComponent,
         RatingBarComponent,
         DeliverMapComponent,
+        RequestFormComponent,
     ],
 })
 export class ComponentsModule {}
