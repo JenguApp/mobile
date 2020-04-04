@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {RequestedItem} from '../../../models/request/requested-item';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../../providers/requests/requests';
@@ -24,6 +24,12 @@ export class RequestFormItemComponent implements OnChanges {
      */
     @Input()
     user: User;
+
+    /**
+     * The rating change callback
+     */
+    @Output()
+    itemRemoved: EventEmitter<RequestFormItemComponent> = new EventEmitter();
 
     /**
      * The input for the name
@@ -86,6 +92,13 @@ export class RequestFormItemComponent implements OnChanges {
         }).then(alert => {
             alert.present();
         });
+    }
+
+    /**
+     * Makes sure to emit the item removed listener
+     */
+    remove() {
+        this.itemRemoved.emit(this);
     }
 
     /**
