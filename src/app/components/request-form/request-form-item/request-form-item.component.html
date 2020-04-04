@@ -1,5 +1,5 @@
 <ion-item>
   <img (click)="promptCaptureMethod()" [src]="getAssetUrl()" slot="start">
-  <ion-input #name placeholder="Item Name"></ion-input>
+  <ion-input #name placeholder="Item Name" [value]="requestedItem?.name"></ion-input>
   <ion-button slot="end" *ngIf="requestedItem">-</ion-button>
 </ion-item>

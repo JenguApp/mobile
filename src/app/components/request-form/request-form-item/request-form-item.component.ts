@@ -1,16 +1,17 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {RequestedItem} from '../../../models/request/requested-item';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {User} from '../../../models/user/user';
 import {AlertController, IonInput} from '@ionic/angular';
+import {Asset} from '../../../models/asset';
 
 @Component({
     selector: 'app-request-form-item',
     templateUrl: './request-form-item.component.html',
     styleUrls: ['./request-form-item.component.scss']
 })
-export class RequestFormItemComponent {
+export class RequestFormItemComponent implements OnChanges {
 
     /**
      * The requested item that
@@ -31,6 +32,11 @@ export class RequestFormItemComponent {
     nameInput: IonInput;
 
     /**
+     * The asset the user has uploaded for this item
+     */
+    asset: Asset = null;
+
+    /**
      * Default Constructor
      * @param camera
      * @param requests
@@ -42,10 +48,20 @@ export class RequestFormItemComponent {
     }
 
     /**
+     * Detects changes properly
+     * @param changes
+     */
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.requestedItem && changes.requestedItem.currentValue != changes.requestedItem.previousValue) {
+            this.asset = this.requestedItem.asset;
+        }
+    }
+
+    /**
      * Gets the image asset url to show to the user
      */
     getAssetUrl(): string {
-        return this.requestedItem.asset ? this.requestedItem.asset.url : '/assets/default.jpg';
+        return this.asset ? this.asset.url : '/assets/default.jpg';
     }
 
     /**
@@ -89,5 +105,25 @@ export class RequestFormItemComponent {
                 //     this.user.profile_image_url = asset.url;/
             });
         });
+    }
+
+    /**
+     * Gets the requested item model with all of it's current values
+     */
+    getRequestedItemModel(): RequestedItem {
+        const model = this.requestedItem ? this.requestedItem : new RequestedItem({});
+
+        model.name = this.nameInput.value;
+        model.asset = this.asset;
+
+        return model;
+    }
+
+    /**
+     * Clears all inputs
+     */
+    clear() {
+        this.nameInput.value = '';
+        this.asset = null;
     }
 }

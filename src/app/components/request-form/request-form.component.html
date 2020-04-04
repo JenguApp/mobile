@@ -5,7 +5,7 @@
     <app-request-form-item *ngFor="let requestedItem of requestedItems" [requestedItem]="requestedItem" [user]="user">
     </app-request-form-item>
 
-    <app-request-form-item [user]="user"></app-request-form-item>
+    <app-request-form-item #newItem [user]="user"></app-request-form-item>
   </ion-list>
-  <ion-button>Add Item</ion-button>
+  <ion-button (click)="addItem()">Add Item</ion-button>
 </form>
