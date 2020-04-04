@@ -3,7 +3,7 @@
 <ion-content padding>
 
     <div *ngIf="currentState == 'request'">
-        <app-request-form></app-request-form>
+        <app-request-form *ngIf="me" [user]="me"></app-request-form>
     </div>
 
     <div *ngIf="currentState == 'deliver'" id="deliver">

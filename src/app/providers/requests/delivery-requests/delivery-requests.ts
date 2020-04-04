@@ -2,6 +2,7 @@ import {RequestHandlerProvider} from '../../request-handler/request-handler';
 import {Request} from '../../../models/request/request';
 import {User} from '../../../models/user/user';
 import {Page} from '../../../models/page';
+import {Asset} from '../../../models/asset';
 
 /**
  * All requests needed for deliveries
@@ -33,6 +34,22 @@ export default class DeliveryRequests {
             latitude: latitude,
             lineItems: lineItems,
         }));
+    }
+
+
+    /**
+     * Runes the upload request, the file contents should be a base 64 encoded string
+     *
+     * @param user
+     * @param fileContents
+     */
+    async uploadAsset(user: User, fileContents: string): Promise<Asset> {
+        return Promise.resolve(new Asset({}));
+        // return this.requestHandler.post('users/' + user.id + '/assets', true, false, {
+        //     file_contents: fileContents,
+        // }).then(response => {
+        //     return Promise.resolve(new Asset(response));
+        // });
     }
 
     /**

@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import Subscriptions from './subscriptions/subscriptions';
 import Social from './social/social';
 import Messaging from './messaging/messaging';
+import DeliveryRequests from './delivery-requests/delivery-requests';
 
 /**
  * Provider for interacting with all app wide requests
@@ -32,6 +33,11 @@ export class RequestsProvider {
     messaging: Messaging;
 
     /**
+     * All requests related to the deliveries
+     */
+    deliveryRequests: DeliveryRequests;
+
+    /**
      * Default constructor
      * @param requestHandler
      */
@@ -40,5 +46,6 @@ export class RequestsProvider {
         this.subscriptions = new Subscriptions(this.requestHandler);
         this.social = new Social(this.requestHandler);
         this.messaging = new Messaging(requestHandler);
+        this.deliveryRequests = new DeliveryRequests(requestHandler);
     }
 }

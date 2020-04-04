@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LineItem} from '../../models/request/line-item';
 import {Asset} from '../../models/asset';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
+import {User} from '../../models/user/user';
 
 @Component({
     selector: 'app-request-form',
@@ -10,6 +11,12 @@ import {RequestsProvider} from '../../providers/requests/requests';
     styleUrls: ['./request-form.component.scss']
 })
 export class RequestFormComponent {
+
+    /**
+     * The currently logged in user
+     */
+    @Input()
+    user: User;
 
     /**
      * All line items the user has entered so far
@@ -43,10 +50,9 @@ export class RequestFormComponent {
             correctOrientation: true
         };
         this.camera.getPicture(options).then((imageData) => {
-            // TODO handle upload
-            // this.requests.auth.uploadProfileImage(this.user, imageData).then(asset => {
-            //     this.user.profile_image_url = asset.url;
-            // });
+            this.requests.deliveryRequests.uploadAsset(this.user, imageData).then(asset => {
+            //     this.user.profile_image_url = asset.url;/
+            });
         });
     }
 }

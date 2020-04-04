@@ -4,6 +4,9 @@ import {State, StateManagerService} from '../../services/state-manager';
 import {Events, Platform} from '@ionic/angular';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
+import {RequestsProvider} from '../../providers/requests/requests';
+import {User} from '../../models/user/user';
+import {UserService} from '../../services/user.service';
 
 /**
  * Main home page of the app
@@ -26,15 +29,24 @@ export class HomePage extends BasePage implements OnInit {
     currentPosition: Geoposition = null;
 
     /**
+     * The Logged in user
+     */
+    me: User = null;
+
+    /**
      *
      * @param stateManager
      * @param locationManager
      * @param platform
+     * @param requests
+     * @param userService
      * @param events
      */
     constructor(private stateManager: StateManagerService,
                 private locationManager: LocationManagerService,
                 private platform: Platform,
+                private requests: RequestsProvider,
+                private userService: UserService,
                 private events: Events) {
         super();
     }
@@ -51,6 +63,13 @@ export class HomePage extends BasePage implements OnInit {
         }));
         this.platform.ready().then(() => {
 
+            this.me = this.userService.getMe();
+            if (!this.me) {
+                this.requests.auth.loadInitialInformation().then(user => {
+                    this.userService.storeMe(user);
+                    this.me = user;
+                });
+            }
             this.locationManager.getPosition().then(position => {
                 this.currentPosition = position;
             }).catch(error => {
