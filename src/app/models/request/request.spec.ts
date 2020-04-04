@@ -2,7 +2,7 @@ import {Request} from './request';
 import {Asset} from '../asset';
 import {User} from '../user/user';
 import {SafetyReport} from './safety-report';
-import {LineItem} from './line-item';
+import {RequestedItem} from './requested-item';
 
 describe('Test Line Item Model', () => {
 
@@ -31,7 +31,7 @@ describe('Test Line Item Model', () => {
         expect(model.assets[0].constructor).toBe(Asset);
         expect(model.completedBy.constructor).toBe(User);
         expect(model.createdBy.constructor).toBe(User);
-        expect(model.lineItems[0].constructor).toBe(LineItem);
+        expect(model.requestedItems[0].constructor).toBe(RequestedItem);
         expect(model.safetyReport.constructor).toBe(SafetyReport);
     });
 });

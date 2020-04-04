@@ -2,7 +2,7 @@ import {BaseModel} from '../base-model';
 import {Asset} from '../asset';
 import {Relation} from '../relation';
 
-export class LineItem extends BaseModel {
+export class RequestedItem extends BaseModel {
 
     /**
      * The name the user entered for the line item

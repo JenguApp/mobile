@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestFormComponent } from './request-form.component';
+import { RequestFormItemComponent } from './item.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 
-describe('RequestFormComponent', () => {
-    let component: RequestFormComponent;
-    let fixture: ComponentFixture<RequestFormComponent>;
+describe('LoggedOutHeaderComponent', () => {
+    let component: RequestFormItemComponent;
+    let fixture: ComponentFixture<RequestFormItemComponent>;
     let navController;
     let alertController;
 
@@ -17,21 +17,20 @@ describe('RequestFormComponent', () => {
             imports: [
                 CommonModule,
                 IonicModule.forRoot(),
-                RequestFormComponent,
             ],
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
             ],
             declarations: [
-                RequestFormComponent,
+                RequestFormItemComponent,
             ]
         })
         .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(RequestFormComponent);
+        fixture = TestBed.createComponent(RequestFormItemComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

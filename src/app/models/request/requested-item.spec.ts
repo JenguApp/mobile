@@ -1,10 +1,10 @@
-import {LineItem} from './line-item';
+import {RequestedItem} from './requested-item';
 import {Asset} from '../asset';
 
-describe('Test Line Item Model', () => {
+describe('Test Requested Item Model', () => {
 
-    it('Make sure that the membership plan model is being built properly', () => {
-        const model = new LineItem({
+    it('Make sure that the requested item model is being built properly', () => {
+        const model = new RequestedItem({
             id: 4,
             name: 'An Item',
             asset: {

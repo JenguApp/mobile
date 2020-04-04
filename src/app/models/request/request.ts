@@ -1,7 +1,7 @@
 import {BaseModel} from '../base-model';
 import {Asset} from '../asset';
 import {Relation} from '../relation';
-import {LineItem} from './line-item';
+import {RequestedItem} from './requested-item';
 import {User} from '../user/user';
 import {SafetyReport} from './safety-report';
 
@@ -45,7 +45,7 @@ export class Request extends BaseModel {
     /**
      * All line items in the request
      */
-    lineItems: LineItem[];
+    requestedItems: RequestedItem[];
 
     /**
      * The safety report made if there was one
@@ -61,7 +61,7 @@ export class Request extends BaseModel {
             assets: new Relation('array', Asset),
             completedBy: new Relation('model', User),
             createdBy: new Relation('model', User),
-            lineItems: new Relation('array', LineItem),
+            requestedItems: new Relation('array', RequestedItem),
             safetyReport: new Relation('model', SafetyReport),
         });
     }
