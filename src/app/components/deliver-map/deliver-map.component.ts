@@ -8,14 +8,26 @@ import {GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsEvent, Marker} from '
 })
 export class DeliverMapComponent implements OnInit {
 
+    /**
+     * The passed in latitude
+     */
     @Input()
     lat: number;
 
+    /**
+     * The passed in longitude
+     */
     @Input()
     lng: number;
 
+    /**
+     * The google map
+     */
     map: GoogleMap;
 
+    /**
+     * Gets everything set
+     */
     ngOnInit() {
 
         let mapOptions: GoogleMapOptions = {
@@ -30,7 +42,6 @@ export class DeliverMapComponent implements OnInit {
         };
 
         this.map = GoogleMaps.create('map_canvas', mapOptions);
-        console.log(this.map);
 
         let marker: Marker = this.map.addMarkerSync({
             title: 'Ionic',

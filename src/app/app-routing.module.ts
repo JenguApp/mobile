@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {path} from '@angular-devkit/core';
 
 const routes: Routes = [
     {
@@ -44,6 +45,10 @@ const routes: Routes = [
         loadChildren: './pages/thread/thread.module#ThreadPageModule',
     },
     // Add more pages below
+    {
+        path: 'location-selection',
+        loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
+    },
 ];
 
 @NgModule({
