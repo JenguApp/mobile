@@ -1,14 +1,16 @@
-import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
 import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
+import {IonTextarea, NavController} from '@ionic/angular';
+import RequestCreationService from '../../services/data-services/request-creation.service';
 
 @Component({
     selector: 'app-request-form',
     templateUrl: './request-form.component.html',
     styleUrls: ['./request-form.component.scss']
 })
-export class RequestFormComponent {
+export class RequestFormComponent implements OnInit {
 
     /**
      * The currently logged in user
@@ -23,6 +25,12 @@ export class RequestFormComponent {
     newItem: RequestFormItemComponent;
 
     /**
+     * The description the user entered
+     */
+    @ViewChild('description', {static: false})
+    descriptionTextArea: IonTextarea;
+
+    /**
      * all entered items on the page
      */
     @ViewChildren('enteredItems')
@@ -32,6 +40,23 @@ export class RequestFormComponent {
      * All requested items the user has entered so far
      */
     requestedItems: RequestedItem[] = [];
+
+    /**
+     * Default Constructor
+     * @param requestCreationService
+     * @param navController
+     */
+    constructor(private requestCreationService: RequestCreationService,
+                private navController: NavController) {
+    }
+
+    /**
+     * Inits the form properly
+     */
+    ngOnInit(): void {
+        this.descriptionTextArea.value = this.requestCreationService.getDescription();
+        this.requestedItems = this.requestCreationService.getLineItems();
+    }
 
     /**
      * Removes an item from the list of requested items
@@ -49,5 +74,20 @@ export class RequestFormComponent {
     addItem() {
         this.requestedItems.push(this.newItem.getRequestedItemModel());
         this.newItem.clear();
+    }
+
+    /**
+     * Submits the form and takes us to the next step
+     */
+    submit() {
+        const requestedItems = this.enteredItems
+            .map(element => element.getRequestedItemModel())
+            .filter(requestedItem => requestedItem.name.length > 0 || requestedItem.asset);
+        const newItem = this.newItem.getRequestedItemModel();
+        if (newItem.name.length > 0 || newItem.asset) {
+            requestedItems.push(newItem);
+        }
+        this.requestCreationService.storeInitialInformation(this.descriptionTextArea.value, requestedItems);
+        this.navController.navigateForward('location-selection').catch(console.error);
     }
 }

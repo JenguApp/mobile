@@ -115,7 +115,7 @@ export class RequestFormItemComponent implements OnChanges {
         };
         this.camera.getPicture(options).then((imageData) => {
             this.requests.deliveryRequests.uploadAsset(this.user, imageData).then(asset => {
-                //     this.user.profile_image_url = asset.url;/
+                this.asset = asset;
             });
         });
     }
