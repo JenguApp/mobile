@@ -1,13 +1,13 @@
 <app-logged-in-header [isHome]=true></app-logged-in-header>
 
-<ion-content padding>
+<ion-content>
 
     <div *ngIf="currentState == 'request'">
         <app-request-form *ngIf="me" [user]="me"></app-request-form>
     </div>
 
     <div *ngIf="currentState == 'deliver'" id="deliver">
-        <app-deliver-map *ngIf="currentPosition" [lat]="currentPosition.coords.latitude" [lng]="currentPosition.coords.longitude"></app-deliver-map>
+        <app-delivery-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-delivery-map>
     </div>
 
 </ion-content>

@@ -1,5 +1,5 @@
 <app-logged-in-header></app-logged-in-header>
 
 <ion-content>
-    <div id="map_canvas"></div>
+    <app-location-select-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-location-select-map>
 </ion-content>

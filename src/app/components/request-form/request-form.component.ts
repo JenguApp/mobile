@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
 import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
@@ -10,7 +10,7 @@ import RequestCreationService from '../../services/data-services/request-creatio
     templateUrl: './request-form.component.html',
     styleUrls: ['./request-form.component.scss']
 })
-export class RequestFormComponent implements OnInit {
+export class RequestFormComponent implements AfterViewInit {
 
     /**
      * The currently logged in user
@@ -53,7 +53,7 @@ export class RequestFormComponent implements OnInit {
     /**
      * Inits the form properly
      */
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         this.descriptionTextArea.value = this.requestCreationService.getDescription();
         this.requestedItems = this.requestCreationService.getLineItems();
     }

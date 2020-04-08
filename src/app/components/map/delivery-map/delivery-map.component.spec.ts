@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeliverMapComponent } from './deliver-map.component';
+import { DeliveryMapComponent } from './delivery-map.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 
-describe('DeliverMapComponent', () => {
-    let component: DeliverMapComponent;
-    let fixture: ComponentFixture<DeliverMapComponent>;
+describe('DeliveryMapComponent', () => {
+    let component: DeliveryMapComponent;
+    let fixture: ComponentFixture<DeliveryMapComponent>;
     let navController;
     let alertController;
 
@@ -23,14 +23,14 @@ describe('DeliverMapComponent', () => {
                 {provide: NavController, useValue: navController},
             ],
             declarations: [
-                DeliverMapComponent,
+                DeliveryMapComponent,
             ]
         })
         .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DeliverMapComponent);
+        fixture = TestBed.createComponent(DeliveryMapComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

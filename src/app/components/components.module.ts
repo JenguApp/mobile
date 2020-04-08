@@ -7,9 +7,10 @@ import {RouterModule} from '@angular/router';
 import {RatingBarComponent} from './rating-bar/rating-bar.component';
 import {ArticleEditorComponent} from './article-editor/article-editor.component';
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
-import {DeliverMapComponent} from './deliver-map/deliver-map.component';
 import {RequestFormComponent} from './request-form/request-form.component';
 import {RequestFormItemComponent} from './request-form/request-form-item/request-form-item.component';
+import {DeliveryMapComponent} from './map/delivery-map/delivery-map.component';
+import {LocationSelectMapComponent} from './map/location-select-map/location-select-map.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import {RequestFormItemComponent} from './request-form/request-form-item/request
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         RatingBarComponent,
-        DeliverMapComponent,
+        DeliveryMapComponent,
+        LocationSelectMapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
     ],
@@ -33,7 +35,8 @@ import {RequestFormItemComponent} from './request-form/request-form-item/request
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         RatingBarComponent,
-        DeliverMapComponent,
+        DeliveryMapComponent,
+        LocationSelectMapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
     ],

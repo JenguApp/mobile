@@ -1,24 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsEvent, Marker} from '@ionic-native/google-maps';
 
-@Component({
-    selector: 'app-deliver-map',
-    templateUrl: './deliver-map.component.html',
-    styleUrls: ['./deliver-map.component.scss']
-})
-export class DeliverMapComponent implements OnInit {
+export class MapComponent implements OnInit {
 
     /**
      * The passed in latitude
      */
     @Input()
-    lat: number;
+    startingLatitude: number;
 
     /**
      * The passed in longitude
      */
     @Input()
-    lng: number;
+    startingLongitude: number;
 
     /**
      * The google map
@@ -33,8 +28,8 @@ export class DeliverMapComponent implements OnInit {
         let mapOptions: GoogleMapOptions = {
             camera: {
                 target: {
-                    lat: this.lat,
-                    lng: this.lng,
+                    lat: this.startingLatitude,
+                    lng: this.startingLongitude,
                 },
                 zoom: 18,
                 tilt: 30
@@ -42,18 +37,11 @@ export class DeliverMapComponent implements OnInit {
         };
 
         this.map = GoogleMaps.create('map_canvas', mapOptions);
-
-        let marker: Marker = this.map.addMarkerSync({
-            title: 'Ionic',
-            icon: 'blue',
-            animation: 'DROP',
-            position: {
-                lat: 43.0741904,
-                lng: -89.3809802
-            }
-        });
-        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-            alert('clicked');
-        });
+        this.afterMapReady();
     }
+
+    /**
+     * Allows child classes to setup the map properly after this has been initialized
+     */
+    afterMapReady() {}
 }
