@@ -17,6 +17,16 @@ export default class RequestCreationService {
     lineItems: RequestedItem[] = [];
 
     /**
+     * The latitude the user has selected
+     */
+    latitude: number = null;
+
+    /**
+     * The longitude the user selected
+     */
+    longitude: number = null;
+
+    /**
      * Stores all initial information that we need
      * @param description
      * @param lineItems
@@ -24,6 +34,16 @@ export default class RequestCreationService {
     storeInitialInformation(description: string, lineItems: RequestedItem[]) {
         this.description = description;
         this.lineItems = lineItems;
+    }
+
+    /**
+     * Stores all information related to the location of the request
+     * @param latitude
+     * @param longitude
+     */
+    storeLocationInformation(latitude: number, longitude: number) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     /**
@@ -41,10 +61,26 @@ export default class RequestCreationService {
     }
 
     /**
+     * Gets the latitude the user selected
+     */
+    getLatitude(): number {
+        return this.latitude;
+    }
+
+    /**
+     * Gets the longitude the user selected
+     */
+    getLongitude(): number {
+        return this.longitude;
+    }
+
+    /**
      * Clears all pending data
      */
     clear() {
         this.description = '';
         this.lineItems = [];
+        this.latitude = null;
+        this.longitude = null;
     }
 }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {GoogleMapsEvent, Marker} from '@ionic-native/google-maps';
 import {MapComponent} from '../map.component';
+import {ILatLng} from '@ionic-native/google-maps/ngx';
 
 @Component({
     selector: 'app-location-select-map',
@@ -10,10 +11,15 @@ import {MapComponent} from '../map.component';
 export class LocationSelectMapComponent extends MapComponent {
 
     /**
+     * The marker on the map that lets the user select the location
+     */
+    selectMarker: Marker;
+
+    /**
      * Allows child classes to setup the map properly after this has been initialized
      */
     afterMapReady() {
-        let marker: Marker = this.map.addMarkerSync({
+        this.selectMarker = this.map.addMarkerSync({
             title: 'Ionic',
             icon: 'blue',
             animation: 'DROP',
@@ -23,8 +29,12 @@ export class LocationSelectMapComponent extends MapComponent {
                 lng: this.startingLongitude
             }
         });
-        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-            alert('clicked');
-        });
+    }
+
+    /**
+     * Gets the current position the user has selected
+     */
+    getPosition(): ILatLng {
+        return this.selectMarker.getPosition();
     }
 }

@@ -1,5 +1,6 @@
 <app-logged-in-header></app-logged-in-header>
 
 <ion-content>
-    <app-location-select-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-location-select-map>
+    <app-location-select-map #map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-location-select-map>
+    <ion-button (click)="continue()">Next</ion-button>
 </ion-content>
