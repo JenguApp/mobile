@@ -19,6 +19,12 @@ export class RequestFormComponent implements AfterViewInit {
     user: User;
 
     /**
+     * Whether or not this component is in the review process, which will mean that you cannot submit the form
+     */
+    @Input()
+    reviewForm: boolean = false;
+
+    /**
      * The new item that is being filled in
      */
     @ViewChild('newItem', {static: false})

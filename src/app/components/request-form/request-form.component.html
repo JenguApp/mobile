@@ -7,5 +7,5 @@
     <app-request-form-item #newItem [user]="user"></app-request-form-item>
   </ion-list>
   <ion-button (click)="addItem()">Add Item</ion-button>
-  <ion-button (click)="submit()">Post Request</ion-button>
+  <ion-button (click)="submit()" *ngIf="!reviewForm">Post Request</ion-button>
 </form>

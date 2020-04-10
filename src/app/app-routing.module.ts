@@ -49,6 +49,10 @@ const routes: Routes = [
         path: 'location-selection',
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
     },
+    {
+        path: 'request-review',
+        loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
+    },
 ];
 
 @NgModule({

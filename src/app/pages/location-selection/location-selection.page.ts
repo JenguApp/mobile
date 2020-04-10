@@ -3,6 +3,7 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import RequestCreationService from '../../services/data-services/request-creation.service';
 import {LocationSelectMapComponent} from '../../components/map/location-select-map/location-select-map.component';
+import {NavController} from '@ionic/angular';
 
 @Component({
     selector: 'app-location-selection',
@@ -23,9 +24,11 @@ export class LocationSelectionPage implements OnInit {
      * Default Constructor
      * @param locationManagerService
      * @param requestCreationService
+     * @param navController
      */
     constructor(private locationManagerService: LocationManagerService,
-                private requestCreationService: RequestCreationService) {
+                private requestCreationService: RequestCreationService,
+                private navController: NavController) {
     }
 
     /**
@@ -44,5 +47,6 @@ export class LocationSelectionPage implements OnInit {
     continue() {
         const position = this.map.getPosition();
         this.requestCreationService.storeLocationInformation(position.lat, position.lng);
+        this.navController.navigateForward('/request-review').catch(console.error);
     }
 }
