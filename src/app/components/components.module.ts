@@ -11,6 +11,7 @@ import {RequestFormComponent} from './request-form/request-form.component';
 import {RequestFormItemComponent} from './request-form/request-form-item/request-form-item.component';
 import {DeliveryMapComponent} from './map/delivery-map/delivery-map.component';
 import {LocationSelectMapComponent} from './map/location-select-map/location-select-map.component';
+import {LocationReviewMapComponent} from './map/location-review-map/location-review-map.component';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import {LocationSelectMapComponent} from './map/location-select-map/location-sel
         LoggedOutHeaderComponent,
         RatingBarComponent,
         DeliveryMapComponent,
+        LocationReviewMapComponent,
         LocationSelectMapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
@@ -36,6 +38,7 @@ import {LocationSelectMapComponent} from './map/location-select-map/location-sel
         LoggedOutHeaderComponent,
         RatingBarComponent,
         DeliveryMapComponent,
+        LocationReviewMapComponent,
         LocationSelectMapComponent,
         RequestFormComponent,
         RequestFormItemComponent,

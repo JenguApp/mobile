@@ -21,6 +21,11 @@ export class MapComponent implements OnInit {
     map: GoogleMap;
 
     /**
+     * Most maps are movable, but some components may override this to display a static map
+     */
+    movable = true;
+
+    /**
      * Gets everything set
      */
     ngOnInit() {
@@ -35,6 +40,15 @@ export class MapComponent implements OnInit {
                 tilt: 30
             }
         };
+
+        if (!this.movable) {
+            mapOptions.gestures = {
+                scroll: false,
+                tilt: false,
+                zoom: false,
+                rotate: false,
+            }
+        }
 
         this.map = GoogleMaps.create('map_canvas', mapOptions);
         this.afterMapReady();
