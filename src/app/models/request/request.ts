@@ -28,6 +28,11 @@ export class Request extends BaseModel {
     drop_off_location: string;
 
     /**
+     * The id of the user completing the request
+     */
+    completed_by_id: number;
+
+    /**
      * Any assets uploaded for this request
      */
     assets: Asset[];

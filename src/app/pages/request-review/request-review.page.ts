@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import RequestCreationService from '../../services/data-services/request-creation.service';
+import {IonTextarea, NavController} from '@ionic/angular';
+import {RequestFormComponent} from '../../components/request-form/request-form.component';
+import {RequestsProvider} from '../../providers/requests/requests';
+import PendingRequestService from '../../services/data-services/pending-request.service';
 
 @Component({
     selector: 'app-request-review',
@@ -7,6 +11,18 @@ import RequestCreationService from '../../services/data-services/request-creatio
     styleUrls: ['./request-review.page.scss'],
 })
 export class RequestReviewPage implements OnInit {
+
+    /**
+     * THe input field for the drop off notes
+     */
+    @ViewChild('dropOffNotes', {static: false})
+    dropOffNotesTextarea: IonTextarea;
+
+    /**
+     * The request details form
+     */
+    @ViewChild('requestForm', {static: false})
+    requestForm: RequestFormComponent;
 
     /**
      * The latitude the user selected
@@ -21,8 +37,14 @@ export class RequestReviewPage implements OnInit {
     /**
      * Default Constructor
      * @param requestCreationService
+     * @param pendingRequestService
+     * @param navController
+     * @param requests
      */
-    constructor(private requestCreationService: RequestCreationService) {
+    constructor(private requestCreationService: RequestCreationService,
+                private pendingRequestService: PendingRequestService,
+                private navController: NavController,
+                private requests: RequestsProvider) {
     }
 
     /**
@@ -37,6 +59,19 @@ export class RequestReviewPage implements OnInit {
      * Submits the data to the server properly
      */
     submit() {
-        //TODO run the server request
+        this.requestForm.storeForm();
+        this.requests.deliveryRequests.createDeliveryRequest(
+            this.requestCreationService.getDescription(),
+            this.dropOffNotesTextarea.value,
+            this.longitude,
+            this.latitude,
+            this.requestCreationService.getLineItems(),
+            []
+        ).then(request => {
+            this.pendingRequestService.setPendingRequest(request);
+            this.navController.navigateRoot('/home').catch(console.error);
+        }).catch(error => {
+            //TODO handle error properly
+        });
     }
 }

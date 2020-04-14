@@ -83,9 +83,9 @@ export class RequestFormComponent implements AfterViewInit {
     }
 
     /**
-     * Submits the form and takes us to the next step
+     * Stores the information into the form
      */
-    submit() {
+    storeForm() {
         const requestedItems = this.enteredItems
             .map(element => element.getRequestedItemModel())
             .filter(requestedItem => requestedItem.name.length > 0 || requestedItem.asset);
@@ -94,6 +94,13 @@ export class RequestFormComponent implements AfterViewInit {
             requestedItems.push(newItem);
         }
         this.requestCreationService.storeInitialInformation(this.descriptionTextArea.value, requestedItems);
+    }
+
+    /**
+     * Submits the form and takes us to the next step
+     */
+    submit() {
+        this.storeForm();
         this.navController.navigateForward('location-selection').catch(console.error);
     }
 }

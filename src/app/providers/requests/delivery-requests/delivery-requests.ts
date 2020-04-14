@@ -3,6 +3,7 @@ import {Request} from '../../../models/request/request';
 import {User} from '../../../models/user/user';
 import {Page} from '../../../models/page';
 import {Asset} from '../../../models/asset';
+import {RequestedItem} from '../../../models/request/requested-item';
 
 /**
  * All requests needed for deliveries
@@ -26,7 +27,7 @@ export default class DeliveryRequests {
      * @param lineItems
      * @param assets
      */
-    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, lineItems: any[], assets: number[]): Promise<Request> {
+    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, lineItems: RequestedItem[], assets: number[]): Promise<Request> {
         return Promise.resolve(new Request({
             description: description,
             drop_off_location: dropOffLocation,
@@ -34,6 +35,15 @@ export default class DeliveryRequests {
             latitude: latitude,
             lineItems: lineItems,
         }));
+    }
+
+    /**
+     * Allows the currently logged inu ser to accept the request
+     *
+     * @param request
+     */
+    async refreshRequest(request: Request): Promise<Request> {
+        return Promise.resolve(request);
     }
 
 
