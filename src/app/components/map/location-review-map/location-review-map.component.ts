@@ -12,4 +12,20 @@ export class LocationReviewMapComponent extends MapComponent {
      * The map cannot be moved while in this view
      */
     movable = false;
+
+    /**
+     * Allows child classes to setup the map properly after this has been initialized
+     */
+    afterMapReady() {
+        this.map.addMarkerSync({
+            title: 'Ionic',
+            icon: 'blue',
+            animation: 'DROP',
+            draggable: false,
+            position: {
+                lat: this.startingLatitude,
+                lng: this.startingLongitude
+            }
+        });
+    }
 }
