@@ -3,7 +3,13 @@
 <ion-content>
 
     <div *ngIf="currentState == 'request'">
-        <app-request-form *ngIf="me" [user]="me"></app-request-form>
+        <div *ngIf="currentRequestDataLoaded; else loading">
+
+            <app-request-form *ngIf="me" [user]="me"></app-request-form>
+        </div>
+        <ng-template #loading>
+
+        </ng-template>
     </div>
 
     <div *ngIf="currentState == 'deliver'" id="deliver">
