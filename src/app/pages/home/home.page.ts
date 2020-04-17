@@ -41,7 +41,27 @@ export class HomePage extends BasePage implements OnInit {
     currentRequestDataLoaded = false;
 
     /**
-     *
+     * Whether or not there is a pending request
+     */
+    pendingRequest = null;
+
+    /**
+     * The time for when the next refresh will be attempted for any pieces of data that may be refreshed
+     */
+    nextRefreshTime = null;
+
+    /**
+     * The handler for our refresh ui updating timeout
+     */
+    refreshTimer = null;
+
+    /**
+     * A boolean value that we toggle to start and stop the loading animation
+     */
+    loadingAnimating = false;
+
+    /**
+     * Default Constructor
      * @param stateManager
      * @param locationManager
      * @param platform
@@ -98,9 +118,9 @@ export class HomePage extends BasePage implements OnInit {
         this.pendingRequestService.listenForPendingRequestChanges({
             next: (update) => {
                 if (update instanceof Request) {
-                    // TODO set request data
+                    this.pendingRequest = update;
                 } else {
-                    // TODO show waiting text
+                    this.setNextRefreshTime(update);
                 }
             },
             complete: () => {
@@ -108,5 +128,37 @@ export class HomePage extends BasePage implements OnInit {
             }
         });
         this.currentRequestDataLoaded = true;
+    }
+
+    /**
+     * Sets the next refresh time for our timer
+     * @param nextRefreshTime
+     */
+    setNextRefreshTime(nextRefreshTime: number) {
+        this.nextRefreshTime = nextRefreshTime;
+        if (this.refreshTimer) {
+            clearInterval(this.refreshTimer);
+        }
+        this.startTimerAnimationCycle();
+
+        this.refreshTimer = setInterval(() => {
+            this.nextRefreshTime--;
+            if (this.nextRefreshTime <= 0) {
+                this.nextRefreshTime = 0;
+                clearInterval(this.refreshTimer);
+            } else {
+                this.startTimerAnimationCycle();
+            }
+        }, 1000);
+    }
+
+    /**
+     * Stats the timer animation cycle by toggling our boolean variable to remove and apply our animation class
+     */
+    startTimerAnimationCycle() {
+        this.loadingAnimating = false;
+        setTimeout(() => {
+            this.loadingAnimating = true;
+        }, 10);
     }
 }
