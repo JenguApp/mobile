@@ -24,16 +24,19 @@ export default class DeliveryRequests {
      * @param dropOffLocation
      * @param longitude
      * @param latitude
-     * @param lineItems
+     * @param requestedItems
      * @param assets
      */
-    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, lineItems: RequestedItem[], assets: number[]): Promise<Request> {
+    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, requestedItems: RequestedItem[], assets: number[]): Promise<Request> {
         return this.requestHandler.post('requests', true, true,{
             description: description,
             drop_off_location: dropOffLocation,
             longitude: longitude,
             latitude: latitude,
-            lineItems: lineItems,
+            requestedItems: requestedItems.map(item => ({
+                name: item.name,
+                asset_id: item.asset ? item.asset.id : null,
+            })),
         }).then(data => {
             return Promise.resolve(new Request(data));
         });
