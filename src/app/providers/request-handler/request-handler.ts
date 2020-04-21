@@ -258,9 +258,10 @@ export class RequestHandlerProvider {
      * @param search
      * @param limit
      * @param page
+     * @param data
      */
     async get(route: string, requiresAuth: boolean, showLoading: boolean, expands: any, customErrorHandlers: any = null,
-              filter: any = null, search: any = null, limit: number = null, page: number = null): Promise<any> {
+              filter: any = null, search: any = null, limit: number = null, page: number = null, data = {}): Promise<any> {
 
         if (showLoading) {
             await this.incrementLoading();
@@ -268,7 +269,6 @@ export class RequestHandlerProvider {
         if (requiresAuth) {
             await this.requiresAuth();
         }
-        const data = {};
 
         for (const expand of expands) {
             data['expand['  + expand + ']'] = '*';

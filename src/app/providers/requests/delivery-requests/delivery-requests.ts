@@ -28,13 +28,15 @@ export default class DeliveryRequests {
      * @param assets
      */
     async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, lineItems: RequestedItem[], assets: number[]): Promise<Request> {
-        return Promise.resolve(new Request({
+        return this.requestHandler.post('requests', true, true,{
             description: description,
             drop_off_location: dropOffLocation,
             longitude: longitude,
             latitude: latitude,
             lineItems: lineItems,
-        }));
+        }).then(data => {
+            return Promise.resolve(new Request(data));
+        });
     }
 
     /**
@@ -43,7 +45,9 @@ export default class DeliveryRequests {
      * @param request
      */
     async refreshRequest(request: Request): Promise<Request> {
-        return Promise.resolve(request);
+        return this.requestHandler.get('requests/' + request.id, true, false, {}).then(data => {
+            return Promise.resolve(new Request(data));
+        });
     }
 
 
@@ -54,12 +58,11 @@ export default class DeliveryRequests {
      * @param fileContents
      */
     async uploadAsset(user: User, fileContents: string): Promise<Asset> {
-        return Promise.resolve(new Asset({}));
-        // return this.requestHandler.post('users/' + user.id + '/assets', true, false, {
-        //     file_contents: fileContents,
-        // }).then(response => {
-        //     return Promise.resolve(new Asset(response));
-        // });
+        return this.requestHandler.post('users/' + user.id + '/assets', true, false, {
+            file_contents: fileContents,
+        }).then(response => {
+            return Promise.resolve(new Asset(response));
+        });
     }
 
     /**
@@ -68,7 +71,11 @@ export default class DeliveryRequests {
      * @param request
      */
     async acceptDeliveryRequest(request: Request): Promise<Request> {
-        return Promise.resolve(request);
+        return this.requestHandler.post('requests/' + request.id, true, true, {
+            accept: true,
+        }).then(data => {
+            return Promise.resolve(new Request(data));
+        });
     }
 
     /**
@@ -77,7 +84,11 @@ export default class DeliveryRequests {
      * @param request
      */
     async completeDeliveryRequest(request: Request): Promise<Request> {
-        return Promise.resolve(request);
+        return this.requestHandler.post('requests/' + request.id, true, true, {
+            completed: true,
+        }).then(data => {
+            return Promise.resolve(new Request(data));
+        });
     }
 
     /**
@@ -85,13 +96,15 @@ export default class DeliveryRequests {
      *
      * @param longitude
      * @param latitude
+     * @param radius
      */
-    async searchAvailableRequests(longitude: number, latitude: number): Promise<Page<Request>> {
-        return Promise.resolve(new Page({
-            data: [{
-                longitude: longitude,
-                latitude: latitude,
-            }]
-        }, Request));
+    async searchAvailableRequests(longitude: number, latitude: number, radius: number): Promise<Page<Request>> {
+        return this.requestHandler.get('requests', true, false, ['createdBy'], {}, {}, {}, 50, null, {
+            radius: radius,
+            latitude: latitude,
+            longitude: longitude,
+        }).then(data => {
+            return Promise.resolve(new Page(data, Request));
+        });
     }
 }
