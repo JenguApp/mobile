@@ -47,9 +47,9 @@ export class RequestFormItemComponent implements OnChanges {
     nameInput: IonInput;
 
     /**
-     * The asset the user has uploaded for this item
+     * The private instance of our requested item
      */
-    asset: Asset = null;
+    localItem: RequestedItem = null;
 
     /**
      * Default Constructor
@@ -70,7 +70,9 @@ export class RequestFormItemComponent implements OnChanges {
      */
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.requestedItem && changes.requestedItem.currentValue != changes.requestedItem.previousValue) {
-            this.asset = this.requestedItem.asset;
+            this.localItem = this.requestedItem;
+        } else if (this.localItem === null) {
+            this.localItem = new RequestedItem({});
         }
     }
 
@@ -118,10 +120,7 @@ export class RequestFormItemComponent implements OnChanges {
             correctOrientation: true
         };
         this.camera.getPicture(options).then((imageData) => {
-            this.requests.deliveryRequests.uploadAsset(this.user, imageData).then(asset => {
-                this.asset = asset;
-                this.changeDetection.detectChanges();
-            });
+            this.localItem.replaceAsset(this.requests, this.user, imageData, this.changeDetection);
         });
     }
 
@@ -129,12 +128,10 @@ export class RequestFormItemComponent implements OnChanges {
      * Gets the requested item model with all of it's current values
      */
     getRequestedItemModel(): RequestedItem {
-        const model = this.requestedItem ? this.requestedItem : new RequestedItem({});
 
-        model.name = this.nameInput.value;
-        model.asset = this.asset;
+        this.localItem.name = this.nameInput.value;
 
-        return model;
+        return this.localItem;
     }
 
     /**
@@ -142,6 +139,6 @@ export class RequestFormItemComponent implements OnChanges {
      */
     clear() {
         this.nameInput.value = '';
-        this.asset = null;
+        this.localItem = new RequestedItem({});
     }
 }

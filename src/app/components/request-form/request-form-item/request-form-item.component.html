@@ -1,6 +1,6 @@
 <ion-item>
-  <img *ngIf="asset?.url" (click)="promptCaptureMethod()" [src]="asset.url" slot="start">
-  <ion-icon *ngIf="!asset?.url" name="camera" (click)="promptCaptureMethod()" slot="start"></ion-icon>
+  <img *ngIf="localItem?.asset?.url" (click)="promptCaptureMethod()" [src]="localItem.asset.url" slot="start">
+  <ion-icon *ngIf="!localItem?.asset?.url" name="camera" (click)="promptCaptureMethod()" slot="start"></ion-icon>
   <ion-input #name placeholder="Item Name" [value]="requestedItem?.name"></ion-input>
   <ion-button slot="end" *ngIf="requestedItem" (click)="remove()">-</ion-button>
 </ion-item>
