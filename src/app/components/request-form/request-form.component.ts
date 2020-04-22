@@ -90,7 +90,7 @@ export class RequestFormComponent implements AfterViewInit {
             .map(element => element.getRequestedItemModel())
             .filter(requestedItem => requestedItem.name.length > 0 || requestedItem.asset);
         const newItem = this.newItem.getRequestedItemModel();
-        if (newItem.name.length > 0 || newItem.asset) {
+        if (newItem.name && newItem.name.length > 0 || newItem.asset) {
             requestedItems.push(newItem);
         }
         this.requestCreationService.storeInitialInformation(this.descriptionTextArea.value, requestedItems);

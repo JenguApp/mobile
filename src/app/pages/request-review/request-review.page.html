@@ -3,10 +3,7 @@
 <ion-content padding>
     <app-request-form reviewForm="true" #requestForm></app-request-form>
     <app-location-review-map [startingLatitude]="latitude" [startingLongitude]="longitude"></app-location-review-map>
-    <ion-item>
-        <ion-label>Add Some Drop Off Instructions:</ion-label>
-        <ion-textarea #dropOffNotes></ion-textarea>
-    </ion-item>
+    <ion-textarea placeholder="Add Some Drop Off Instructions" #dropOffNotes></ion-textarea>
     <div id="submit-wrapper">
         <ion-button (click)="submit()">Submit</ion-button>
     </div>
