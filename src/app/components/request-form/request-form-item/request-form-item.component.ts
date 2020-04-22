@@ -55,6 +55,7 @@ export class RequestFormItemComponent implements OnChanges {
      * Default Constructor
      * @param camera
      * @param requests
+     * @param changeDetection
      * @param alertController
      */
     constructor(private camera: Camera,
@@ -70,16 +71,7 @@ export class RequestFormItemComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.requestedItem && changes.requestedItem.currentValue != changes.requestedItem.previousValue) {
             this.asset = this.requestedItem.asset;
-            console.log('asset changed', this.asset);
         }
-    }
-
-    /**
-     * Gets the image asset url to show to the user
-     */
-    getAssetUrl(): string {
-        console.log('getAssetUrl', this.asset);
-        return this.asset ? this.asset.url : '/assets/default.jpg';
     }
 
     /**
@@ -128,6 +120,7 @@ export class RequestFormItemComponent implements OnChanges {
         this.camera.getPicture(options).then((imageData) => {
             this.requests.deliveryRequests.uploadAsset(this.user, imageData).then(asset => {
                 this.asset = asset;
+                this.changeDetection.detectChanges();
             });
         });
     }
