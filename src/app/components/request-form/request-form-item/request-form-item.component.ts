@@ -1,4 +1,13 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import {RequestedItem} from '../../../models/request/requested-item';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../../providers/requests/requests';
@@ -50,6 +59,7 @@ export class RequestFormItemComponent implements OnChanges {
      */
     constructor(private camera: Camera,
                 private requests: RequestsProvider,
+                private changeDetection: ChangeDetectorRef,
                 private alertController: AlertController) {
     }
 
@@ -60,6 +70,7 @@ export class RequestFormItemComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.requestedItem && changes.requestedItem.currentValue != changes.requestedItem.previousValue) {
             this.asset = this.requestedItem.asset;
+            console.log('asset changed', this.asset);
         }
     }
 
@@ -67,6 +78,7 @@ export class RequestFormItemComponent implements OnChanges {
      * Gets the image asset url to show to the user
      */
     getAssetUrl(): string {
+        console.log('getAssetUrl', this.asset);
         return this.asset ? this.asset.url : '/assets/default.jpg';
     }
 
