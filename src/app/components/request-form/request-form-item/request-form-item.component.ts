@@ -35,6 +35,12 @@ export class RequestFormItemComponent implements OnChanges {
     user: User;
 
     /**
+     * The change detection passed in, so that we can send messages backwards
+     */
+    @Input()
+    changeDetection: ChangeDetectorRef;
+
+    /**
      * The rating change callback
      */
     @Output()
@@ -55,12 +61,10 @@ export class RequestFormItemComponent implements OnChanges {
      * Default Constructor
      * @param camera
      * @param requests
-     * @param changeDetection
      * @param alertController
      */
     constructor(private camera: Camera,
                 private requests: RequestsProvider,
-                private changeDetection: ChangeDetectorRef,
                 private alertController: AlertController) {
     }
 

@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnInit,
+    QueryList,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
 import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
 import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
@@ -50,9 +59,11 @@ export class RequestFormComponent implements AfterViewInit {
     /**
      * Default Constructor
      * @param requestCreationService
+     * @param changeDetection
      * @param navController
      */
     constructor(private requestCreationService: RequestCreationService,
+                private changeDetection: ChangeDetectorRef,
                 private navController: NavController) {
     }
 
