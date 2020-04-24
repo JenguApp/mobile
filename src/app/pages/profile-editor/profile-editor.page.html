@@ -1,8 +1,10 @@
 <app-logged-in-header></app-logged-in-header>
 
-<ion-content padding>
+<ion-content class="ion-padding">
 
-    <form [formGroup]="form" padding>
+    <div id="profile-image" [ngStyle]="profileImageStyle()" (click)="promptCaptureMethod()"></div>
+
+    <form [formGroup]="form">
         <ion-item>
             <ion-label position="stacked">Name</ion-label>
             <ion-input type="text" ngDefaultControl formControlName="name" [formControl]="form.controls.name"></ion-input>

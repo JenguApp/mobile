@@ -1,6 +1,7 @@
 import {RequestHandlerProvider} from '../../request-handler/request-handler';
 import {User} from '../../../models/user/user';
 import {PaymentMethod} from '../../../models/payment/payment-method';
+import {Asset} from '../../../models/asset';
 
 /**
  * All requests needed for handling authentication within the app
@@ -56,12 +57,12 @@ export default class Auth {
                 'subscriptions.membershipPlanRate.membershipPlan',
                 // Add any expands needed here
             ]).then((response) => {
-                const user = new User(response);
-                return new Promise<User> (resolve => {
-                    resolve(user);
-                });
-            }
-        );
+                    const user = new User(response);
+                    return new Promise<User> (resolve => {
+                        resolve(user);
+                    });
+                }
+            );
     }
 
     /**
@@ -75,10 +76,10 @@ export default class Auth {
             .then((response) => {
                 const userResponse = new User(response);
                 return new Promise<User> (resolve => {
-                    resolve(userResponse);
-                }
-            );
-        });
+                        resolve(userResponse);
+                    }
+                );
+            });
     }
 
     /**
@@ -91,6 +92,20 @@ export default class Auth {
             token: stripeToken,
         }).then (result => {
             return Promise.resolve(new PaymentMethod(result));
+        });
+    }
+
+    /**
+     * Runes the upload request, the file contents should be a base 64 encoded string
+     *
+     * @param user
+     * @param fileContents
+     */
+    async uploadProfileImage(user: User, fileContents: string): Promise<Asset> {
+        return this.requestHandler.post('users/' + user.id + '/profile-images', true, false, {
+            file_contents: fileContents,
+        }).then(response => {
+            return Promise.resolve(new Asset(response));
         });
     }
 }

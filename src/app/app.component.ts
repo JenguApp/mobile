@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-
-import {Events, MenuController, NavController, Platform} from '@ionic/angular';
+import {MenuController, NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {StorageProvider} from './providers/storage/storage';
 import {environment} from '../environments/environment';
-import {State, StateManagerService} from './services/state-manager';
+import {AuthManagerService} from './services/auth-manager/auth-manager.service';
 
 /**
  * Main entry of the app
@@ -22,30 +21,23 @@ export class AppComponent {
     static LOGGED_IN = false;
 
     /**
-     * The current state the app is in
-     */
-    currentState: State = 'request';
-
-    /**
      * Default Constructor
      * @param platform
      * @param splashScreen
      * @param statusBar
-     * @param events
+     * @param authManagerService
      * @param navCtl
      * @param menuCtl
      * @param storage
-     * @param stateManagerService
      */
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
-        private events: Events,
+        private authManagerService: AuthManagerService,
         private navCtl: NavController,
         private menuCtl: MenuController,
         private storage: StorageProvider,
-        private stateManagerService: StateManagerService,
     ) {
         this.initializeApp();
     }
@@ -55,17 +47,14 @@ export class AppComponent {
      */
     initializeApp() {
         this.platform.ready().then(() => {
-            this.stateManagerService.getCurrentState().then(state => {
-                this.currentState = state;
-            });
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            this.events.subscribe('logout', this.handleLogout.bind(this));
+            this.authManagerService.getLogoutObservable().subscribe(() => this.handleLogout());
             this.storage.loadAuthToken()
-            .then(token => {
-                this.navCtl.navigateRoot('/home').catch(console.error);
-                AppComponent.LOGGED_IN = true;
-            }).catch(error => {
+                .then(token => {
+                    this.navCtl.navigateRoot('/home').catch(console.error);
+                    AppComponent.LOGGED_IN = true;
+                }).catch(error => {
                 if (environment.sign_up_enabled) {
                     this.navCtl.navigateRoot('/sign-up').catch(console.error);
                 } else {
@@ -76,30 +65,24 @@ export class AppComponent {
     }
 
     /**
-     * Whether or not the user is logged in
-     * This is used for component binding
-     */
-    isLoggedIn() {
-        return AppComponent.LOGGED_IN;
-    }
-
-    /**
      * Takes the user to a page that is passed in properl
      * @param page
      */
     goTo(page: string) {
         this.menuCtl.close('side-menu').catch(console.error);
-        this.navCtl.navigateBack(page).catch(console.error);
+        if (page === 'home') {
+            this.navCtl.navigateRoot(page).catch(console.error);
+        } else {
+            this.navCtl.navigateForward(page).catch(console.error);
+        }
     }
 
     /**
-     * Handles our state selection
-     * @param event
+     * Whether or not the user is logged in
+     * This is used for component binding
      */
-    selectState(event) {
-        const state = event.detail.value as State;
-        this.stateManagerService.setCurrentState(state);
-        this.menuCtl.close('side-menu').catch(console.error);
+    isLoggedIn() {
+        return AppComponent.LOGGED_IN;
     }
 
     /**

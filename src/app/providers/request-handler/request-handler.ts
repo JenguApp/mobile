@@ -1,9 +1,9 @@
 import {HTTP, HTTPResponse} from '@ionic-native/http/ngx';
 import {Injectable} from '@angular/core';
 import {StorageProvider} from '../storage/storage';
-import {Events, LoadingController, ToastController} from '@ionic/angular';
-import {AuthManagerProvider} from '../auth-manager/auth-manager';
+import {LoadingController, ToastController} from '@ionic/angular';
 import {environment} from '../../../environments/environment';
+import {AuthManagerService} from '../../services/auth-manager/auth-manager.service';
 
 @Injectable()
 export class RequestHandlerProvider {
@@ -37,14 +37,12 @@ export class RequestHandlerProvider {
      * @param authManager
      * @param {ToastController} toastController
      * @param loadingController
-     * @param events
      */
     constructor(private http: HTTP,
                 private storageProvider: StorageProvider,
-                private authManager: AuthManagerProvider,
+                private authManager: AuthManagerService,
                 private toastController: ToastController,
-                private loadingController: LoadingController,
-                private events: Events) {
+                private loadingController: LoadingController) {
     }
 
     /**
@@ -69,10 +67,13 @@ export class RequestHandlerProvider {
             const token = JSON.parse(response.data).token;
             this.authToken = token;
             await this.storageProvider.saveAuthToken(token);
+            this.authManager.authRefreshed(token);
             this.refreshRequest = null;
             return Promise.resolve();
-        } catch(error) {
-            this.events.publish('logout');
+        } catch (error) {
+            if (!RequestHandlerProvider.isErrorTimeout(error)) {
+                this.authManager.logOut();
+            }
             return Promise.reject();
         }
     }
@@ -84,7 +85,7 @@ export class RequestHandlerProvider {
      */
     async requiresAuth():  Promise<void> {
         const needsRefresh = await this.authManager.needsRefresh().catch(error => {
-            this.events.publish('logout');
+            this.authManager.logOut();
         });
 
         if (needsRefresh) {
@@ -96,7 +97,7 @@ export class RequestHandlerProvider {
                 this.authToken = data;
             }
         ).catch(error => {
-            this.events.publish('logout');
+            this.authManager.logOut();
         });
     }
 
@@ -165,6 +166,7 @@ export class RequestHandlerProvider {
                     let message = null;
                     switch (error.status) {
                         case -1:
+                        case -6:
                         case 0:
                         case 1:
                         case 3:
@@ -185,7 +187,7 @@ export class RequestHandlerProvider {
                         case 401:
                             RequestHandlerProvider.LOAD_INDICATOR_COUNT = 0;
                             this.decrementLoadIndicator();
-                            this.events.publish('logout');
+                            this.authManager.logOut();
                             break;
 
                         default:
@@ -261,7 +263,7 @@ export class RequestHandlerProvider {
      * @param data
      */
     async get(route: string, requiresAuth: boolean, showLoading: boolean, expands: any, customErrorHandlers: any = null,
-              filter: any = null, search: any = null, limit: number = null, page: number = null, data = {}): Promise<any> {
+              filter: any = null, search: any = null, limit: number = null, page: number = null, data: any = {}): Promise<any> {
 
         if (showLoading) {
             await this.incrementLoading();
@@ -389,7 +391,7 @@ export class RequestHandlerProvider {
      * @param customErrorHandlers
      */
     async put(route: string, requiresAuth: boolean, showLoading: boolean,
-                data: any, customErrorHandlers: any = null): Promise<any> {
+              data: any, customErrorHandlers: any = null): Promise<any> {
 
         if (showLoading) {
             await this.incrementLoading();
@@ -402,5 +404,13 @@ export class RequestHandlerProvider {
         const request = this.http.put(path, data, this.headers());
 
         return this.runRequest(request, showLoading, customErrorHandlers);
+    }
+
+    /**
+     * Whether or not the error is some type of timeout
+     * @param error
+     */
+    static isErrorTimeout(error): boolean {
+        return [-1, -6, 0, 1, 3].indexOf(error.status) !== -1;
     }
 }
