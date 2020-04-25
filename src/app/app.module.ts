@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RequestHandlerProvider } from './providers/request-handler/request-handler';
 import { StorageProvider } from './providers/storage/storage';
-import { AuthManagerProvider } from './providers/auth-manager/auth-manager';
 import { RequestsProvider } from './providers/requests/requests';
 import {ComponentsModule} from './components/components.module';
 import {GoogleMaps} from '@ionic-native/google-maps/ngx';
@@ -51,7 +50,6 @@ import {Camera} from '@ionic-native/camera/ngx';
         // App providers
         RequestHandlerProvider,
         StorageProvider,
-        AuthManagerProvider,
         RequestsProvider,
     ],
     bootstrap: [AppComponent]
