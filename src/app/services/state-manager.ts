@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
+import {Observable, Subscriber} from 'rxjs';
 import {StorageProvider} from '../providers/storage/storage';
-import {Events} from '@ionic/angular';
 
 export type State = 'request' | 'deliver';
 
@@ -15,13 +15,24 @@ export class StateManagerService {
     currentState: State = null;
 
     /**
+     * The observer for when the state has changed internally in the app
+     */
+    stateChangeObserver: Observable<State>;
+
+    /**
+     * The subscribers to the state change
+     */
+    stateChangeSubscribers: Subscriber<State>[] = [];
+
+    /**
      * Default Constructor
      * @param storageProvider
-     * @param events
      */
-    constructor(private storageProvider: StorageProvider,
-                private events: Events)
-    {}
+    constructor(private storageProvider: StorageProvider) {
+        this.stateChangeObserver = new Observable<State>((subscriber) => {
+            this.stateChangeSubscribers.push(subscriber);
+        })
+    }
 
     /**
      * Gets the current state stored properly
@@ -45,7 +56,9 @@ export class StateManagerService {
      */
     setCurrentState(currentState: State) {
         this.currentState = currentState;
-        this.events.publish('state-changed', currentState);
+        this.stateChangeSubscribers.forEach(subscriber => {
+            subscriber.next(currentState);
+        });
         this.storageProvider.saveCurrentState(currentState).catch(console.error);
     }
 }

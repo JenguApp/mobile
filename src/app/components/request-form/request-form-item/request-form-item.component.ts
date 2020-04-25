@@ -133,7 +133,7 @@ export class RequestFormItemComponent implements OnChanges {
      */
     getRequestedItemModel(): RequestedItem {
 
-        this.localItem.name = this.nameInput.value;
+        this.localItem.name = this.nameInput.value as string;
 
         return this.localItem;
     }

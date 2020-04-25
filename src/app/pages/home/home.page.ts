@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
-import {Events, Platform} from '@ionic/angular';
+import {Platform} from '@ionic/angular';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {RequestsProvider} from '../../providers/requests/requests';
@@ -68,15 +68,13 @@ export class HomePage extends BasePage implements OnInit {
      * @param requests
      * @param userService
      * @param pendingRequestService
-     * @param events
      */
     constructor(private stateManager: StateManagerService,
                 private locationManager: LocationManagerService,
                 private platform: Platform,
                 private requests: RequestsProvider,
                 private userService: UserService,
-                private pendingRequestService: PendingRequestService,
-                private events: Events) {
+                private pendingRequestService: PendingRequestService) {
         super();
     }
 
@@ -84,9 +82,9 @@ export class HomePage extends BasePage implements OnInit {
      * loads the current state
      */
     ngOnInit(): void {
-        this.events.subscribe('state-changed', (state => {
+        this.stateManager.stateChangeObserver.subscribe(state => {
             this.currentState = state;
-        }));
+        });
         this.platform.ready().then(() => {
 
             this.stateManager.getCurrentState().then(state => {

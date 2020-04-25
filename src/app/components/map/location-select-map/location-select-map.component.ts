@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {GoogleMapsEvent, Marker} from '@ionic-native/google-maps';
+import {Marker} from '@ionic-native/google-maps';
 import {MapComponent} from '../map.component';
 import {ILatLng} from '@ionic-native/google-maps/ngx';
 

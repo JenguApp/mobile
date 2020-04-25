@@ -132,9 +132,7 @@ export class SubscriptionPage extends BasePage implements OnInit {
      * All active membership plans
      */
     activeMembershipPlans(): MembershipPlan[] {
-        return this.membershipPlans.filter(membershipPlan => {
-            return membershipPlan.visible && membershipPlan.active && !membershipPlan.only_for_conference;
-        });
+        return this.membershipPlans;
     }
 
     /**
