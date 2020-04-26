@@ -9,7 +9,7 @@
             <ng-template #pendingRequestInformation>
                 <h2>Your request has been received!</h2>
                 <p>Please wait while we connect you with a local Jengu.</p>
-                <div *ngIf="nextRefreshTime">
+                <div *ngIf="nextRefreshTime != null">
 
                     <p>Checking for a local Jengu in...</p>
 

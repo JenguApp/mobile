@@ -79,7 +79,7 @@ export default class PendingRequestService {
                 });
                 this.pendingRequest = null;
             }
-        }, seconds);
+        }, seconds * 1000);
         this.pendingRequestSubscribers.forEach(subscriber => {
             subscriber.next(seconds);
         })

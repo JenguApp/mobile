@@ -130,6 +130,7 @@ export class HomePage extends BasePage implements OnInit {
                 if (!first.completed) {
                     this.currentState = 'request';
                     this.pendingRequest = first;
+                    this.pendingRequestService.setPendingRequest(first);
                     if (!first.completed_by_id) {
                         this.setNextRefreshTime(10);
                     }
