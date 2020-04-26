@@ -128,7 +128,11 @@ export class HomePage extends BasePage implements OnInit {
             if (requestsPage.data.length > 0) {
                 const first = requestsPage.data[0];
                 if (!first.completed) {
+                    this.currentState = 'request';
                     this.pendingRequest = first;
+                    if (!first.completed_by_id) {
+                        this.setNextRefreshTime(10);
+                    }
                 }
             }
             this.currentRequestDataLoaded = true;

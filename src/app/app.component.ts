@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {StorageProvider} from './providers/storage/storage';
 import {environment} from '../environments/environment';
 import {AuthManagerService} from './services/auth-manager/auth-manager.service';
+import {State, StateManagerService} from './services/state-manager';
 
 /**
  * Main entry of the app
@@ -21,6 +22,11 @@ export class AppComponent {
     static LOGGED_IN = false;
 
     /**
+     * The current state the app is in
+     */
+    currentState: State = 'request';
+
+    /**
      * Default Constructor
      * @param platform
      * @param splashScreen
@@ -29,6 +35,7 @@ export class AppComponent {
      * @param navCtl
      * @param menuCtl
      * @param storage
+     * @param stateManagerService
      */
     constructor(
         private platform: Platform,
@@ -38,6 +45,7 @@ export class AppComponent {
         private navCtl: NavController,
         private menuCtl: MenuController,
         private storage: StorageProvider,
+        private stateManagerService: StateManagerService,
     ) {
         this.initializeApp();
     }
@@ -47,6 +55,9 @@ export class AppComponent {
      */
     initializeApp() {
         this.platform.ready().then(() => {
+            this.stateManagerService.getCurrentState().then(state => {
+                this.currentState = state;
+            });
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.authManagerService.getLogoutObservable().subscribe(() => this.handleLogout());
@@ -75,6 +86,16 @@ export class AppComponent {
         } else {
             this.navCtl.navigateForward(page).catch(console.error);
         }
+    }
+
+    /**
+     * Handles our state selection
+     * @param event
+     */
+    selectState(event) {
+        const state = event.detail.value as State;
+        this.stateManagerService.setCurrentState(state);
+        this.menuCtl.close('side-menu').catch(console.error);
     }
 
     /**

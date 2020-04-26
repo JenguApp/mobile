@@ -7,11 +7,11 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-select (ionChange)="selectState($event)">
-          <ion-select-option [value]="'deliver'" [selected]="currentState == 'deliver'">
+        <ion-select (ionChange)="selectState($event)" [value]="currentState">
+          <ion-select-option [value]="'deliver'">
             <ion-icon name="walk"></ion-icon> Deliver
           </ion-select-option>
-          <ion-select-option [value]="'request'" [selected]="currentState == 'request'">
+          <ion-select-option [value]="'request'">
             <ion-icon name="home"></ion-icon> Requesting Deliveries
           </ion-select-option>
         </ion-select>
