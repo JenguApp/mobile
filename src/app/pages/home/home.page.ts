@@ -48,7 +48,7 @@ export class HomePage extends BasePage implements OnInit {
     /**
      * The time for when the next refresh will be attempted for any pieces of data that may be refreshed
      */
-    nextRefreshTime = null;
+    nextRefreshTime = 0;
 
     /**
      * The handler for our refresh ui updating timeout
@@ -160,6 +160,16 @@ export class HomePage extends BasePage implements OnInit {
                 this.startTimerAnimationCycle();
             }
         }, 1000);
+    }
+
+    /**
+     * Cancels the request the user created
+     * @param request
+     */
+    cancelRequest(request: Request) {
+        this.requests.deliveryRequests.cancelRequest(this.me, request).then(() => {
+            this.pendingRequest = null;
+        });
     }
 
     /**

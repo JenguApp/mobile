@@ -60,7 +60,7 @@ export default class DeliveryRequests {
      * loads all requests for the logged in user
      * @param user
      */
-    loadMyRequests(user: User): Promise<Page<Request>> {
+    async loadMyRequests(user: User): Promise<Page<Request>> {
         return this.requestHandler.get('users/' + user.id + '/requests', true, false, [
             'completedBy',
             'requestedBy',
@@ -94,6 +94,19 @@ export default class DeliveryRequests {
         }).then(response => {
             return Promise.resolve(new Asset(response));
         });
+    }
+
+    /**
+     * Cancels the request properly
+     * @param user
+     * @param request
+     */
+    async cancelRequest(user: User, request: Request): Promise<Request> {
+        return this.requestHandler.post('users/' + user.id + '/requests/' + request.id, true, true,{
+            cancel: true,
+        }).then(data => {
+            return Promise.resolve(new Request(data));
+        })
     }
 
     /**
