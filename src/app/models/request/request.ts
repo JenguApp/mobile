@@ -38,6 +38,11 @@ export class Request extends BaseModel {
     assets: Asset[];
 
     /**
+     * Whether or not his request has been completed
+     */
+    completed: boolean;
+
+    /**
      * The user that completed this request
      */
     completedBy: User;

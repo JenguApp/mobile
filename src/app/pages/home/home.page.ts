@@ -43,7 +43,7 @@ export class HomePage extends BasePage implements OnInit {
     /**
      * Whether or not there is a pending request
      */
-    pendingRequest = null;
+    pendingRequest: Request = null;
 
     /**
      * The time for when the next refresh will be attempted for any pieces of data that may be refreshed
@@ -112,7 +112,6 @@ export class HomePage extends BasePage implements OnInit {
      * Loads information on the users current requests
      */
     loadRequestInformation() {
-        // TODO run request load
         this.pendingRequestService.listenForPendingRequestChanges({
             next: (update) => {
                 if (update instanceof Request) {
@@ -125,7 +124,15 @@ export class HomePage extends BasePage implements OnInit {
 
             }
         });
-        this.currentRequestDataLoaded = true;
+        this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+            if (requestsPage.data.length > 0) {
+                const first = requestsPage.data[0];
+                if (!first.completed) {
+                    this.pendingRequest = first;
+                }
+            }
+            this.currentRequestDataLoaded = true;
+        });
     }
 
     /**

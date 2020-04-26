@@ -57,6 +57,20 @@ export default class DeliveryRequests {
     }
 
     /**
+     * loads all requests for the logged in user
+     * @param user
+     */
+    loadMyRequests(user: User): Promise<Page<Request>> {
+        return this.requestHandler.get('users/' + user.id + '/requests', true, false, [
+            'completedBy',
+            'requestedBy',
+            'requestedItems',
+        ]).then(data => {
+            return Promise.resolve(new Page(data, Request));
+        })
+    }
+
+    /**
      * Allows the currently logged inu ser to accept the request
      *
      * @param request
