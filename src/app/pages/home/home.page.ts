@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
-import {Platform} from '@ionic/angular';
+import {Platform, ToastController} from '@ionic/angular';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {RequestsProvider} from '../../providers/requests/requests';
@@ -67,6 +67,7 @@ export class HomePage extends BasePage implements OnInit {
      * @param platform
      * @param requests
      * @param userService
+     * @param toastController
      * @param pendingRequestService
      */
     constructor(private stateManager: StateManagerService,
@@ -74,6 +75,7 @@ export class HomePage extends BasePage implements OnInit {
                 private platform: Platform,
                 private requests: RequestsProvider,
                 private userService: UserService,
+                private toastController: ToastController,
                 private pendingRequestService: PendingRequestService) {
         super();
     }
@@ -168,6 +170,12 @@ export class HomePage extends BasePage implements OnInit {
      */
     cancelRequest(request: Request) {
         this.requests.deliveryRequests.cancelRequest(this.me, request).then(() => {
+            this.toastController.create({
+                message: 'Your request has been cancelled!',
+                duration: 2000
+            }).then(toast => {
+                toast.present();
+            });
             this.pendingRequest = null;
         });
     }

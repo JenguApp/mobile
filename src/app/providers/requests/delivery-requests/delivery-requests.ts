@@ -102,7 +102,7 @@ export default class DeliveryRequests {
      * @param request
      */
     async cancelRequest(user: User, request: Request): Promise<Request> {
-        return this.requestHandler.post('users/' + user.id + '/requests/' + request.id, true, true,{
+        return this.requestHandler.patch('users/' + user.id + '/requests/' + request.id, true, true,{
             cancel: true,
         }).then(data => {
             return Promise.resolve(new Request(data));
