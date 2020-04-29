@@ -24,6 +24,10 @@ export class DeliveryMapComponent extends MapComponent {
      */
     afterMapReady() {
         this.loadDeliveryRequests(this.startingLongitude, this.startingLatitude);
+        this.map.on(GoogleMapsEvent.MAP_DRAG_END).subscribe(() => {
+            const position = this.map.getCameraTarget();
+            this.loadDeliveryRequests(position.lng, position.lat);
+        });
     }
 
     /**
@@ -35,7 +39,6 @@ export class DeliveryMapComponent extends MapComponent {
 
         const visibleRegion = this.map.getVisibleRegion();
         const radius = this.calculateRadius(visibleRegion);
-        console.log(radius);
         this.requests.deliveryRequests.searchAvailableRequests(centerLongitude, centerLatitude, radius).then(deliveryRequests => {
             this.map.clear().then(() => {
                 deliveryRequests.data.forEach(request => this.addDeliveryRequestToMap(request));
