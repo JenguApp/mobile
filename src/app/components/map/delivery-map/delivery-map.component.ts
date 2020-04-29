@@ -17,6 +17,12 @@ export class DeliveryMapComponent extends MapComponent {
     request: Request = null;
 
     /**
+     * The request emitter for when a request is accepted
+     */
+    @Output()
+    requestAccepted: EventEmitter<Request> = new EventEmitter<Request>();
+
+    /**
      * Default Constructor
      * @param requests
      */
@@ -52,13 +58,20 @@ export class DeliveryMapComponent extends MapComponent {
     }
 
     /**
+     * Clears out the request properly
+     */
+    clearRequest() {
+        this.request = null;
+    }
+
+    /**
      * Adds the passed in request to the ma[ [rp[er;u
      * @param deliveryRequest
      */
     addDeliveryRequestToMap(deliveryRequest: Request) {
 
         let marker: Marker = this.map.addMarkerSync({
-            title: 'Ionic',
+            title: deliveryRequest.requested_by.name,
             icon: 'blue',
             animation: 'DROP',
             position: {
@@ -79,5 +92,13 @@ export class DeliveryMapComponent extends MapComponent {
         const latDiff = visibleRegion.northeast.lat - visibleRegion.southwest.lat;
         const lngDiff = visibleRegion.northeast.lng - visibleRegion.southwest.lng;
         return Math.sqrt(Math.pow(latDiff, 2) + Math.pow(lngDiff, 2)) * 110.574;
+    }
+
+    /**
+     * The callback for when the
+     * @param request
+     */
+    acceptRequest(request: Request) {
+        this.requestAccepted.emit(request);
     }
 }

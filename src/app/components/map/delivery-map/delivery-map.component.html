@@ -1,2 +1,2 @@
 <div id="map_canvas"></div>
-<app-available-request-info-window *ngIf="request" [request]="request"></app-available-request-info-window>
+<app-available-request-info-window *ngIf="request" [request]="request" (close)="clearRequest()" (accepted)="acceptRequest($event)"></app-available-request-info-window>
