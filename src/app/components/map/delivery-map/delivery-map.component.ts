@@ -99,6 +99,9 @@ export class DeliveryMapComponent extends MapComponent {
      * @param request
      */
     acceptRequest(request: Request) {
-        this.requestAccepted.emit(request);
+        this.request = null;
+        this.requests.deliveryRequests.acceptDeliveryRequest(request).then((request) => {
+            this.requestAccepted.emit(request);
+        });
     }
 }
