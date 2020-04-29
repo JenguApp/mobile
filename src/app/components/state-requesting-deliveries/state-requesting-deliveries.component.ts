@@ -74,14 +74,15 @@ export class StateRequestingDeliveriesComponent implements OnInit {
             }
         });
         this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-            if (requestsPage.data.length > 0) {
-                const first = requestsPage.data[0];
-                if (!first.canceled_at && !first.completed_at) {
-                    this.pendingRequest = first;
-                    this.pendingRequestService.setPendingRequest(first);
-                    if (!first.completed_by_id) {
+            for (let i = 0; i < requestsPage.data.length; i++) {
+                const request = requestsPage.data[i];
+                if (request.requested_by_id == this.me.id && !request.canceled_at && !request.completed_at) {
+                    this.pendingRequest = request;
+                    this.pendingRequestService.setPendingRequest(request);
+                    if (!request.completed_by_id) {
                         this.setNextRefreshTime(10);
                     }
+                    break;
                 }
             }
             this.currentRequestDataLoaded = true;

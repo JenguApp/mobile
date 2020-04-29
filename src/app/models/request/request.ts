@@ -33,6 +33,11 @@ export class Request extends BaseModel {
     completed_by_id: number;
 
     /**
+     * The id of the user completing the request
+     */
+    requested_by_id: number;
+
+    /**
      * Any assets uploaded for this request
      */
     assets: Asset[];
