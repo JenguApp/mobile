@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {GoogleMapsEvent, Marker, VisibleRegion} from '@ionic-native/google-maps';
 import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
@@ -6,10 +6,15 @@ import {Request} from '../../../models/request/request';
 
 @Component({
     selector: 'app-delivery-map',
-    templateUrl: '../map.component.html',
+    templateUrl: './delivery-map.component.html',
     styleUrls: ['../map.component.scss']
 })
 export class DeliveryMapComponent extends MapComponent {
+
+    /**
+     * The request the user is currently looking at
+     */
+    request: Request = null;
 
     /**
      * Default Constructor
@@ -62,7 +67,7 @@ export class DeliveryMapComponent extends MapComponent {
             }
         });
         marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-            alert('clicked');
+            this.request = deliveryRequest;
         });
     }
 

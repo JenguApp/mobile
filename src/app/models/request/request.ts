@@ -50,22 +50,22 @@ export class Request extends BaseModel {
     /**
      * The user that completed this request
      */
-    completedBy: User;
+    completed_by: User;
 
     /**
      * The user that created this request
      */
-    createdBy: User;
+    requested_by: User;
 
     /**
      * All line items in the request
      */
-    requestedItems: RequestedItem[];
+    requested_items: RequestedItem[];
 
     /**
      * The safety report made if there was one
      */
-    safetyReport: SafetyReport;
+    safety_report: SafetyReport;
 
     /**
      * Default Constructor
@@ -74,10 +74,10 @@ export class Request extends BaseModel {
     constructor(data) {
         super(data, {
             assets: new Relation('array', Asset),
-            completedBy: new Relation('model', User),
-            createdBy: new Relation('model', User),
-            requestedItems: new Relation('array', RequestedItem),
-            safetyReport: new Relation('model', SafetyReport),
+            completed_by: new Relation('model', User),
+            requested_by: new Relation('model', User),
+            requested_items: new Relation('array', RequestedItem),
+            safety_report: new Relation('model', SafetyReport),
         }, [
             'canceled_at',
             'completed_at',
