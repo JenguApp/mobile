@@ -36,47 +36,18 @@ export class HomePage extends BasePage implements OnInit {
     me: User = null;
 
     /**
-     * Whether or not the users current request has loaded
-     */
-    currentRequestDataLoaded = false;
-
-    /**
-     * Whether or not there is a pending request
-     */
-    pendingRequest: Request = null;
-
-    /**
-     * The time for when the next refresh will be attempted for any pieces of data that may be refreshed
-     */
-    nextRefreshTime = 0;
-
-    /**
-     * The handler for our refresh ui updating timeout
-     */
-    refreshTimer = null;
-
-    /**
-     * A boolean value that we toggle to start and stop the loading animation
-     */
-    loadingAnimating = false;
-
-    /**
      * Default Constructor
      * @param stateManager
      * @param locationManager
      * @param platform
      * @param requests
      * @param userService
-     * @param toastController
-     * @param pendingRequestService
      */
     constructor(private stateManager: StateManagerService,
                 private locationManager: LocationManagerService,
                 private platform: Platform,
                 private requests: RequestsProvider,
-                private userService: UserService,
-                private toastController: ToastController,
-                private pendingRequestService: PendingRequestService) {
+                private userService: UserService) {
         super();
     }
 
@@ -97,10 +68,7 @@ export class HomePage extends BasePage implements OnInit {
                 this.requests.auth.loadInitialInformation().then(user => {
                     this.userService.storeMe(user);
                     this.me = user;
-                    this.loadRequestInformation();
                 });
-            } else {
-                this.loadRequestInformation();
             }
             this.locationManager.getPosition().then(position => {
                 this.currentPosition = position;
@@ -108,84 +76,5 @@ export class HomePage extends BasePage implements OnInit {
                 console.error(error);
             });
         });
-    }
-
-    /**
-     * Loads information on the users current requests
-     */
-    loadRequestInformation() {
-        this.pendingRequestService.listenForPendingRequestChanges({
-            next: (update) => {
-                if (update instanceof Request) {
-                    this.pendingRequest = update;
-                } else {
-                    this.setNextRefreshTime(update);
-                }
-            },
-            complete: () => {
-
-            }
-        });
-        this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-            if (requestsPage.data.length > 0) {
-                const first = requestsPage.data[0];
-                if (!first.canceled_at && !first.completed_at) {
-                    this.pendingRequest = first;
-                    this.pendingRequestService.setPendingRequest(first);
-                    if (!first.completed_by_id) {
-                        this.setNextRefreshTime(10);
-                    }
-                }
-            }
-            this.currentRequestDataLoaded = true;
-        });
-    }
-
-    /**
-     * Sets the next refresh time for our timer
-     * @param nextRefreshTime
-     */
-    setNextRefreshTime(nextRefreshTime: number) {
-        this.nextRefreshTime = nextRefreshTime;
-        if (this.refreshTimer) {
-            clearInterval(this.refreshTimer);
-        }
-        this.startTimerAnimationCycle();
-
-        this.refreshTimer = setInterval(() => {
-            this.nextRefreshTime--;
-            if (this.nextRefreshTime <= 0) {
-                this.nextRefreshTime = 0;
-                clearInterval(this.refreshTimer);
-            } else {
-                this.startTimerAnimationCycle();
-            }
-        }, 1000);
-    }
-
-    /**
-     * Cancels the request the user created
-     * @param request
-     */
-    cancelRequest(request: Request) {
-        this.requests.deliveryRequests.cancelRequest(this.me, request).then(() => {
-            this.toastController.create({
-                message: 'Your request has been cancelled!',
-                duration: 2000
-            }).then(toast => {
-                toast.present();
-            });
-            this.pendingRequest = null;
-        });
-    }
-
-    /**
-     * Stats the timer animation cycle by toggling our boolean variable to remove and apply our animation class
-     */
-    startTimerAnimationCycle() {
-        this.loadingAnimating = false;
-        setTimeout(() => {
-            this.loadingAnimating = true;
-        }, 10);
     }
 }
