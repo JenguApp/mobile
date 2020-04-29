@@ -1,0 +1,1 @@
+<app-delivery-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude" (requestAccepted)="setAcceptedRequest($event)"></app-delivery-map>

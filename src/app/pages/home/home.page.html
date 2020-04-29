@@ -7,7 +7,7 @@
     </div>
 
     <div *ngIf="currentState == 'deliver'" id="deliver">
-        <app-delivery-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-delivery-map>
+        <app-state-delivery></app-state-delivery>
     </div>
 
 </ion-content>

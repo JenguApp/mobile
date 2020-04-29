@@ -26,11 +26,6 @@ export class HomePage extends BasePage implements OnInit {
     currentState: State = null;
 
     /**
-     * The current coordinates
-     */
-    currentPosition: Geoposition = null;
-
-    /**
      * The Logged in user
      */
     me: User = null;
@@ -38,13 +33,11 @@ export class HomePage extends BasePage implements OnInit {
     /**
      * Default Constructor
      * @param stateManager
-     * @param locationManager
      * @param platform
      * @param requests
      * @param userService
      */
     constructor(private stateManager: StateManagerService,
-                private locationManager: LocationManagerService,
                 private platform: Platform,
                 private requests: RequestsProvider,
                 private userService: UserService) {
@@ -70,11 +63,6 @@ export class HomePage extends BasePage implements OnInit {
                     this.me = user;
                 });
             }
-            this.locationManager.getPosition().then(position => {
-                this.currentPosition = position;
-            }).catch(error => {
-                console.error(error);
-            });
         });
     }
 }
