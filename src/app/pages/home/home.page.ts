@@ -129,8 +129,7 @@ export class HomePage extends BasePage implements OnInit {
         this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
             if (requestsPage.data.length > 0) {
                 const first = requestsPage.data[0];
-                if (!first.completed) {
-                    this.currentState = 'request';
+                if (!first.canceled_at && !first.completed_at) {
                     this.pendingRequest = first;
                     this.pendingRequestService.setPendingRequest(first);
                     if (!first.completed_by_id) {

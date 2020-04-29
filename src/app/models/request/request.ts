@@ -38,9 +38,14 @@ export class Request extends BaseModel {
     assets: Asset[];
 
     /**
-     * Whether or not his request has been completed
+     * The optional canceled at date time
      */
-    completed: boolean;
+    canceled_at: Date = null;
+
+    /**
+     * The optional completed at date time
+     */
+    completed_at: Date = null;
 
     /**
      * The user that completed this request
@@ -73,6 +78,9 @@ export class Request extends BaseModel {
             createdBy: new Relation('model', User),
             requestedItems: new Relation('array', RequestedItem),
             safetyReport: new Relation('model', SafetyReport),
-        });
+        }, [
+            'canceled_at',
+            'completed_at',
+        ]);
     }
 }

@@ -52,6 +52,7 @@ export default class PendingRequestService {
      */
     setPendingRequest(pendingRequest: Request) {
         this.pendingRequest = pendingRequest;
+        this.notifyOfRequestUpdate(pendingRequest);
         this.waitForRequestRefresh(10);
     }
 
@@ -80,9 +81,17 @@ export default class PendingRequestService {
                 this.pendingRequest = null;
             }
         }, seconds * 1000);
+        this.notifyOfRequestUpdate(seconds);
+    }
+
+    /**
+     * Notifies all subscribers that an update has been received
+     * @param update
+     */
+    notifyOfRequestUpdate(update) {
         this.pendingRequestSubscribers.forEach(subscriber => {
-            subscriber.next(seconds);
-        })
+            subscriber.next(update);
+        });
     }
 
     /**

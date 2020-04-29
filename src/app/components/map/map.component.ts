@@ -51,7 +51,9 @@ export class MapComponent implements OnInit {
         }
 
         this.map = GoogleMaps.create('map_canvas', mapOptions);
-        this.afterMapReady();
+        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+            this.afterMapReady();
+        });
     }
 
     /**
