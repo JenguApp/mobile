@@ -45,12 +45,12 @@ export class Request extends BaseModel {
     /**
      * The optional canceled at date time
      */
-    canceled_at: Date = null;
+    canceled_at: Date;
 
     /**
      * The optional completed at date time
      */
-    completed_at: Date = null;
+    completed_at: Date;
 
     /**
      * The user that completed this request

@@ -1,7 +1,7 @@
 <div *ngIf="currentRequestDataLoaded" id="wrapper">
     <app-delivery-map *ngIf="currentPosition && !completingRequest; else requestInformation" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude" (requestAccepted)="setCompletingRequest($event)"></app-delivery-map>
     <ng-template #requestInformation>
-        <div class="ion-padding">
+        <div class="ion-padding" *ngIf="!completingRequest.completed_at; else completed">
             <h2>Currently Delivering For...</h2>
             <h3>{{completingRequest.requested_by.name}}</h3>
             <ion-list>
@@ -11,6 +11,14 @@
                     <img *ngIf="requestedItem?.asset?.url" [src]="requestedItem.asset.url" slot="end">
                 </ion-item>
             </ion-list>
+            <ion-button (click)="complete(completingRequest)">All Done!</ion-button>
         </div>
+        <ng-template #completed>
+            <div class="ion-padding">
+                <h1>All Set!</h1>
+                <p>Thanks a ton for your support.</p>
+                <ion-button (click)="setCompletingRequest(null)">Complete Another Delivery</ion-button>
+            </div>
+        </ng-template>
     </ng-template>
 </div>
