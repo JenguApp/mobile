@@ -4,6 +4,7 @@ import {User} from '../../../models/user/user';
 import {Page} from '../../../models/page';
 import {Asset} from '../../../models/asset';
 import {RequestedItem} from '../../../models/request/requested-item';
+import {ToastController} from '@ionic/angular';
 
 /**
  * All requests needed for deliveries
@@ -113,10 +114,22 @@ export default class DeliveryRequests {
      * Allows the currently logged inu ser to accept the request
      *
      * @param request
+     * @param expiredCallback
      */
-    async acceptDeliveryRequest(request: Request): Promise<Request> {
+    async acceptDeliveryRequest(request: Request, expiredCallback: Function): Promise<Request> {
         return this.requestHandler.patch('requests/' + request.id, true, true, {
             accept: true,
+        }, {
+            400: (error) => {
+                console.error('Validation Error', error, error.error);
+                let message = 'An error has occurred! If this problem persists, please contact us.';
+
+                if (error.error && error.error.errors && error.error.errors.accept) {
+                    message = error.error.errors.accept.join(' ');
+                }
+
+                expiredCallback(request, message);
+            }
         }).then(data => {
             return Promise.resolve(new Request(data));
         });

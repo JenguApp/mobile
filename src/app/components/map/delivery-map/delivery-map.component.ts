@@ -3,6 +3,7 @@ import {GoogleMapsEvent, Marker, VisibleRegion} from '@ionic-native/google-maps'
 import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {Request} from '../../../models/request/request';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-delivery-map',
@@ -17,6 +18,11 @@ export class DeliveryMapComponent extends MapComponent {
     request: Request = null;
 
     /**
+     * All markers that are currently on the map
+     */
+    currentMarkers: Marker[] = [];
+
+    /**
      * The request emitter for when a request is accepted
      */
     @Output()
@@ -25,9 +31,11 @@ export class DeliveryMapComponent extends MapComponent {
     /**
      * Default Constructor
      * @param requests
+     * @param toastController
      * @param changeDetection
      */
     constructor(private requests: RequestsProvider,
+                private toastController: ToastController,
                 private changeDetection: ChangeDetectorRef) {
         super();
     }
@@ -54,6 +62,7 @@ export class DeliveryMapComponent extends MapComponent {
         const radius = this.calculateRadius(visibleRegion);
         this.requests.deliveryRequests.searchAvailableRequests(centerLongitude, centerLatitude, radius).then(deliveryRequests => {
             this.map.clear().then(() => {
+                this.currentMarkers = [];
                 deliveryRequests.data.forEach(request => this.addDeliveryRequestToMap(request));
             });
         });
@@ -85,6 +94,7 @@ export class DeliveryMapComponent extends MapComponent {
             this.request = deliveryRequest;
             this.changeDetection.detectChanges();
         });
+        this.currentMarkers[deliveryRequest.id] = marker;
     }
 
     /**
@@ -98,12 +108,32 @@ export class DeliveryMapComponent extends MapComponent {
     }
 
     /**
+     * Handles an expired request by removing it from the map and telling the user why it is expired
+     * @param request
+     * @param message
+     */
+    handleExpiredRequest(request: Request, message: string) {
+        let marker = this.currentMarkers[request.id];
+
+        if (marker) {
+            marker.remove();
+        }
+
+        this.toastController.create({
+            message: message,
+            duration: 2500,
+        }).then(toast => {
+            toast.present().catch(console.error);
+        })
+    }
+
+    /**
      * The callback for when the
      * @param request
      */
     acceptRequest(request: Request) {
         this.request = null;
-        this.requests.deliveryRequests.acceptDeliveryRequest(request).then((request) => {
+        this.requests.deliveryRequests.acceptDeliveryRequest(request, this.handleExpiredRequest.bind(this)).then((request) => {
             this.requestAccepted.emit(request);
         });
     }
