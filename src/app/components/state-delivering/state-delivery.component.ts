@@ -69,6 +69,7 @@ export class StateDeliveryComponent implements OnInit {
      * @param request
      */
     setCompletingRequest(request: Request) {
+        // TODO run real load
         this.completingRequest = request;
     }
 }

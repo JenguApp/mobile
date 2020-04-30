@@ -1,6 +1,16 @@
 <div *ngIf="currentRequestDataLoaded" id="wrapper">
     <app-delivery-map *ngIf="currentPosition && !completingRequest; else requestInformation" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude" (requestAccepted)="setCompletingRequest($event)"></app-delivery-map>
     <ng-template #requestInformation>
-        <h2>{{completingRequest.requested_by.name}}</h2>
+        <div class="ion-padding">
+            <h2>Currently Delivering For...</h2>
+            <h3>{{completingRequest.requested_by.name}}</h3>
+            <ion-list>
+                <ion-list-header>Requested Items</ion-list-header>
+                <ion-item *ngFor="let requestedItem of completingRequest.requested_items;">
+                    {{requestedItem.name}}
+                    <img *ngIf="requestedItem?.asset?.url" [src]="requestedItem.asset.url" slot="end">
+                </ion-item>
+            </ion-list>
+        </div>
     </ng-template>
 </div>
