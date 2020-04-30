@@ -121,11 +121,12 @@ export default class DeliveryRequests {
             accept: true,
         }, {
             400: (error) => {
-                console.error('Validation Error', error, error.error);
+                const parsedError = JSON.parse(error.error);
+                console.error('Validation Error', error, error.error, parsedError);
                 let message = 'An error has occurred! If this problem persists, please contact us.';
 
-                if (error.error && error.error.errors && error.error.errors.accept) {
-                    message = error.error.errors.accept.join(' ');
+                if (parsedError.errors && parsedError.errors.accept) {
+                    message = parsedError.errors.accept.join(' ');
                 }
 
                 expiredCallback(request, message);
