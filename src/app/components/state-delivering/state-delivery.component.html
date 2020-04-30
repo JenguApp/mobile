@@ -1,1 +1,6 @@
-<app-delivery-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude" (requestAccepted)="setAcceptedRequest($event)"></app-delivery-map>
+<div *ngIf="currentRequestDataLoaded" id="wrapper">
+    <app-delivery-map *ngIf="currentPosition && !completingRequest; else requestInformation" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude" (requestAccepted)="setCompletingRequest($event)"></app-delivery-map>
+    <ng-template #requestInformation>
+        <h2>{{completingRequest.requested_by.name}}</h2>
+    </ng-template>
+</div>

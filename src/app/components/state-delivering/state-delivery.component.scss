@@ -1,3 +1,12 @@
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
 app-delivery-map {
-  height: 100%;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
 }

@@ -13,7 +13,6 @@ import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {User} from '../../../models/user/user';
 import {AlertController, IonInput} from '@ionic/angular';
-import {Asset} from '../../../models/asset';
 
 @Component({
     selector: 'app-request-form-item',

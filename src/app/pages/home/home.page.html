@@ -7,7 +7,7 @@
     </div>
 
     <div *ngIf="currentState == 'deliver'" id="deliver">
-        <app-state-delivery></app-state-delivery>
+        <app-state-delivery *ngIf="me" [me]="me"></app-state-delivery>
     </div>
 
 </ion-content>

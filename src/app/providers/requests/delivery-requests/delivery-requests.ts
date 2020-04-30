@@ -115,7 +115,7 @@ export default class DeliveryRequests {
      * @param request
      */
     async acceptDeliveryRequest(request: Request): Promise<Request> {
-        return this.requestHandler.post('requests/' + request.id, true, true, {
+        return this.requestHandler.patch('requests/' + request.id, true, true, {
             accept: true,
         }).then(data => {
             return Promise.resolve(new Request(data));
@@ -128,7 +128,7 @@ export default class DeliveryRequests {
      * @param request
      */
     async completeDeliveryRequest(request: Request): Promise<Request> {
-        return this.requestHandler.post('requests/' + request.id, true, true, {
+        return this.requestHandler.patch('requests/' + request.id, true, true, {
             completed: true,
         }).then(data => {
             return Promise.resolve(new Request(data));

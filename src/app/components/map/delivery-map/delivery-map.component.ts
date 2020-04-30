@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Output} from '@angular/core';
 import {GoogleMapsEvent, Marker, VisibleRegion} from '@ionic-native/google-maps';
 import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
@@ -25,8 +25,10 @@ export class DeliveryMapComponent extends MapComponent {
     /**
      * Default Constructor
      * @param requests
+     * @param changeDetection
      */
-    constructor(private requests: RequestsProvider) {
+    constructor(private requests: RequestsProvider,
+                private changeDetection: ChangeDetectorRef) {
         super();
     }
 
@@ -81,6 +83,7 @@ export class DeliveryMapComponent extends MapComponent {
         });
         marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
             this.request = deliveryRequest;
+            this.changeDetection.detectChanges();
         });
     }
 
