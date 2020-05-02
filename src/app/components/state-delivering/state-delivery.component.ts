@@ -5,6 +5,7 @@ import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {AlertController, ToastController} from '@ionic/angular';
+import CompletingRequestService from '../../services/data-services/completing-request.service';
 
 @Component({
     selector: 'app-state-delivery',
@@ -39,11 +40,13 @@ export class StateDeliveryComponent implements OnInit {
      * @param locationManager
      * @param alertController
      * @param toastController
+     * @param completingRequestService
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
                 private alertController: AlertController,
                 private toastController: ToastController,
+                private completingRequestService: CompletingRequestService,
                 private requests: RequestsProvider) {
     }
 
@@ -57,25 +60,26 @@ export class StateDeliveryComponent implements OnInit {
             console.error(error);
         });
 
-        this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-            for (let i = 0; i < requestsPage.data.length; i++) {
-                const request = requestsPage.data[i];
-                if (request.completed_by_id == this.me.id && !request.completed_at) {
-                    this.completingRequest = request;
-                    break;
-                }
-            }
-            this.currentRequestDataLoaded = true;
+        this.completingRequestService.listenForCompletingRequestChanges({
+            next: completingRequest => {
+                this.completingRequest = completingRequest;
+            },
         });
-    }
-
-    /**
-     * THe request hte user is completing
-     * @param request
-     */
-    setCompletingRequest(request: Request) {
-        // TODO run real load
-        this.completingRequest = request;
+        this.completingRequest = this.completingRequestService.getCompletingRequest();
+        if (!this.completingRequest) {
+            this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                for (let i = 0; i < requestsPage.data.length; i++) {
+                    const request = requestsPage.data[i];
+                    if (request.completed_by_id == this.me.id && !request.completed_at) {
+                        this.completingRequestService.setCompletingRequest(request);
+                        break;
+                    }
+                }
+                this.currentRequestDataLoaded = true;
+            });
+        } else {
+            this.currentRequestDataLoaded = true;
+        }
     }
 
     /**
@@ -105,7 +109,7 @@ export class StateDeliveryComponent implements OnInit {
                             }).then(toast => {
                                 toast.present().catch(console.error);
                             });
-                            this.completingRequest = null;
+                            this.completingRequestService.setCompletingRequest(null);
                         });
                     }
                 }
@@ -131,7 +135,7 @@ export class StateDeliveryComponent implements OnInit {
                     text: 'All Set!',
                     handler: () => {
                         this.requests.deliveryRequests.completeDeliveryRequest(completingRequest).then((request) => {
-                            this.completingRequest = request;
+                            this.completingRequestService.setCompletingRequest(request);
                         });
                     }
                 }
