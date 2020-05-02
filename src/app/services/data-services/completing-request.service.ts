@@ -36,8 +36,11 @@ export default class CompletingRequestService {
     /**
      * Gets the completing request
      */
-    getCompletingRequest(): Request {
-        return this.completingRequest;
+    getCompletingRequest(): Promise<Request> {
+        if (this.completingRequest && this.completingRequest.requested_items.length == 0) {
+            return this.requestsProvider.deliveryRequests.refreshRequest(this.completingRequest)
+        }
+        return Promise.resolve(this.completingRequest);
     }
 
     /**

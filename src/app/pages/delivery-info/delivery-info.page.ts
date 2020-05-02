@@ -36,7 +36,9 @@ export class DeliveryInfoPage implements OnInit {
      * Sets everything up
      */
     ngOnInit(): void {
-        this.completingRequest = this.completingRequestService.getCompletingRequest();
+        this.completingRequestService.getCompletingRequest().then(completingRequest => {
+            this.completingRequest = completingRequest;
+        });
     }
 
     /**

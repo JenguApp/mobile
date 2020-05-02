@@ -78,7 +78,11 @@ export default class DeliveryRequests {
      * @param request
      */
     async refreshRequest(request: Request): Promise<Request> {
-        return this.requestHandler.get('requests/' + request.id, true, false, {}).then(data => {
+        return this.requestHandler.get('requests/' + request.id, true, false, [
+            'completedBy',
+            'requestedBy',
+            'requestedItems'
+        ]).then(data => {
             return Promise.resolve(new Request(data));
         });
     }

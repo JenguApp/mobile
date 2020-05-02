@@ -65,21 +65,23 @@ export class StateDeliveryComponent implements OnInit {
                 this.completingRequest = completingRequest;
             },
         });
-        this.completingRequest = this.completingRequestService.getCompletingRequest();
-        if (!this.completingRequest) {
-            this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-                for (let i = 0; i < requestsPage.data.length; i++) {
-                    const request = requestsPage.data[i];
-                    if (request.completed_by_id == this.me.id && !request.completed_at) {
-                        this.completingRequestService.setCompletingRequest(request);
-                        break;
+        this.completingRequestService.getCompletingRequest().then(completingRequest => {
+            this.completingRequest = completingRequest;
+            if (!this.completingRequest) {
+                this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                    for (let i = 0; i < requestsPage.data.length; i++) {
+                        const request = requestsPage.data[i];
+                        if (request.completed_by_id == this.me.id && !request.completed_at) {
+                            this.completingRequestService.setCompletingRequest(request);
+                            break;
+                        }
                     }
-                }
+                    this.currentRequestDataLoaded = true;
+                });
+            } else {
                 this.currentRequestDataLoaded = true;
-            });
-        } else {
-            this.currentRequestDataLoaded = true;
-        }
+            }
+        });
     }
 
     /**
