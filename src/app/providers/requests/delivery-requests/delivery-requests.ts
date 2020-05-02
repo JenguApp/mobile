@@ -5,6 +5,7 @@ import {Page} from '../../../models/page';
 import {Asset} from '../../../models/asset';
 import {RequestedItem} from '../../../models/request/requested-item';
 import {ToastController} from '@ionic/angular';
+import {SafetyReport} from '../../../models/request/safety-report';
 
 /**
  * All requests needed for deliveries
@@ -164,5 +165,18 @@ export default class DeliveryRequests {
         }).then(data => {
             return Promise.resolve(new Page(data, Request));
         });
+    }
+
+    /**
+     * Creates a safety report
+     * @param request
+     * @param description
+     */
+    async createSafetyReport(request: Request, description: string): Promise<SafetyReport> {
+        return this.requestHandler.post('requests/' + request.id + '/safety-reports', true, true, {
+            description: description,
+        }).then(data => {
+            return Promise.resolve(new SafetyReport(data));
+        })
     }
 }

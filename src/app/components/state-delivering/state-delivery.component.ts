@@ -4,7 +4,7 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-state-delivery',
@@ -38,10 +38,12 @@ export class StateDeliveryComponent implements OnInit {
      * Default Constructor
      * @param locationManager
      * @param alertController
+     * @param toastController
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
                 private alertController: AlertController,
+                private toastController: ToastController,
                 private requests: RequestsProvider) {
     }
 
@@ -74,6 +76,43 @@ export class StateDeliveryComponent implements OnInit {
     setCompletingRequest(request: Request) {
         // TODO run real load
         this.completingRequest = request;
+    }
+
+    /**
+     * Opens the alert to allow someone to report a concern with a drop off
+     * @param request
+     */
+    reportProblem(request: Request) {
+        this.alertController.create({
+            header: 'Report A Problem',
+            inputs: [
+                {
+                    name: 'description',
+                    type: 'textarea',
+                    placeholder: 'What was the problem?',
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                },
+                {
+                    text: 'Submit',
+                    handler: data => {
+                        this.requests.deliveryRequests.createSafetyReport(request, data.description as string).then(() => {
+                            this.toastController.create({
+                                message: 'We have received your report, and we will investigate promptly.',
+                            }).then(toast => {
+                                toast.present().catch(console.error);
+                            });
+                            this.completingRequest = null;
+                        });
+                    }
+                }
+            ]
+        }).then(alert => {
+            alert.present().catch(console.error);
+        });
     }
 
     /**
