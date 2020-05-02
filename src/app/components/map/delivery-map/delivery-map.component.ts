@@ -1,9 +1,10 @@
-import {ChangeDetectorRef, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {GoogleMapsEvent, Marker, VisibleRegion} from '@ionic-native/google-maps';
 import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {Request} from '../../../models/request/request';
 import {ToastController} from '@ionic/angular';
+import CompletingRequestService from '../../../services/data-services/completing-request.service';
 
 @Component({
     selector: 'app-delivery-map',
@@ -23,19 +24,15 @@ export class DeliveryMapComponent extends MapComponent {
     currentMarkers: Marker[] = [];
 
     /**
-     * The request emitter for when a request is accepted
-     */
-    @Output()
-    requestAccepted: EventEmitter<Request> = new EventEmitter<Request>();
-
-    /**
      * Default Constructor
      * @param requests
      * @param toastController
+     * @param completingRequestService
      * @param changeDetection
      */
     constructor(private requests: RequestsProvider,
                 private toastController: ToastController,
+                private completingRequestService: CompletingRequestService,
                 private changeDetection: ChangeDetectorRef) {
         super();
     }
@@ -134,7 +131,7 @@ export class DeliveryMapComponent extends MapComponent {
     acceptRequest(request: Request) {
         this.request = null;
         this.requests.deliveryRequests.acceptDeliveryRequest(request, this.handleExpiredRequest.bind(this)).then((request) => {
-            this.requestAccepted.emit(request);
+            this.completingRequestService.setCompletingRequest(request);
         });
     }
 }
