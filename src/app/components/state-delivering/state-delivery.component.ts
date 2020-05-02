@@ -118,30 +118,4 @@ export class StateDeliveryComponent implements OnInit {
             alert.present().catch(console.error);
         });
     }
-
-    /**
-     * handles the complete function
-     * @param completingRequest
-     */
-    complete(completingRequest: Request) {
-        this.alertController.create({
-            header: 'Completing Request',
-            message: 'Please make sure that you have followed all drop off instructions before you complete the request.',
-            buttons: [
-                {
-                    text: 'One Moment',
-                },
-                {
-                    text: 'All Set!',
-                    handler: () => {
-                        this.requests.deliveryRequests.completeDeliveryRequest(completingRequest).then((request) => {
-                            this.completingRequestService.setCompletingRequest(request);
-                        });
-                    }
-                }
-            ]
-        }).then(alert => {
-            alert.present().catch(console.error);
-        });
-    }
 }

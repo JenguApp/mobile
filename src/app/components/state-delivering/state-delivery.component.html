@@ -10,16 +10,6 @@
                     <ion-icon name="chatbubble-outline"></ion-icon>
                 </ion-tab-button>
             </ion-tab-bar>
-            <h2>Currently Delivering For...</h2>
-            <h3>{{completingRequest.requested_by.name}}</h3>
-            <ion-list>
-                <ion-list-header>Requested Items</ion-list-header>
-                <ion-item *ngFor="let requestedItem of completingRequest.requested_items;">
-                    {{requestedItem.name}}
-                    <img *ngIf="requestedItem?.asset?.url" [src]="requestedItem.asset.url" slot="end">
-                </ion-item>
-            </ion-list>
-            <ion-button (click)="complete(completingRequest)">All Done!</ion-button>
         </ion-tabs>
         <ng-template #completed>
             <div class="ion-padding">
