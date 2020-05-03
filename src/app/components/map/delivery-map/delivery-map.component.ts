@@ -80,7 +80,7 @@ export class DeliveryMapComponent extends MapComponent {
 
         let marker: Marker = this.map.addMarkerSync({
             title: deliveryRequest.requested_by.name,
-            icon: 'blue',
+            icon: '#7d2674',
             animation: 'DROP',
             position: {
                 lat: deliveryRequest.latitude,
