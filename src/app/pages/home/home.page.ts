@@ -1,14 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
-import {Platform, ToastController} from '@ionic/angular';
-import {Geoposition} from '@ionic-native/geolocation/ngx';
-import {LocationManagerService} from '../../services/location-manager/location-manager';
+import {Platform} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
-import PendingRequestService from '../../services/data-services/pending-request.service';
-import {Request} from '../../models/request/request';
 
 /**
  * Main home page of the app

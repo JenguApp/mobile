@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController, IonTabs, ToastController} from '@ionic/angular';
 import CompletingRequestService from '../../services/data-services/completing-request.service';
 import {UserService} from '../../services/user.service';
 
@@ -20,6 +20,12 @@ export class StateDeliveryComponent implements OnInit {
      */
     @Input()
     me: User;
+
+    /**
+     * The tabs controller
+     */
+    @ViewChild('tabs', {static: false})
+    tabs: IonTabs;
 
     /**
      * Whether or not the users current request has loaded
@@ -66,6 +72,8 @@ export class StateDeliveryComponent implements OnInit {
         this.completingRequestService.listenForCompletingRequestChanges({
             next: completingRequest => {
                 this.completingRequest = completingRequest;
+                console.log('checkForDefaultTab');
+                this.checkForDefaultTab();
             },
         });
         this.completingRequestService.getCompletingRequest().then(completingRequest => {
@@ -84,9 +92,23 @@ export class StateDeliveryComponent implements OnInit {
                 });
             } else {
                 this.currentRequestDataLoaded = true;
+                this.checkForDefaultTab();
                 this.userService.cacheUser(this.completingRequest.requested_by);
             }
         });
+    }
+
+    /**
+     * Checks to see if our default tab has been set
+     */
+    checkForDefaultTab() {
+        if (this.completingRequest && !this.completingRequest.completed_at) {
+            setTimeout(() => {
+                if (this.tabs.getSelected() == undefined) {
+                    this.tabs.select('delivery-info').catch(console.error);
+                }
+            }, 100);
+        }
     }
 
     /**
