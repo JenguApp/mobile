@@ -68,6 +68,7 @@ export class RequestReviewPage implements OnInit {
             this.requestCreationService.getLineItems(),
             []
         ).then(request => {
+            this.requestCreationService.clear();
             this.pendingRequestService.setPendingRequest(request);
             this.navController.navigateRoot('/home').catch(console.error);
         }).catch(error => {

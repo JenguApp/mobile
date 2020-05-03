@@ -1,7 +1,7 @@
 <div id="overlay">
   <div id="info">
     <span id="close-btn" (click)="close.emit()">X</span>
-    <h3>{{request.requested_by.name}} Needs Some Help!</h3>
+    <h3>{{request?.requested_by.name}} Needs Some Help!</h3>
     <ion-button (click)="accepted.emit(this.request)">Accept</ion-button>
   </div>
 </div>

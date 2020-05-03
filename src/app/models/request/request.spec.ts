@@ -13,25 +13,25 @@ describe('Test Line Item Model', () => {
             assets: [{
                 id: 235,
             }],
-            completedBy: {
+            completed_by: {
                 id: 234,
             },
-            createdBy: {
+            requested_by: {
                 id: 234,
             },
-            lineItems: [{
+            requested_items: [{
                 id: 234,
             }],
-            safetyReport: {
+            safety_report: {
                 id: 234,
             },
         });
 
         expect(model).toBeTruthy();
         expect(model.assets[0].constructor).toBe(Asset);
-        expect(model.completedBy.constructor).toBe(User);
-        expect(model.createdBy.constructor).toBe(User);
-        expect(model.requestedItems[0].constructor).toBe(RequestedItem);
-        expect(model.safetyReport.constructor).toBe(SafetyReport);
+        expect(model.completed_by.constructor).toBe(User);
+        expect(model.requested_by.constructor).toBe(User);
+        expect(model.requested_items[0].constructor).toBe(RequestedItem);
+        expect(model.safety_report.constructor).toBe(SafetyReport);
     });
 });

@@ -4,7 +4,7 @@ import { RequestFormItemComponent } from './request-form-item.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 
-describe('LoggedOutHeaderComponent', () => {
+describe('RequestFormItemComponent', () => {
     let component: RequestFormItemComponent;
     let fixture: ComponentFixture<RequestFormItemComponent>;
     let navController;
