@@ -6,6 +6,7 @@ import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {AlertController, ToastController} from '@ionic/angular';
 import CompletingRequestService from '../../services/data-services/completing-request.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
     selector: 'app-state-delivery',
@@ -41,12 +42,14 @@ export class StateDeliveryComponent implements OnInit {
      * @param alertController
      * @param toastController
      * @param completingRequestService
+     * @param userService
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
                 private alertController: AlertController,
                 private toastController: ToastController,
                 private completingRequestService: CompletingRequestService,
+                private userService: UserService,
                 private requests: RequestsProvider) {
     }
 
@@ -77,9 +80,11 @@ export class StateDeliveryComponent implements OnInit {
                         }
                     }
                     this.currentRequestDataLoaded = true;
+                    this.userService.cacheUser(this.completingRequest.requested_by);
                 });
             } else {
                 this.currentRequestDataLoaded = true;
+                this.userService.cacheUser(this.completingRequest.requested_by);
             }
         });
     }
