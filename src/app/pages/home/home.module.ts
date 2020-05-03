@@ -22,7 +22,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'thread/:thread_id',
+                path: 'thread/:user_id',
                 children: [
                     {
                         path: '',

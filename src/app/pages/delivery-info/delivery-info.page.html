@@ -1,4 +1,4 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="completingRequest">
     <h2>Currently Delivering For...</h2>
     <h3>{{completingRequest.requested_by.name}}</h3>
     <ion-list>
