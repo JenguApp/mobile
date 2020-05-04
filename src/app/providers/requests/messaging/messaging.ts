@@ -23,8 +23,8 @@ export default class Messaging {
     async getThreads(me: User, showLoading: boolean): Promise<Thread[]> {
         return this.requestHandler.get('users/' + me.id + '/threads', true, showLoading, [
             'users',
-        ], {}, {}, {}, 100).then(response => {
-            if (response && response.data && response.data.length > 0) {
+        ], {}, {}, {}, 100 , null, {subject_type: 'private_message'}).then(response => {
+            if (response && response.data) {
                 return Promise.resolve(response.data.map(data => new Thread(data)));
             }
 
@@ -40,6 +40,7 @@ export default class Messaging {
     async createThread(me: User, user: User): Promise<Thread> {
         return this.requestHandler.post('users/' + me.id + '/threads', true, true, {
             users: [user.id],
+            subject_type: 'private_message',
         }).then(response => {
             return Promise.resolve(new Thread(response));
         });
