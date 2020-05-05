@@ -3,7 +3,7 @@
     <app-request-form *ngIf="!pendingRequest; else pendingRequestInformation" [user]="me"></app-request-form>
     <ng-template #pendingRequestInformation>
         <h2>Your request has been received!</h2>
-        <div *ngIf="pendingRequest.completed_by_id == null" id="pending-request-area">
+        <div *ngIf="pendingRequest.completed_by_id == null; else accepted" id="pending-request-area">
 
             <p>Please wait while we connect you with a local Jengu.</p>
             <p>Checking for a local Jengu in...</p>
@@ -23,6 +23,16 @@
             </div>
 
         </div>
+        <ng-template #accepted>
+            <ion-tab-bar slot="bottom">
+                <ion-tab-button tab="request-accepted-info">
+                    <ion-icon name="list-outline"></ion-icon>
+                </ion-tab-button>
+                <ion-tab-button tab="thread/{{pendingRequest.completed_by_id}}">
+                    <ion-icon name="chatbubble-outline"></ion-icon>
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ng-template>
     </ng-template>
 
 </div>
