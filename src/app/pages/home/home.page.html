@@ -6,7 +6,7 @@
         <app-state-requesting-deliveries *ngIf="me" [me]="me"></app-state-requesting-deliveries>
     </div>
 
-    <div *ngIf="currentState == 'deliver'" id="deliver">
+    <div *ngIf="currentState == 'deliver'">
         <app-state-delivery *ngIf="me" [me]="me"></app-state-delivery>
     </div>
 
