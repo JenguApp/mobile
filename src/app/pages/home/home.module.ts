@@ -30,6 +30,15 @@ const routes: Routes = [
                     }
                 ]
             },
+            {
+                path: 'request-accepted-info',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../request-accepted-info/request-accepted-info.module#RequestAcceptedInfoPageModule'
+                    }
+                ]
+            },
         ]
     }
 ];
