@@ -4,6 +4,7 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {AlertController, ToastController} from '@ionic/angular';
 import CompletingRequestService from '../../services/data-services/completing-request.service';
 import {RequestsProvider} from '../../providers/requests/requests';
+import PendingRequestService from '../../services/data-services/pending-request.service';
 
 @Component({
     selector: 'app-request-accepted-info',
@@ -15,20 +16,20 @@ export class RequestAcceptedInfoPage implements OnInit {
     /**
      * The request that the user is currently completing
      */
-    completingRequest: Request = null;
+    pendingRequest: Request = null;
 
     /**
      * Default Constructor
      * @param locationManager
      * @param alertController
      * @param toastController
-     * @param completingRequestService
+     * @param pendingRequestService
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
                 private alertController: AlertController,
                 private toastController: ToastController,
-                private completingRequestService: CompletingRequestService,
+                private pendingRequestService: PendingRequestService,
                 private requests: RequestsProvider) {
     }
 
@@ -36,34 +37,6 @@ export class RequestAcceptedInfoPage implements OnInit {
      * Sets everything up
      */
     ngOnInit(): void {
-        this.completingRequestService.getCompletingRequest().then(completingRequest => {
-            this.completingRequest = completingRequest;
-        });
-    }
-
-    /**
-     * handles the complete function
-     * @param completingRequest
-     */
-    complete(completingRequest: Request) {
-        this.alertController.create({
-            header: 'Completing Request',
-            message: 'Please make sure that you have followed all drop off instructions before you complete the request.',
-            buttons: [
-                {
-                    text: 'One Moment',
-                },
-                {
-                    text: 'All Set!',
-                    handler: () => {
-                        this.requests.deliveryRequests.completeDeliveryRequest(completingRequest).then((request) => {
-                            this.completingRequestService.setCompletingRequest(request);
-                        });
-                    }
-                }
-            ]
-        }).then(alert => {
-            alert.present().catch(console.error);
-        });
+        this.pendingRequest = this.pendingRequestService.getPendingRequest();
     }
 }

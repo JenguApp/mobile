@@ -57,6 +57,13 @@ export default class PendingRequestService {
     }
 
     /**
+     * Gets the currently pending request
+     */
+    getPendingRequest(): Request {
+        return this.pendingRequest;
+    }
+
+    /**
      * Whether or not there is currently a pending request
      */
     hasPendingRequest(): boolean {

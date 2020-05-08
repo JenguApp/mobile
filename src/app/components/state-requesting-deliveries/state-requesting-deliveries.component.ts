@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
-import {ToastController} from '@ionic/angular';
+import {IonTabs, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import PendingRequestService from '../../services/data-services/pending-request.service';
 
@@ -18,6 +18,12 @@ export class StateRequestingDeliveriesComponent implements OnInit {
      */
     @Input()
     me: User = null;
+
+    /**
+     * The tabs controller
+     */
+    @ViewChild('tabs', {static: false})
+    tabs: IonTabs;
 
     /**
      * Whether or not the users current request has loaded
@@ -78,6 +84,7 @@ export class StateRequestingDeliveriesComponent implements OnInit {
                 const request = requestsPage.data[i];
                 if (request.requested_by_id == this.me.id && !request.canceled_at && !request.completed_at) {
                     this.pendingRequest = request;
+                    this.checkForDefaultTab();
                     this.pendingRequestService.setPendingRequest(request);
                     if (!request.completed_by_id) {
                         this.setNextRefreshTime(10);
@@ -87,6 +94,19 @@ export class StateRequestingDeliveriesComponent implements OnInit {
             }
             this.currentRequestDataLoaded = true;
         });
+    }
+
+    /**
+     * Checks to see if our default tab has been set
+     */
+    checkForDefaultTab() {
+        if (this.pendingRequest && !this.pendingRequest.completed_at) {
+            setTimeout(() => {
+                if (this.tabs.getSelected() == undefined) {
+                    this.tabs.select('request-accepted-info').catch(console.error);
+                }
+            }, 100);
+        }
     }
 
     /**
