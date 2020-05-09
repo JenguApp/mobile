@@ -21,6 +21,7 @@ import { RequestsProvider } from './providers/requests/requests';
 import {ComponentsModule} from './components/components.module';
 import {GoogleMaps} from '@ionic-native/google-maps/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
+import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -46,6 +47,7 @@ import {Camera} from '@ionic-native/camera/ngx';
         Geolocation,
         GoogleMaps,
         Camera,
+        LaunchNavigator,
 
         // App providers
         RequestHandlerProvider,

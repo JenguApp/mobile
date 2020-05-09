@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {MenuController, NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -6,6 +6,7 @@ import {StorageProvider} from './providers/storage/storage';
 import {environment} from '../environments/environment';
 import {AuthManagerService} from './services/auth-manager/auth-manager.service';
 import {State, StateManagerService} from './services/state-manager';
+import {ActivationStart, Router, RouterOutlet} from '@angular/router';
 
 /**
  * Main entry of the app
@@ -15,6 +16,9 @@ import {State, StateManagerService} from './services/state-manager';
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
+
+    @ViewChild(RouterOutlet, {static: false})
+    outlet: RouterOutlet;
 
     /**
      * Whether or not the user is currently logged in
@@ -35,6 +39,7 @@ export class AppComponent {
      * @param navCtl
      * @param menuCtl
      * @param storage
+     * @param router
      * @param stateManagerService
      */
     constructor(
@@ -45,6 +50,7 @@ export class AppComponent {
         private navCtl: NavController,
         private menuCtl: MenuController,
         private storage: StorageProvider,
+        private router: Router,
         private stateManagerService: StateManagerService,
     ) {
         this.initializeApp();
@@ -55,6 +61,13 @@ export class AppComponent {
      */
     initializeApp() {
         this.platform.ready().then(() => {
+
+
+            this.router.events.subscribe(e => {
+                if (e instanceof ActivationStart) {
+                    this.outlet.deactivate();
+                }
+            });
             this.stateManagerService.getCurrentState().then(state => {
                 this.currentState = state;
             });

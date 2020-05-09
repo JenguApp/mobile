@@ -3,6 +3,8 @@ import {Request} from '../../models/request/request';
 import {AlertController} from '@ionic/angular';
 import CompletingRequestService from '../../services/data-services/completing-request.service';
 import {RequestsProvider} from '../../providers/requests/requests';
+import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
+
 
 @Component({
     selector: 'app-delivery-info',
@@ -21,10 +23,12 @@ export class DeliveryInfoPage implements OnInit {
      * @param alertController
      * @param completingRequestService
      * @param requests
+     * @param launchNavigator
      */
     constructor(private alertController: AlertController,
                 private completingRequestService: CompletingRequestService,
-                private requests: RequestsProvider) {
+                private requests: RequestsProvider,
+                private launchNavigator: LaunchNavigator) {
     }
 
     /**
@@ -34,6 +38,16 @@ export class DeliveryInfoPage implements OnInit {
         this.completingRequestService.getCompletingRequest().then(completingRequest => {
             this.completingRequest = completingRequest;
         });
+    }
+
+    /**
+     * Opens the navigation properly
+     */
+    openNavigation() {
+        this.launchNavigator.navigate([this.completingRequest.latitude, this.completingRequest.longitude]).then(
+            success => console.log('Launched navigator'),
+            error => console.log('Error launching navigator', error)
+        );
     }
 
     /**
