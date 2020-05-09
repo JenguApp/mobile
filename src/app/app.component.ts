@@ -62,7 +62,6 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
 
-
             this.router.events.subscribe(e => {
                 if (e instanceof ActivationStart) {
                     this.outlet.deactivate();

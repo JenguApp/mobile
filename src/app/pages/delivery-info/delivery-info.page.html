@@ -10,7 +10,7 @@
             </ion-item>
         </ion-list>
         <ion-button (click)="openNavigation()">Open Delivery Map</ion-button>
-        <ion-button (click)="complete(completingRequest)">All Done!</ion-button>
+        <ion-button (click)="complete(completingRequest)" *ngIf="hasNavigated">All Done!</ion-button>
     </div>
     <ng-template #completed>
         <app-delivery-completed completionText="Complete Another Delivery" [request]="completingRequest">

@@ -19,6 +19,11 @@ export class DeliveryInfoPage implements OnInit {
     completingRequest: Request = null;
 
     /**
+     * Whether or not the user has opened the navigation app
+     */
+    hasNavigated = false;
+
+    /**
      * Default Constructor
      * @param alertController
      * @param completingRequestService
@@ -48,6 +53,7 @@ export class DeliveryInfoPage implements OnInit {
             success => console.log('Launched navigator'),
             error => console.log('Error launching navigator', error)
         );
+        this.hasNavigated = true;
     }
 
     /**
