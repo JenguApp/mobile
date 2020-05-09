@@ -4,9 +4,9 @@
         <p>{{pendingRequest.completed_by.name}} is currently gathering your supplies. We will notify you when they message you, or drop off the goods.</p>
     </div>
     <ng-template #completed>
-        <h1>All Set!</h1>
-        <p>Your delivery has arrived.</p>
-        <ion-button (click)="pendingRequestService.setPendingRequest(null)">Request Another Delivery</ion-button>
-        <ion-button (click)="reportProblem(pendingRequest)">Report A Problem</ion-button>
+        <app-delivery-completed completionText="Complete Another Delivery" [request]="pendingRequest">
+            <h1>All Set!</h1>
+            <p>Your delivery has arrived.</p>
+        </app-delivery-completed>
     </ng-template>
 </ion-content>

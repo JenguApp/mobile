@@ -1,7 +1,7 @@
 <div *ngIf="currentRequestDataLoaded" id="wrapper">
     <app-delivery-map *ngIf="currentPosition && !completingRequest; else requestInformation" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-delivery-map>
     <ng-template #requestInformation>
-        <ion-tabs *ngIf="!completingRequest.completed_at; else completed" #tabs>
+        <ion-tabs #tabs>
             <ion-tab-bar slot="bottom">
                 <ion-tab-button tab="delivery-info">
                     <ion-icon name="list-outline"></ion-icon>
@@ -11,13 +11,5 @@
                 </ion-tab-button>
             </ion-tab-bar>
         </ion-tabs>
-        <ng-template #completed>
-            <div class="ion-padding">
-                <h1>All Set!</h1>
-                <p>Thanks a ton for your support.</p>
-                <ion-button (click)="completingRequestService.setCompletingRequest(null)">Complete Another Delivery</ion-button>
-                <ion-button (click)="reportProblem(completingRequest)">Report A Problem</ion-button>
-            </div>
-        </ng-template>
     </ng-template>
 </div>

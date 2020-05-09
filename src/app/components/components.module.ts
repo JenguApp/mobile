@@ -15,6 +15,7 @@ import {LocationReviewMapComponent} from './map/location-review-map/location-rev
 import {AvailableRequestInfoWindowComponent} from './available-request-info-window/available-request-info-window.component';
 import {StateDeliveryComponent} from './state-delivering/state-delivery.component';
 import {StateRequestingDeliveriesComponent} from './state-requesting-deliveries/state-requesting-deliveries.component';
+import {DeliveryCompletedComponent} from './delivery-completed/delivery-completed.component';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import {StateRequestingDeliveriesComponent} from './state-requesting-deliveries/
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         RatingBarComponent,
+        DeliveryCompletedComponent,
         DeliveryMapComponent,
         LocationReviewMapComponent,
         LocationSelectMapComponent,
@@ -44,6 +46,7 @@ import {StateRequestingDeliveriesComponent} from './state-requesting-deliveries/
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         RatingBarComponent,
+        DeliveryCompletedComponent,
         DeliveryMapComponent,
         LocationReviewMapComponent,
         LocationSelectMapComponent,

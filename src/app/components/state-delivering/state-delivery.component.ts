@@ -4,7 +4,7 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {AlertController, IonTabs, ToastController} from '@ionic/angular';
+import {IonTabs} from '@ionic/angular';
 import CompletingRequestService from '../../services/data-services/completing-request.service';
 import {UserService} from '../../services/user.service';
 
@@ -45,15 +45,11 @@ export class StateDeliveryComponent implements OnInit {
     /**
      * Default Constructor
      * @param locationManager
-     * @param alertController
-     * @param toastController
      * @param completingRequestService
      * @param userService
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
-                private alertController: AlertController,
-                private toastController: ToastController,
                 private completingRequestService: CompletingRequestService,
                 private userService: UserService,
                 private requests: RequestsProvider) {
@@ -72,7 +68,6 @@ export class StateDeliveryComponent implements OnInit {
         this.completingRequestService.listenForCompletingRequestChanges({
             next: completingRequest => {
                 this.completingRequest = completingRequest;
-                console.log('checkForDefaultTab');
                 this.checkForDefaultTab();
             },
         });
@@ -109,42 +104,5 @@ export class StateDeliveryComponent implements OnInit {
                 }
             }, 100);
         }
-    }
-
-    /**
-     * Opens the alert to allow someone to report a concern with a drop off
-     * @param request
-     */
-    reportProblem(request: Request) {
-        this.alertController.create({
-            header: 'Report A Problem',
-            inputs: [
-                {
-                    name: 'description',
-                    type: 'textarea',
-                    placeholder: 'What was the problem?',
-                }
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                },
-                {
-                    text: 'Submit',
-                    handler: data => {
-                        this.requests.deliveryRequests.createSafetyReport(request, data.description as string).then(() => {
-                            this.toastController.create({
-                                message: 'We have received your report, and we will investigate promptly.',
-                            }).then(toast => {
-                                toast.present().catch(console.error);
-                            });
-                            this.completingRequestService.setCompletingRequest(null);
-                        });
-                    }
-                }
-            ]
-        }).then(alert => {
-            alert.present().catch(console.error);
-        });
     }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Request} from '../../models/request/request';
-import {LocationManagerService} from '../../services/location-manager/location-manager';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController} from '@ionic/angular';
 import CompletingRequestService from '../../services/data-services/completing-request.service';
 import {RequestsProvider} from '../../providers/requests/requests';
 
@@ -19,15 +18,11 @@ export class DeliveryInfoPage implements OnInit {
 
     /**
      * Default Constructor
-     * @param locationManager
      * @param alertController
-     * @param toastController
      * @param completingRequestService
      * @param requests
      */
-    constructor(private locationManager: LocationManagerService,
-                private alertController: AlertController,
-                private toastController: ToastController,
+    constructor(private alertController: AlertController,
                 private completingRequestService: CompletingRequestService,
                 private requests: RequestsProvider) {
     }
