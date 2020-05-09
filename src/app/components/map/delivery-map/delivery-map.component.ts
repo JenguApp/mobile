@@ -4,7 +4,7 @@ import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {Request} from '../../../models/request/request';
 import {ToastController} from '@ionic/angular';
-import CompletingRequestService from '../../../services/data-services/completing-request.service';
+import { CompletingRequestService } from '../../../services/data-services/completing-request.service';
 
 @Component({
     selector: 'app-delivery-map',

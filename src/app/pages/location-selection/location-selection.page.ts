@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
-import RequestCreationService from '../../services/data-services/request-creation.service';
+import { RequestCreationService } from '../../services/data-services/request-creation.service';
 import {LocationSelectMapComponent} from '../../components/map/location-select-map/location-select-map.component';
 import {NavController} from '@ionic/angular';
 

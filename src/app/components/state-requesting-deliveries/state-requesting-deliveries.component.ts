@@ -4,7 +4,7 @@ import {User} from '../../models/user/user';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {IonTabs, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
-import PendingRequestService from '../../services/data-services/pending-request.service';
+import { PendingRequestService } from '../../services/data-services/pending-request.service';
 
 @Component({
     selector: 'app-state-requesting-deliveries',

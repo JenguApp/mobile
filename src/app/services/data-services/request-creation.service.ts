@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export default class RequestCreationService {
+export class RequestCreationService {
 
     /**
      * The description the user put in on the first page

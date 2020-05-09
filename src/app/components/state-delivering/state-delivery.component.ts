@@ -5,7 +5,7 @@ import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {IonTabs} from '@ionic/angular';
-import CompletingRequestService from '../../services/data-services/completing-request.service';
+import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {UserService} from '../../services/user.service';
 
 @Component({

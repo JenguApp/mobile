@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import PendingRequestService from '../../services/data-services/pending-request.service';
-import CompletingRequestService from '../../services/data-services/completing-request.service';
+import { PendingRequestService } from '../../services/data-services/pending-request.service';
+import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {Request} from '../../models/request/request';
 import {AlertController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';

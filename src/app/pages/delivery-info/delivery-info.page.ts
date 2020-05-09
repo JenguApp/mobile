@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Request} from '../../models/request/request';
 import {AlertController} from '@ionic/angular';
-import CompletingRequestService from '../../services/data-services/completing-request.service';
+import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {RequestsProvider} from '../../providers/requests/requests';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 

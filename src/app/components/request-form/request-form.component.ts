@@ -3,7 +3,6 @@ import {
     ChangeDetectorRef,
     Component,
     Input,
-    OnInit,
     QueryList,
     ViewChild,
     ViewChildren
@@ -12,7 +11,7 @@ import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
 import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
 import {IonTextarea, NavController} from '@ionic/angular';
-import RequestCreationService from '../../services/data-services/request-creation.service';
+import {RequestCreationService} from '../../services/data-services/request-creation.service';
 
 @Component({
     selector: 'app-request-form',
@@ -63,7 +62,7 @@ export class RequestFormComponent implements AfterViewInit {
      * @param navController
      */
     constructor(private requestCreationService: RequestCreationService,
-                private changeDetection: ChangeDetectorRef,
+                public changeDetection: ChangeDetectorRef,
                 private navController: NavController) {
     }
 

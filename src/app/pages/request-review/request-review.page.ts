@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import RequestCreationService from '../../services/data-services/request-creation.service';
+import { RequestCreationService } from '../../services/data-services/request-creation.service';
 import {IonTextarea, NavController} from '@ionic/angular';
 import {RequestFormComponent} from '../../components/request-form/request-form.component';
 import {RequestsProvider} from '../../providers/requests/requests';
-import PendingRequestService from '../../services/data-services/pending-request.service';
+import { PendingRequestService } from '../../services/data-services/pending-request.service';
 
 @Component({
     selector: 'app-request-review',

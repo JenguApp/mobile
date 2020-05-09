@@ -6,7 +6,7 @@ import {Observable, PartialObserver, Subscriber} from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export default class CompletingRequestService {
+export class CompletingRequestService {
 
     /**
      * The pending request that we currently have
