@@ -10,6 +10,7 @@ import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 
 describe('DeliveryInfoPage', () => {
     let component: DeliveryInfoPage;
@@ -39,6 +40,7 @@ describe('DeliveryInfoPage', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
+                {provide: LaunchNavigator, useValue: new LaunchNavigator()}
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

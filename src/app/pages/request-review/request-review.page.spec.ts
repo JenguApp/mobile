@@ -12,6 +12,8 @@ import {File} from '@ionic-native/file/ngx';
 import {FileOpener} from '@ionic-native/file-opener/ngx';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {Camera} from '@ionic-native/camera/ngx';
+import {GoogleMaps} from '@ionic-native/google-maps/ngx';
 
 describe('RequestReviewPage', () => {
     let component: RequestReviewPage;
@@ -21,6 +23,7 @@ describe('RequestReviewPage', () => {
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
     const file: File = new File();
     const fileOpener: FileOpener = new FileOpener();
+    const camera: Camera = new Camera();
 
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['navigateBack']);
@@ -43,7 +46,9 @@ describe('RequestReviewPage', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 {provide: File, useValue: file},
+                {provide: Camera, useValue: camera},
                 {provide: FileOpener, useValue: fileOpener},
+                {provide: GoogleMaps, useValue: new GoogleMaps()},
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],

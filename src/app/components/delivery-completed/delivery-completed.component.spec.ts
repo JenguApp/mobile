@@ -3,12 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeliveryCompletedComponent } from './delivery-completed.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
+import {RequestsProvider} from '../../providers/requests/requests';
+import RequestsProviderMock from '../../providers/requests/requests.mock';
 
-describe('LoggedOutHeaderComponent', () => {
+describe('DeliveryCompletedComponent', () => {
     let component: DeliveryCompletedComponent;
     let fixture: ComponentFixture<DeliveryCompletedComponent>;
     let navController;
     let alertController;
+    const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['goBack']);
@@ -21,6 +24,7 @@ describe('LoggedOutHeaderComponent', () => {
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
+                { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
                 DeliveryCompletedComponent,
