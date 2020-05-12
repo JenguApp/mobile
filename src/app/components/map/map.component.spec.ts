@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
+import {GoogleMaps} from '@ionic-native/google-maps';
 
 describe('MapComponent', () => {
     let component: MapComponent;
@@ -11,6 +12,14 @@ describe('MapComponent', () => {
     let alertController;
 
     beforeEach(async(() => {
+        const spy = jasmine.createSpy().and.callFake(function (name) {
+            return {
+                one: () => {
+                    return Promise.resolve();
+                }
+            } as any;
+        });
+        GoogleMaps.create = spy;
         navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
         TestBed.configureTestingModule({
