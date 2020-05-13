@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
+import {AvailableRequestInfoWindowComponent} from '../available-request-info-window/available-request-info-window.component';
 
 describe('DeliveryCompletedComponent', () => {
     let component: DeliveryCompletedComponent;
@@ -27,6 +28,7 @@ describe('DeliveryCompletedComponent', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
+                AvailableRequestInfoWindowComponent,
                 DeliveryCompletedComponent,
             ]
         })

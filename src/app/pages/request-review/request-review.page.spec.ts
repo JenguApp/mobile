@@ -14,6 +14,7 @@ import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {Camera} from '@ionic-native/camera/ngx';
 import {GoogleMaps} from '@ionic-native/google-maps/ngx';
+import {Marker} from '@ionic-native/google-maps';
 
 describe('RequestReviewPage', () => {
     let component: RequestReviewPage;
@@ -26,6 +27,17 @@ describe('RequestReviewPage', () => {
     const camera: Camera = new Camera();
 
     beforeEach(async(() => {
+        const spy = jasmine.createSpy().and.callFake(function (name) {
+            return {
+                one: () => {
+                    return Promise.resolve();
+                },
+                addMarkerSync: (markerData) => {
+                    return {} as Marker;
+                }
+            } as any;
+        });
+        GoogleMaps.create = spy;
         navController = jasmine.createSpyObj('NavController', ['navigateBack']);
         activatedRoute = {};
         activatedRoute.snapshot = {};

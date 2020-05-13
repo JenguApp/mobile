@@ -6,11 +6,15 @@ import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
+import {NavController} from '@ionic/angular';
+import Spy = jasmine.Spy;
 
 describe('HomePage', () => {
     let component: HomePage;
     let fixture: ComponentFixture<HomePage>;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
+    const navController = jasmine.createSpyObj('NavController', ['navigateRoot']);
+    (navController.navigateRoot as Spy).and.returnValue(Promise.resolve());
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -19,6 +23,7 @@ describe('HomePage', () => {
             providers: [
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
+                { provide: NavController, useValue: navController},
             ],
         })
         .compileComponents();

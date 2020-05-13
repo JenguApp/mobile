@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocationReviewMapComponent } from './location-review-map.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
-import {GoogleMaps} from '@ionic-native/google-maps';
+import {GoogleMaps, Marker} from '@ionic-native/google-maps';
 
 describe('LocationReviewMapComponent', () => {
     let component: LocationReviewMapComponent;
@@ -16,6 +16,9 @@ describe('LocationReviewMapComponent', () => {
             return {
                 one: () => {
                     return Promise.resolve();
+                },
+                addMarkerSync: (markerData) => {
+                    return {} as Marker;
                 }
             } as any;
         });

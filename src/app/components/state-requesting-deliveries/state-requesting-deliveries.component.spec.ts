@@ -3,8 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StateRequestingDeliveriesComponent } from './state-requesting-deliveries.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
+import {RequestFormComponent} from '../request-form/request-form.component';
+import {RequestFormItemComponent} from '../request-form/request-form-item/request-form-item.component';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
-describe('LoggedOutHeaderComponent', () => {
+describe('StateRequestingDeliveriesComponent', () => {
     let component: StateRequestingDeliveriesComponent;
     let fixture: ComponentFixture<StateRequestingDeliveriesComponent>;
     let navController;
@@ -21,8 +24,11 @@ describe('LoggedOutHeaderComponent', () => {
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
+                {provide: Geolocation, useValue: new Geolocation()},
             ],
             declarations: [
+                RequestFormItemComponent,
+                RequestFormComponent,
                 StateRequestingDeliveriesComponent,
             ]
         })

@@ -4,12 +4,14 @@ import { RequestFormComponent } from './request-form.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
+import {Camera} from '@ionic-native/camera/ngx';
 
 describe('RequestFormComponent', () => {
     let component: RequestFormComponent;
     let fixture: ComponentFixture<RequestFormComponent>;
     let navController;
     let alertController;
+    const camera: Camera = new Camera();
 
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['goBack']);
@@ -18,11 +20,11 @@ describe('RequestFormComponent', () => {
             imports: [
                 CommonModule,
                 IonicModule.forRoot(),
-                RequestFormComponent,
             ],
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
+                {provide: Camera, useValue: camera},
             ],
             declarations: [
                 RequestFormItemComponent,

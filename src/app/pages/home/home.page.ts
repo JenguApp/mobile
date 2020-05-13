@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
-import {Platform} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
-import {Router, RouterOutlet} from '@angular/router';
 
 /**
  * Main home page of the app
@@ -32,13 +31,13 @@ export class HomePage extends BasePage implements OnInit {
      * @param stateManager
      * @param platform
      * @param requests
-     * @param router
+     * @param navController
      * @param userService
      */
     constructor(private stateManager: StateManagerService,
                 private platform: Platform,
                 private requests: RequestsProvider,
-                private router: Router,
+                private navController: NavController,
                 private userService: UserService) {
         super();
     }
@@ -54,7 +53,7 @@ export class HomePage extends BasePage implements OnInit {
 
             this.stateManager.getCurrentState().then(state => {
                 this.currentState = state;
-                this.router.navigateByUrl('/home').catch(console.error);
+                this.navController.navigateRoot('/home').catch(console.error);
             });
             this.me = this.userService.getMe();
             if (!this.me) {
