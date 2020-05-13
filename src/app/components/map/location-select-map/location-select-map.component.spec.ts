@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocationSelectMapComponent } from './location-select-map.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
-import {GoogleMaps} from '@ionic-native/google-maps';
+import {GoogleMaps, Marker} from '@ionic-native/google-maps';
 
-describe('DeliveryMapComponent', () => {
+describe('LocationSelectMapComponent', () => {
     let component: LocationSelectMapComponent;
     let fixture: ComponentFixture<LocationSelectMapComponent>;
     let navController;
@@ -16,6 +16,9 @@ describe('DeliveryMapComponent', () => {
             return {
                 one: () => {
                     return Promise.resolve();
+                },
+                addMarkerSync: (markerData) => {
+                    return {} as Marker;
                 }
             } as any;
         });

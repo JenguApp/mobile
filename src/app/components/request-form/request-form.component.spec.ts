@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RequestFormComponent } from './request-form.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
+import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
 
 describe('RequestFormComponent', () => {
     let component: RequestFormComponent;
@@ -24,6 +25,7 @@ describe('RequestFormComponent', () => {
                 {provide: NavController, useValue: navController},
             ],
             declarations: [
+                RequestFormItemComponent,
                 RequestFormComponent,
             ]
         })
