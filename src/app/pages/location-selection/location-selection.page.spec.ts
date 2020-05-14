@@ -12,8 +12,9 @@ import {File} from '@ionic-native/file/ngx';
 import {FileOpener} from '@ionic-native/file-opener/ngx';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
-describe('UserPage', () => {
+describe('LocationSelectionPage', () => {
     let component: LocationSelectionPage;
     let navController;
     let fixture: ComponentFixture<LocationSelectionPage>;
@@ -44,6 +45,7 @@ describe('UserPage', () => {
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 {provide: File, useValue: file},
                 {provide: FileOpener, useValue: fileOpener},
+                { provide: Geolocation, useValue: new Geolocation() },
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],

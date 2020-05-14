@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
 import {Camera} from '@ionic-native/camera/ngx';
+import {RequestsProvider} from '../../providers/requests/requests';
+import RequestsProviderMock from '../../providers/requests/requests.mock';
 
 describe('RequestFormComponent', () => {
     let component: RequestFormComponent;
@@ -12,6 +14,7 @@ describe('RequestFormComponent', () => {
     let navController;
     let alertController;
     const camera: Camera = new Camera();
+    const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['goBack']);
@@ -25,6 +28,7 @@ describe('RequestFormComponent', () => {
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
                 {provide: Camera, useValue: camera},
+                { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
                 RequestFormItemComponent,

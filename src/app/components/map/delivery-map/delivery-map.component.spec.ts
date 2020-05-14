@@ -7,6 +7,7 @@ import {GoogleMaps, VisibleRegion} from '@ionic-native/google-maps';
 import {AvailableRequestInfoWindowComponent} from '../../available-request-info-window/available-request-info-window.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
+import {Observable} from 'rxjs';
 
 describe('DeliveryMapComponent', () => {
     let component: DeliveryMapComponent;
@@ -20,6 +21,11 @@ describe('DeliveryMapComponent', () => {
             return {
                 one: () => {
                     return Promise.resolve();
+                },
+                on: () => {
+                    return {
+                        subscribe: () => {}
+                    } as Observable<any>
                 },
                 getVisibleRegion() {
                     return {

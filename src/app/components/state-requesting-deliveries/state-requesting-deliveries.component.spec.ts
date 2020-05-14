@@ -6,11 +6,14 @@ import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestFormComponent} from '../request-form/request-form.component';
 import {RequestFormItemComponent} from '../request-form/request-form-item/request-form-item.component';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {RequestsProvider} from '../../providers/requests/requests';
+import RequestsProviderMock from '../../providers/requests/requests.mock';
 
 describe('StateRequestingDeliveriesComponent', () => {
     let component: StateRequestingDeliveriesComponent;
     let fixture: ComponentFixture<StateRequestingDeliveriesComponent>;
     let navController;
+    const requestsProvider: RequestsProvider = new RequestsProviderMock();
     let alertController;
 
     beforeEach(async(() => {
@@ -25,6 +28,7 @@ describe('StateRequestingDeliveriesComponent', () => {
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
                 {provide: Geolocation, useValue: new Geolocation()},
+                { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
                 RequestFormItemComponent,

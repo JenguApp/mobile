@@ -37,6 +37,8 @@ export class LocationSelectionPage implements OnInit {
     ngOnInit() {
         this.locationManagerService.getPosition().then(position => {
             this.currentPosition = position;
+        }).catch(error => {
+            console.error(error);
         });
     }
 

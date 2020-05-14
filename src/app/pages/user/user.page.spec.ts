@@ -12,7 +12,6 @@ import {File} from '@ionic-native/file/ngx';
 import {FileOpener} from '@ionic-native/file-opener/ngx';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
-import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 describe('UserPage', () => {
     let component: UserPage;
@@ -46,7 +45,6 @@ describe('UserPage', () => {
                 {provide: File, useValue: file},
                 {provide: FileOpener, useValue: fileOpener},
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
-                { provide: Geolocation, useValue: new Geolocation() },
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

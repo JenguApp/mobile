@@ -74,17 +74,19 @@ export class StateDeliveryComponent implements OnInit {
         this.completingRequestService.getCompletingRequest().then(completingRequest => {
             this.completingRequest = completingRequest;
             if (!this.completingRequest) {
-                this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-                    for (let i = 0; i < requestsPage.data.length; i++) {
-                        const request = requestsPage.data[i];
-                        if (request.completed_by_id == this.me.id && !request.completed_at) {
-                            this.completingRequestService.setCompletingRequest(request);
-                            break;
+                if (this.me) {
+                    this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                        for (let i = 0; i < requestsPage.data.length; i++) {
+                            const request = requestsPage.data[i];
+                            if (request.completed_by_id == this.me.id && !request.completed_at) {
+                                this.completingRequestService.setCompletingRequest(request);
+                                break;
+                            }
                         }
-                    }
-                    this.currentRequestDataLoaded = true;
-                    this.userService.cacheUser(this.completingRequest.requested_by);
-                });
+                        this.currentRequestDataLoaded = true;
+                        this.userService.cacheUser(this.completingRequest.requested_by);
+                    });
+                }
             } else {
                 this.currentRequestDataLoaded = true;
                 this.checkForDefaultTab();
