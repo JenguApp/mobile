@@ -61,6 +61,7 @@ export class AppComponent {
      */
     initializeApp() {
         this.platform.ready().then(() => {
+            this.statusBar.styleLightContent();
 
             this.router.events.subscribe(e => {
                 if (e instanceof ActivationStart) {
