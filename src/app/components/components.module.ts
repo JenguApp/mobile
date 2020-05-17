@@ -16,6 +16,7 @@ import {AvailableRequestInfoWindowComponent} from './available-request-info-wind
 import {StateDeliveryComponent} from './state-delivering/state-delivery.component';
 import {StateRequestingDeliveriesComponent} from './state-requesting-deliveries/state-requesting-deliveries.component';
 import {DeliveryCompletedComponent} from './delivery-completed/delivery-completed.component';
+import {MapComponent} from './map/map.component';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import {DeliveryCompletedComponent} from './delivery-completed/delivery-complete
         DeliveryMapComponent,
         LocationReviewMapComponent,
         LocationSelectMapComponent,
+        MapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
         StateDeliveryComponent,
@@ -50,6 +52,7 @@ import {DeliveryCompletedComponent} from './delivery-completed/delivery-complete
         DeliveryMapComponent,
         LocationReviewMapComponent,
         LocationSelectMapComponent,
+        MapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
         StateDeliveryComponent,
