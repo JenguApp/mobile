@@ -72,7 +72,7 @@ export class DeliveryInfoPage implements OnInit {
                     text: 'All Set!',
                     handler: () => {
                         this.requests.deliveryRequests.completeDeliveryRequest(completingRequest).then((request) => {
-                            this.completingRequestService.setCompletingRequest(request);
+                            this.completingRequestService.setCompletingRequest(null);
                         });
                     }
                 }
