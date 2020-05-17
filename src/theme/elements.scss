@@ -4,6 +4,9 @@ ion-header {
     --background: var(--ion-color-secondary);
   }
 }
+ion-title {
+  --color: white;
+}
 footer {
   background: var(--ion-color-secondary);
   color: white;
