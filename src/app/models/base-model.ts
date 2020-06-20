@@ -59,5 +59,8 @@ export class BaseModel {
                 this[relationName] = [];
             }
         }
+        delete this.rawData;
+        delete this.relations;
+        delete this.dates;
     }
 }

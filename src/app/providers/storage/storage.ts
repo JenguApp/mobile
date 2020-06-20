@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NativeStorage} from '@ionic-native/native-storage/ngx';
+import {Request} from '../../models/request/request';
 
 @Injectable()
 export class StorageProvider {
@@ -70,9 +71,35 @@ export class StorageProvider {
     }
 
     /**
+     * Stringifys our request before putting it in storage
+     * @param request
+     */
+    saveCurrentActiveRequest(request: Request): Promise<any> {
+        const requestString = JSON.stringify(request);
+        return this.storage.setItem('current_active_request', requestString);
+    }
+
+    /**
      * Loads the current state that has been stored
      */
     loadCurrentState(): Promise<string> {
         return this.storage.getItem('state');
+    }
+
+    /**
+     * Loads the current state that has been stored
+     */
+    loadCurrentActiveRequest(): Promise<Request> {
+        return this.storage.getItem('current_active_request').then(requestString => {
+            const json = JSON.parse(requestString);
+            return Promise.resolve(new Request(json));
+        });
+    }
+
+    /**
+     * Clears the current active request out of storage
+     */
+    clearCurrentActiveRequest(): Promise<any> {
+        return this.storage.remove('current_active_request');
     }
 }

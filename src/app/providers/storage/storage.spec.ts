@@ -1,6 +1,7 @@
 import {NativeStorage} from "@ionic-native/native-storage/ngx";
 import {StorageProvider} from "./storage";
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {Request} from '../../models/request/request';
 
 describe('Test Storage provider helper', () => {
 
@@ -76,5 +77,32 @@ describe('Test Storage provider helper', () => {
         await storageProvider.logOut();
 
         expect(nativeStorage.clear).toHaveBeenCalled();
+    });
+
+    it('should save the current active request', async () => {
+        spyOn(nativeStorage, 'setItem').and.callThrough();
+
+        await storageProvider.saveCurrentActiveRequest(new Request({
+            id: 214,
+            completed_by_id: 462,
+            requested_items: [
+                {
+                    id: 325,
+                }
+            ]
+        }));
+
+        expect(nativeStorage.setItem).toHaveBeenCalledWith('current_active_request', "{\"id\":214\"completed_by_id\":462,\"requested_items\":[{\"id\":325}]}");
+    });
+
+    it('should be able to load the current active request properly', async () => {
+        spyOn(nativeStorage, 'getItem').and.returnValue(
+            new Promise((resolve) => {
+                resolve("{\"id\":214\"completed_by_id\":462,\"requested_items\":[{\"id\":325}]}");
+            })
+        );
+        const request = await storageProvider.loadCurrentActiveRequest();
+
+        expect(nativeStorage.setItem).toHaveBeenCalledWith('user_id', 43);
     });
 });
