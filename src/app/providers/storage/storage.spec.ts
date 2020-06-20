@@ -92,17 +92,16 @@ describe('Test Storage provider helper', () => {
             ]
         }));
 
-        expect(nativeStorage.setItem).toHaveBeenCalledWith('current_active_request', "{\"id\":214\"completed_by_id\":462,\"requested_items\":[{\"id\":325}]}");
+        expect(nativeStorage.setItem).toHaveBeenCalledWith('current_active_request', "{\"id\":214,\"completed_by_id\":462,\"requested_items\":[{\"id\":325}],\"assets\":[]}");
     });
 
     it('should be able to load the current active request properly', async () => {
         spyOn(nativeStorage, 'getItem').and.returnValue(
             new Promise((resolve) => {
-                resolve("{\"id\":214\"completed_by_id\":462,\"requested_items\":[{\"id\":325}]}");
+                resolve("{\"id\":214,\"completed_by_id\":462,\"requested_items\":[{\"id\":325}],\"assets\":[]}");
             })
         );
         const request = await storageProvider.loadCurrentActiveRequest();
-
-        expect(nativeStorage.setItem).toHaveBeenCalledWith('user_id', 43);
+        expect(request.constructor).toBe(Request);
     });
 });
