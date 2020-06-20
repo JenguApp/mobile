@@ -5,6 +5,7 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {IonTabs, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import { PendingRequestService } from '../../services/data-services/pending-request.service';
+import {StorageProvider} from '../../providers/storage/storage';
 
 @Component({
     selector: 'app-state-requesting-deliveries',
@@ -55,11 +56,13 @@ export class StateRequestingDeliveriesComponent implements OnInit {
      * @param locationManager
      * @param requests
      * @param toastController
+     * @param storageProvider
      * @param pendingRequestService
      */
     constructor(private locationManager: LocationManagerService,
                 private requests: RequestsProvider,
                 private toastController: ToastController,
+                private storageProvider: StorageProvider,
                 private pendingRequestService: PendingRequestService) {
     }
 
@@ -79,21 +82,35 @@ export class StateRequestingDeliveriesComponent implements OnInit {
 
             }
         });
-        this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-            for (let i = 0; i < requestsPage.data.length; i++) {
-                const request = requestsPage.data[i];
-                if (request.requested_by_id == this.me.id && !request.canceled_at && !request.completed_at) {
-                    this.pendingRequest = request;
-                    this.checkForDefaultTab();
-                    this.pendingRequestService.setPendingRequest(request);
-                    if (!request.completed_by_id) {
-                        this.setNextRefreshTime(10);
-                    }
-                    break;
-                }
-            }
+        this.storageProvider.loadCurrentActiveRequest().then(request => {
+            this.setRequest(request);
             this.currentRequestDataLoaded = true;
+        }).catch(e => {
+            this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                for (let i = 0; i < requestsPage.data.length; i++) {
+                    const request = requestsPage.data[i];
+                    if (request.requested_by_id == this.me.id && !request.canceled_at && !request.completed_at) {
+                        this.storageProvider.saveCurrentActiveRequest(request).catch(console.error);
+                        this.setRequest(request);
+                        break;
+                    }
+                }
+                this.currentRequestDataLoaded = true;
+            });
         });
+    }
+
+    /**
+     * sets up our request properly
+     * @param request
+     */
+    setRequest(request: Request) {
+        this.pendingRequest = request;
+        this.checkForDefaultTab();
+        this.pendingRequestService.setPendingRequest(request);
+        if (!request.completed_by_id) {
+            this.setNextRefreshTime(10);
+        }
     }
 
     /**
