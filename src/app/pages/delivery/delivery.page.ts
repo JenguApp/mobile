@@ -4,9 +4,10 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {IonTabs} from '@ionic/angular';
+import {IonTabs, NavController} from '@ionic/angular';
 import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {UserService} from '../../services/user.service';
+import {StorageProvider} from '../../providers/storage/storage';
 
 @Component({
     selector: 'app-delivery',
@@ -18,7 +19,6 @@ export class DeliveryPage implements OnInit {
     /**
      * The currently logged in user
      */
-    @Input()
     me: User;
 
     /**
@@ -45,13 +45,17 @@ export class DeliveryPage implements OnInit {
     /**
      * Default Constructor
      * @param locationManager
+     * @param navController
      * @param completingRequestService
      * @param userService
+     * @param storage
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
+                private navController: NavController,
                 private completingRequestService: CompletingRequestService,
                 private userService: UserService,
+                private storage: StorageProvider,
                 private requests: RequestsProvider) {
     }
 
@@ -59,6 +63,11 @@ export class DeliveryPage implements OnInit {
      * setups the initial location
      */
     ngOnInit(): void {
+        this.me = this.userService.getMe();
+        if (!this.me) {
+            this.navController.navigateRoot('/home').catch(console.error);
+            return;
+        }
         this.locationManager.getPosition().then(position => {
             this.currentPosition = position;
         }).catch(error => {
@@ -71,22 +80,23 @@ export class DeliveryPage implements OnInit {
                 this.checkForDefaultTab();
             },
         });
+        this.storage.loadCurrentActiveRequest().then(request => {
+
+        })
         this.completingRequestService.getCompletingRequest().then(completingRequest => {
             this.completingRequest = completingRequest;
             if (!this.completingRequest) {
-                if (this.me) {
-                    this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-                        for (let i = 0; i < requestsPage.data.length; i++) {
-                            const request = requestsPage.data[i];
-                            if (request.completed_by_id == this.me.id && !request.completed_at) {
-                                this.completingRequestService.setCompletingRequest(request);
-                                break;
-                            }
+                this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                    for (let i = 0; i < requestsPage.data.length; i++) {
+                        const request = requestsPage.data[i];
+                        if (request.completed_by_id == this.me.id && !request.completed_at) {
+                            this.completingRequestService.setCompletingRequest(request);
+                            break;
                         }
-                        this.currentRequestDataLoaded = true;
-                        this.userService.cacheUser(this.completingRequest.requested_by);
-                    });
-                }
+                    }
+                    this.currentRequestDataLoaded = true;
+                    this.userService.cacheUser(this.completingRequest.requested_by);
+                });
             } else {
                 this.currentRequestDataLoaded = true;
                 this.checkForDefaultTab();

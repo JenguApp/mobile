@@ -3,7 +3,7 @@ import { RequestCreationService } from '../../services/data-services/request-cre
 import {IonTextarea, NavController} from '@ionic/angular';
 import {RequestFormComponent} from '../../components/request-form/request-form.component';
 import {RequestsProvider} from '../../providers/requests/requests';
-import { PendingRequestService } from '../../services/data-services/pending-request.service';
+import { CurrentRequestService } from '../../services/data-services/pending-request.service';
 
 @Component({
     selector: 'app-request-review',
@@ -42,7 +42,7 @@ export class RequestReviewPage implements OnInit {
      * @param requests
      */
     constructor(private requestCreationService: RequestCreationService,
-                private pendingRequestService: PendingRequestService,
+                private pendingRequestService: CurrentRequestService,
                 private navController: NavController,
                 private requests: RequestsProvider) {
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Request} from '../../models/request/request';
-import { PendingRequestService } from '../../services/data-services/pending-request.service';
+import { CurrentRequestService } from '../../services/data-services/pending-request.service';
 
 @Component({
     selector: 'app-request-accepted-info',
@@ -18,7 +18,7 @@ export class RequestAcceptedInfoPage implements OnInit {
      * Default Constructor
      * @param pendingRequestService
      */
-    constructor(private pendingRequestService: PendingRequestService) {
+    constructor(private pendingRequestService: CurrentRequestService) {
     }
 
     /**

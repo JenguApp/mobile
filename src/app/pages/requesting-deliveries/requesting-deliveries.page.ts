@@ -1,11 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {IonTabs, NavController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
-import { PendingRequestService } from '../../services/data-services/pending-request.service';
-import {StorageProvider} from '../../providers/storage/storage';
+import { CurrentRequestService } from '../../services/data-services/current-request.service';
 import {UserService} from '../../services/user.service';
 
 @Component({
@@ -56,18 +55,16 @@ export class RequestingDeliveriesPage implements OnInit {
      * @param locationManager
      * @param requests
      * @param toastController
-     * @param storageProvider
      * @param navController
      * @param userService
-     * @param pendingRequestService
+     * @param currentRequestService
      */
     constructor(private locationManager: LocationManagerService,
                 private requests: RequestsProvider,
                 private toastController: ToastController,
-                private storageProvider: StorageProvider,
                 private navController: NavController,
                 private userService: UserService,
-                private pendingRequestService: PendingRequestService) {
+                private currentRequestService: CurrentRequestService) {
     }
 
     /**
@@ -79,28 +76,23 @@ export class RequestingDeliveriesPage implements OnInit {
             this.navController.navigateRoot('/home').catch(console.error);
             return;
         }
-        this.pendingRequestService.listenForPendingRequestChanges({
-            next: (update) => {
-                if (update instanceof Request) {
-                    this.pendingRequest = update;
-                } else {
-                    this.setNextRefreshTime(update);
-                }
+        this.currentRequestService.listenForCurrentRequestChanges({
+            next: (updatedRequest) => {
+                this.setRequest(updatedRequest);
             },
             complete: () => {
 
             }
         });
-        this.storageProvider.loadCurrentActiveRequest().then(request => {
+        this.currentRequestService.getCurrentRequest().then(request => {
             this.setRequest(request);
             this.currentRequestDataLoaded = true;
-        }).catch(e => {
+        }).catch(() => {
             this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-                console.log(requestsPage);
                 for (let i = 0; i < requestsPage.data.length; i++) {
                     const request = requestsPage.data[i];
                     if (request.requested_by_id == this.me.id && !request.canceled_at && !request.completed_at) {
-                        this.storageProvider.saveCurrentActiveRequest(request).catch(console.error);
+                        this.currentRequestService.setCurrentRequest(request);
                         this.setRequest(request);
                         break;
                     }
@@ -117,7 +109,6 @@ export class RequestingDeliveriesPage implements OnInit {
     setRequest(request: Request) {
         this.pendingRequest = request;
         this.checkForDefaultTab();
-        this.pendingRequestService.setPendingRequest(request);
         if (!request.completed_by_id) {
             this.setNextRefreshTime(10);
         }
@@ -157,6 +148,7 @@ export class RequestingDeliveriesPage implements OnInit {
      * @param nextRefreshTime
      */
     setNextRefreshTime(nextRefreshTime: number) {
+        this.currentRequestService.waitForRequestRefresh(nextRefreshTime);
         this.nextRefreshTime = nextRefreshTime;
         if (this.refreshTimer) {
             clearInterval(this.refreshTimer);
