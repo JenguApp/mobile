@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Request} from '../../models/request/request';
-import { CurrentRequestService } from '../../services/data-services/pending-request.service';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-request-accepted-info',
@@ -12,19 +12,30 @@ export class RequestAcceptedInfoPage implements OnInit {
     /**
      * The request that the user is currently completing
      */
-    pendingRequest: Request = null;
+    currentRequest: Request = null;
 
     /**
      * Default Constructor
-     * @param pendingRequestService
+     * @param currentRequestService
      */
-    constructor(private pendingRequestService: CurrentRequestService) {
+    constructor(private currentRequestService: CurrentRequestService) {
     }
 
     /**
      * Sets everything up
      */
     ngOnInit(): void {
-        this.pendingRequest = this.pendingRequestService.getPendingRequest();
+        this.currentRequestService.getCurrentRequest().then(request => {
+            this.currentRequest = request;
+        });
+        this.currentRequestService.listenForCurrentRequestChanges({
+            next: request => {
+                this.currentRequest = request;
+                if (!request.completed_at) {
+                    this.currentRequestService.waitForRequestRefresh(30);
+                }
+            }
+        });
+        this.currentRequestService.waitForRequestRefresh(30);
     }
 }

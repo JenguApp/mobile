@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import { CurrentRequestService } from '../../services/data-services/pending-request.service';
 import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {Request} from '../../models/request/request';
 import {AlertController, ToastController} from '@ionic/angular';
@@ -26,14 +25,12 @@ export class DeliveryCompletedComponent {
 
     /**
      * Default Constructor
-     * @param pendingRequestService
      * @param completingRequestService
      * @param requests
      * @param toastController
      * @param alertController
      */
-    constructor(private pendingRequestService: CurrentRequestService,
-                private completingRequestService: CompletingRequestService,
+    constructor(private completingRequestService: CompletingRequestService,
                 private requests: RequestsProvider,
                 private toastController: ToastController,
                 private alertController: AlertController) {
@@ -44,7 +41,6 @@ export class DeliveryCompletedComponent {
      */
     complete() {
         this.completingRequestService.setCompletingRequest(null);
-        this.pendingRequestService.setPendingRequest(null);
     }
 
     /**

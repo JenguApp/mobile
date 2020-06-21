@@ -3,7 +3,7 @@ import { RequestCreationService } from '../../services/data-services/request-cre
 import {IonTextarea, NavController} from '@ionic/angular';
 import {RequestFormComponent} from '../../components/request-form/request-form.component';
 import {RequestsProvider} from '../../providers/requests/requests';
-import { CurrentRequestService } from '../../services/data-services/pending-request.service';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-request-review',
@@ -69,8 +69,8 @@ export class RequestReviewPage implements OnInit {
             []
         ).then(request => {
             this.requestCreationService.clear();
-            this.pendingRequestService.setPendingRequest(request);
-            this.navController.navigateRoot('/home').catch(console.error);
+            this.pendingRequestService.setCurrentRequest(request);
+            this.navController.navigateRoot('/pending-request').catch(console.error);
         }).catch(error => {
             //TODO handle error properly
         });

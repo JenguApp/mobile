@@ -1,10 +1,10 @@
-<ion-content class="ion-padding" *ngIf="pendingRequest">
-    <div *ngIf="!pendingRequest.completed_at; else completed">
+<ion-content class="ion-padding" *ngIf="currentRequest">
+    <div *ngIf="!currentRequest.completed_at; else completed">
         <h2>Your request has been accepted!</h2>
-        <p>{{pendingRequest.completed_by.name}} is currently gathering your supplies. We will notify you when they message you, or drop off the goods.</p>
+        <p>{{currentRequest.completed_by.name}} is currently gathering your supplies. We will notify you when they message you, or drop off the goods.</p>
     </div>
     <ng-template #completed>
-        <app-delivery-completed completionText="Complete Another Delivery" [request]="pendingRequest">
+        <app-delivery-completed completionText="Complete Another Delivery" [request]="currentRequest">
             <h1>All Set!</h1>
             <p>Your delivery has arrived.</p>
         </app-delivery-completed>
