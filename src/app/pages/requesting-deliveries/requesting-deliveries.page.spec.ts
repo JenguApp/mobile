@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StateRequestingDeliveriesComponent } from './state-requesting-deliveries.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
-import {RequestFormComponent} from '../request-form/request-form.component';
-import {RequestFormItemComponent} from '../request-form/request-form-item/request-form-item.component';
+import {RequestFormComponent} from '../../components/request-form/request-form.component';
+import {RequestFormItemComponent} from '../../components/request-form/request-form-item/request-form-item.component';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
+import {RequestingDeliveriesPage} from './requesting-deliveries.page';
 
 describe('StateRequestingDeliveriesComponent', () => {
-    let component: StateRequestingDeliveriesComponent;
-    let fixture: ComponentFixture<StateRequestingDeliveriesComponent>;
+    let component: RequestingDeliveriesPage;
+    let fixture: ComponentFixture<RequestingDeliveriesPage>;
     let navController;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
     let alertController;
@@ -33,14 +33,14 @@ describe('StateRequestingDeliveriesComponent', () => {
             declarations: [
                 RequestFormItemComponent,
                 RequestFormComponent,
-                StateRequestingDeliveriesComponent,
+                RequestingDeliveriesPage,
             ]
         })
         .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(StateRequestingDeliveriesComponent);
+        fixture = TestBed.createComponent(RequestingDeliveriesPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -8,11 +8,11 @@ import { PendingRequestService } from '../../services/data-services/pending-requ
 import {StorageProvider} from '../../providers/storage/storage';
 
 @Component({
-    selector: 'app-state-requesting-deliveries',
-    templateUrl: './state-requesting-deliveries.component.html',
-    styleUrls: ['./state-requesting-deliveries.component.scss']
+    selector: 'app-requesting-deliveries',
+    templateUrl: './requesting-deliveries.page.html',
+    styleUrls: ['./requesting-deliveries.page.scss']
 })
-export class StateRequestingDeliveriesComponent implements OnInit {
+export class RequestingDeliveriesPage implements OnInit {
 
     /**
      * The Logged in user

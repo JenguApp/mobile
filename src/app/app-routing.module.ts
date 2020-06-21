@@ -53,6 +53,10 @@ const routes: Routes = [
         path: 'request-review',
         loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
     },
+    {
+        path: 'requesting-deliveries',
+        loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
+    },
 ];
 
 @NgModule({
