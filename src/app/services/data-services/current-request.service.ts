@@ -3,6 +3,8 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import {Request} from '../../models/request/request';
 import {Observable, PartialObserver, Subscriber} from 'rxjs';
 import {StorageProvider} from '../../providers/storage/storage';
+import {NavController} from '@ionic/angular';
+import {State} from '../state-manager';
 
 @Injectable({
     providedIn: 'root'
@@ -125,6 +127,21 @@ export class CurrentRequestService {
         return this.requestsProvider.deliveryRequests.refreshRequest(request).then(request => {
             this.setCurrentRequest(request);
             return Promise.resolve(request);
+        });
+    }
+
+
+    /**
+     * Helper function to take us to the state root
+     * @param navController
+     * @param state
+     */
+    navigateToCurrentPage(navController: NavController, state: State) {
+        this.getCurrentRequest().then(request => {
+            // TODO take to the right page
+        }).catch(() => {
+            const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
+            navController.navigateRoot(route).catch(console.error);
         });
     }
 }

@@ -54,6 +54,10 @@ const routes: Routes = [
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
     },
     {
+        path: 'pending-request',
+        loadChildren: './pages/pending-request/pending-request.module#PendingRequestPageModule'
+    },
+    {
         path: 'request-review',
         loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
     },

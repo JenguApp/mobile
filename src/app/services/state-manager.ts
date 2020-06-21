@@ -62,14 +62,4 @@ export class StateManagerService {
         });
         this.storageProvider.saveCurrentState(currentState).catch(console.error);
     }
-
-    /**
-     * Helper function to take us to the state root
-     * @param navController
-     * @param state
-     */
-    navigateToStateRoot(navController: NavController, state: State) {
-        const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
-        navController.navigateRoot(route).catch(console.error);
-    }
 }
