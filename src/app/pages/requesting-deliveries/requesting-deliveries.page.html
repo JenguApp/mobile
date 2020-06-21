@@ -1,6 +1,6 @@
 <app-logged-in-header [isHome]=true></app-logged-in-header>
 
-<div *ngIf="currentRequestDataLoaded; else loading" id="wrapper">
+<ion-content *ngIf="currentRequestDataLoaded; else loading" id="wrapper">
 
     <app-request-form *ngIf="!pendingRequest; else pendingRequestInformation" [user]="me"></app-request-form>
     <ng-template #pendingRequestInformation>
@@ -39,6 +39,6 @@
         </ng-template>
     </ng-template>
 
-</div>
+</ion-content>
 <ng-template #loading>
 </ng-template>

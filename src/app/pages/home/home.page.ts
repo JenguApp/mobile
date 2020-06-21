@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
 import {NavController, Platform} from '@ionic/angular';
@@ -21,6 +21,11 @@ export class HomePage extends BasePage implements OnInit {
      * The Logged in user
      */
     me: User = null;
+
+    /**
+     * The current state the application is in
+     */
+    currentState: State = null;
 
     /**
      * Default Constructor
@@ -59,7 +64,10 @@ export class HomePage extends BasePage implements OnInit {
             this.requests.auth.loadInitialInformation().then(user => {
                 this.userService.storeMe(user);
                 this.me = user;
+                this.finalizeLoad();
             });
+        } else {
+            this.finalizeLoad();
         }
     }
 
@@ -69,10 +77,10 @@ export class HomePage extends BasePage implements OnInit {
     loadInitialState() {
         this.storageProvider.loadLoggedInUserId().then(userId => {
             this.storageProvider.loadCurrentActiveRequest().then(request => {
-                const currentState = request.completed_by_id == userId ?
+                this.currentState = request.completed_by_id == userId ?
                     'deliver' : 'request';
-                this.storageProvider.saveCurrentState(currentState).catch(console.error);
-                this.navigateToState(currentState);
+                this.storageProvider.saveCurrentState(this.currentState).catch(console.error);
+                this.finalizeLoad();
             }).catch(e => {
                 this.loadDefaultState();
             });
@@ -86,16 +94,17 @@ export class HomePage extends BasePage implements OnInit {
      */
     loadDefaultState() {
         this.stateManager.getCurrentState().then(state => {
-            this.navigateToState(state);
+            this.currentState = state;
+            this.finalizeLoad();
         });
     }
 
     /**
-     * Navigates to the page that will respond to the passed in state
-     * @param state
+     * Finalizes the load, and checks for all needed data to be set
      */
-    navigateToState(state: State) {
-        const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
-        this.navController.navigateRoot(route).catch(console.error);
+    finalizeLoad() {
+        if (this.me && this.currentState) {
+            this.stateManager.navigateToStateRoot(this.navController, this.currentState);
+        }
     }
 }

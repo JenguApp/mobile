@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subscriber} from 'rxjs';
 import {StorageProvider} from '../providers/storage/storage';
+import {NavController} from '@ionic/angular';
 
 export type State = 'request' | 'deliver';
 
@@ -60,5 +61,15 @@ export class StateManagerService {
             subscriber.next(currentState);
         });
         this.storageProvider.saveCurrentState(currentState).catch(console.error);
+    }
+
+    /**
+     * Helper function to take us to the state root
+     * @param navController
+     * @param state
+     */
+    navigateToStateRoot(navController: NavController, state: State) {
+        const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
+        navController.navigateRoot(route).catch(console.error);
     }
 }

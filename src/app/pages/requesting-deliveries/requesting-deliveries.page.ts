@@ -2,10 +2,11 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
-import {IonTabs, ToastController} from '@ionic/angular';
+import {IonTabs, NavController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import { PendingRequestService } from '../../services/data-services/pending-request.service';
 import {StorageProvider} from '../../providers/storage/storage';
+import {UserService} from '../../services/user.service';
 
 @Component({
     selector: 'app-requesting-deliveries',
@@ -17,7 +18,6 @@ export class RequestingDeliveriesPage implements OnInit {
     /**
      * The Logged in user
      */
-    @Input()
     me: User = null;
 
     /**
@@ -57,12 +57,16 @@ export class RequestingDeliveriesPage implements OnInit {
      * @param requests
      * @param toastController
      * @param storageProvider
+     * @param navController
+     * @param userService
      * @param pendingRequestService
      */
     constructor(private locationManager: LocationManagerService,
                 private requests: RequestsProvider,
                 private toastController: ToastController,
                 private storageProvider: StorageProvider,
+                private navController: NavController,
+                private userService: UserService,
                 private pendingRequestService: PendingRequestService) {
     }
 
@@ -70,6 +74,11 @@ export class RequestingDeliveriesPage implements OnInit {
      * Loads information on the users current requests
      */
     ngOnInit(): void {
+        this.me = this.userService.getMe();
+        if (!this.me) {
+            this.navController.navigateRoot('/home').catch(console.error);
+            return;
+        }
         this.pendingRequestService.listenForPendingRequestChanges({
             next: (update) => {
                 if (update instanceof Request) {
@@ -87,6 +96,7 @@ export class RequestingDeliveriesPage implements OnInit {
             this.currentRequestDataLoaded = true;
         }).catch(e => {
             this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                console.log(requestsPage);
                 for (let i = 0; i < requestsPage.data.length; i++) {
                     const request = requestsPage.data[i];
                     if (request.requested_by_id == this.me.id && !request.canceled_at && !request.completed_at) {

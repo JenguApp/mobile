@@ -1,6 +1,6 @@
 <app-logged-in-header [isHome]=true></app-logged-in-header>
 
-<div *ngIf="currentRequestDataLoaded" id="wrapper">
+<ion-content *ngIf="currentRequestDataLoaded" id="wrapper">
     <app-delivery-map *ngIf="currentPosition && !completingRequest; else requestInformation" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-delivery-map>
     <ng-template #requestInformation>
         <ion-tabs #tabs>
@@ -14,4 +14,4 @@
             </ion-tab-bar>
         </ion-tabs>
     </ng-template>
-</div>
+</ion-content>

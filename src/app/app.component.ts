@@ -6,7 +6,7 @@ import {StorageProvider} from './providers/storage/storage';
 import {environment} from '../environments/environment';
 import {AuthManagerService} from './services/auth-manager/auth-manager.service';
 import {State, StateManagerService} from './services/state-manager';
-import {ActivationStart, Router, RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 
 /**
  * Main entry of the app
@@ -62,12 +62,9 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleLightContent();
-
-            this.router.events.subscribe(e => {
-                if (e instanceof ActivationStart) {
-                    this.outlet.deactivate();
-                }
-            });
+            this.stateManagerService.stateChangeObserver.subscribe({next: (state => {
+                this.currentState = state;
+            })})
             this.stateManagerService.getCurrentState().then(state => {
                 this.currentState = state;
             });
@@ -108,6 +105,7 @@ export class AppComponent {
     selectState(event) {
         const state = event.detail.value as State;
         this.stateManagerService.setCurrentState(state);
+        this.stateManagerService.navigateToStateRoot(this.navCtl, state);
         this.menuCtl.close('side-menu').catch(console.error);
     }
 
