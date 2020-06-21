@@ -46,6 +46,10 @@ const routes: Routes = [
     },
     // Add more pages below
     {
+        path: 'delivery',
+        loadChildren: './pages/delivery/delivery.module#DeliveryPageModule'
+    },
+    {
         path: 'location-selection',
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
     },
@@ -55,7 +59,7 @@ const routes: Routes = [
     },
     {
         path: 'requesting-deliveries',
-        loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
+        loadChildren: './pages/requesting-deliveries/requesting-deliveries.module#RequestingDeliveriesPageModule'
     },
 ];
 

@@ -13,7 +13,6 @@ import {DeliveryMapComponent} from './map/delivery-map/delivery-map.component';
 import {LocationSelectMapComponent} from './map/location-select-map/location-select-map.component';
 import {LocationReviewMapComponent} from './map/location-review-map/location-review-map.component';
 import {AvailableRequestInfoWindowComponent} from './available-request-info-window/available-request-info-window.component';
-import {StateDeliveryComponent} from './state-delivering/state-delivery.component';
 import {DeliveryCompletedComponent} from './delivery-completed/delivery-completed.component';
 import {MapComponent} from './map/map.component';
 
@@ -37,7 +36,6 @@ import {MapComponent} from './map/map.component';
         MapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
-        StateDeliveryComponent,
     ],
     exports: [
         ArticleEditorComponent,
@@ -53,7 +51,6 @@ import {MapComponent} from './map/map.component';
         MapComponent,
         RequestFormComponent,
         RequestFormItemComponent,
-        StateDeliveryComponent,
     ],
 })
 export class ComponentsModule {}

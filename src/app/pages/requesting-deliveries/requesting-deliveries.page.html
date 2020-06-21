@@ -1,3 +1,5 @@
+<app-logged-in-header [isHome]=true></app-logged-in-header>
+
 <div *ngIf="currentRequestDataLoaded; else loading" id="wrapper">
 
     <app-request-form *ngIf="!pendingRequest; else pendingRequestInformation" [user]="me"></app-request-form>

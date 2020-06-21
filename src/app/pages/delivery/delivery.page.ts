@@ -9,11 +9,11 @@ import { CompletingRequestService } from '../../services/data-services/completin
 import {UserService} from '../../services/user.service';
 
 @Component({
-    selector: 'app-state-delivery',
-    templateUrl: './state-delivery.component.html',
-    styleUrls: ['./state-delivery.component.scss']
+    selector: 'app-delivery',
+    templateUrl: './delivery.page.html',
+    styleUrls: ['./delivery.page.scss']
 })
-export class StateDeliveryComponent implements OnInit {
+export class DeliveryPage implements OnInit {
 
     /**
      * The currently logged in user

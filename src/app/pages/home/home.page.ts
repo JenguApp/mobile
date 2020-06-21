@@ -18,11 +18,6 @@ import {StorageProvider} from '../../providers/storage/storage';
 export class HomePage extends BasePage implements OnInit {
 
     /**
-     * The current state of the app
-     */
-    currentState: State = null;
-
-    /**
      * The Logged in user
      */
     me: User = null;
@@ -49,9 +44,6 @@ export class HomePage extends BasePage implements OnInit {
      * loads the current state
      */
     ngOnInit(): void {
-        this.stateManager.stateChangeObserver.subscribe(state => {
-            this.currentState = state;
-        });
         this.platform.ready().then(() => {
             this.loadMe();
             this.loadInitialState();
@@ -77,9 +69,10 @@ export class HomePage extends BasePage implements OnInit {
     loadInitialState() {
         this.storageProvider.loadLoggedInUserId().then(userId => {
             this.storageProvider.loadCurrentActiveRequest().then(request => {
-                this.currentState = request.completed_by_id == userId ?
+                const currentState = request.completed_by_id == userId ?
                     'deliver' : 'request';
-                this.storageProvider.saveCurrentState(this.currentState);
+                this.storageProvider.saveCurrentState(currentState).catch(console.error);
+                this.navigateToState(currentState);
             }).catch(e => {
                 this.loadDefaultState();
             });
@@ -93,8 +86,16 @@ export class HomePage extends BasePage implements OnInit {
      */
     loadDefaultState() {
         this.stateManager.getCurrentState().then(state => {
-            this.currentState = state;
-            this.navController.navigateRoot('/home').catch(console.error);
+            this.navigateToState(state);
         });
+    }
+
+    /**
+     * Navigates to the page that will respond to the passed in state
+     * @param state
+     */
+    navigateToState(state: State) {
+        const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
+        this.navController.navigateRoot('route').catch(console.error);
     }
 }
