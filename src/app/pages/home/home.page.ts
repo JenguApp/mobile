@@ -96,6 +96,6 @@ export class HomePage extends BasePage implements OnInit {
      */
     navigateToState(state: State) {
         const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
-        this.navController.navigateRoot('route').catch(console.error);
+        this.navController.navigateRoot(route).catch(console.error);
     }
 }
