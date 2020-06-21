@@ -1,13 +1,13 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {IonTabs, NavController} from '@ionic/angular';
-import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {UserService} from '../../services/user.service';
 import {StorageProvider} from '../../providers/storage/storage';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-delivery',
@@ -40,20 +40,20 @@ export class DeliveryPage implements OnInit {
     /**
      * The request that the user is currently completing
      */
-    completingRequest: Request = null;
+    currentRequest: Request = null;
 
     /**
      * Default Constructor
      * @param locationManager
      * @param navController
-     * @param completingRequestService
+     * @param currentRequestService
      * @param userService
      * @param storage
      * @param requests
      */
     constructor(private locationManager: LocationManagerService,
                 private navController: NavController,
-                private completingRequestService: CompletingRequestService,
+                private currentRequestService: CurrentRequestService,
                 private userService: UserService,
                 private storage: StorageProvider,
                 private requests: RequestsProvider) {
@@ -74,42 +74,44 @@ export class DeliveryPage implements OnInit {
             console.error(error);
         });
 
-        this.completingRequestService.listenForCompletingRequestChanges({
-            next: completingRequest => {
-                this.completingRequest = completingRequest;
-                this.checkForDefaultTab();
+        this.currentRequestService.listenForCurrentRequestChanges({
+            next: currentRequest => {
+                this.setRequest(currentRequest);
             },
         });
-        this.storage.loadCurrentActiveRequest().then(request => {
-
-        })
-        this.completingRequestService.getCompletingRequest().then(completingRequest => {
-            this.completingRequest = completingRequest;
-            if (!this.completingRequest) {
-                this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-                    for (let i = 0; i < requestsPage.data.length; i++) {
-                        const request = requestsPage.data[i];
-                        if (request.completed_by_id == this.me.id && !request.completed_at) {
-                            this.completingRequestService.setCompletingRequest(request);
-                            break;
-                        }
+        this.currentRequestService.getCurrentRequest().then(currentRequest => {
+            this.setRequest(currentRequest);
+            this.currentRequestDataLoaded = true;
+        }).catch(() => {
+            this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                for (let i = 0; i < requestsPage.data.length; i++) {
+                    const request = requestsPage.data[i];
+                    if (request.completed_by_id == this.me.id && !request.completed_at) {
+                        this.currentRequestService.setCurrentRequest(request);
+                        this.setRequest(request);
+                        break;
                     }
-                    this.currentRequestDataLoaded = true;
-                    this.userService.cacheUser(this.completingRequest.requested_by);
-                });
-            } else {
+                }
                 this.currentRequestDataLoaded = true;
-                this.checkForDefaultTab();
-                this.userService.cacheUser(this.completingRequest.requested_by);
-            }
+            });
         });
+    }
+
+    /**
+     * Sets the request properly
+     * @param request
+     */
+    setRequest(request: Request) {
+        this.currentRequest = request;
+        this.checkForDefaultTab();
+        this.userService.cacheUser(this.currentRequest.requested_by);
     }
 
     /**
      * Checks to see if our default tab has been set
      */
     checkForDefaultTab() {
-        if (this.completingRequest && !this.completingRequest.completed_at) {
+        if (this.currentRequest && !this.currentRequest.completed_at) {
             setTimeout(() => {
                 if (this.tabs.getSelected() == undefined) {
                     this.tabs.select('delivery-info').catch(console.error);

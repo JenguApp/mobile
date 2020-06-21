@@ -77,12 +77,9 @@ export class RequestingDeliveriesPage implements OnInit {
             return;
         }
         this.currentRequestService.listenForCurrentRequestChanges({
-            next: (updatedRequest) => {
-                this.setRequest(updatedRequest);
+            next: completingRequest => {
+                this.setRequest(completingRequest);
             },
-            complete: () => {
-
-            }
         });
         this.currentRequestService.getCurrentRequest().then(request => {
             this.setRequest(request);
@@ -109,6 +106,7 @@ export class RequestingDeliveriesPage implements OnInit {
     setRequest(request: Request) {
         this.pendingRequest = request;
         this.checkForDefaultTab();
+        this.userService.cacheUser(this.pendingRequest.requested_by);
         if (!request.completed_by_id) {
             this.setNextRefreshTime(10);
         }
