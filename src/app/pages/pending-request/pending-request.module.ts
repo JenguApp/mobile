@@ -12,26 +12,6 @@ const routes: Routes = [
   {
     path: '',
     component: PendingRequestPage,
-    children: [
-      {
-        path: 'thread/:user_id',
-        children: [
-          {
-            path: '',
-            loadChildren: '../thread/thread.module#ThreadPageModule'
-          }
-        ]
-      },
-      {
-        path: 'request-accepted-info',
-        children: [
-          {
-            path: '',
-            loadChildren: '../request-accepted-info/request-accepted-info.module#RequestAcceptedInfoPageModule'
-          }
-        ]
-      },
-    ]
   }
 ];
 

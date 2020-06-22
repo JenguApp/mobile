@@ -3,13 +3,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RequestAcceptedInfoPage } from './request-accepted-info.page';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ComponentsModule} from '../../components/components.module';
+import {ComponentsModule} from '../../../components/components.module';
 import {NavController, ToastController} from '@ionic/angular';
-import {RequestsProvider} from '../../providers/requests/requests';
-import RequestsProviderMock from '../../providers/requests/requests.mock';
+import {RequestsProvider} from '../../../providers/requests/requests';
+import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import {StorageProvider} from '../../providers/storage/storage';
-import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {StorageProvider} from '../../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 
 describe('RequestAcceptedInfo', () => {
     let component: RequestAcceptedInfoPage;

@@ -14,12 +14,6 @@ import {BaseRequestingDeliveriesPage} from '../base-requesting-deliveries.page';
 export class PendingRequestPage extends BaseRequestingDeliveriesPage {
 
     /**
-     * The tabs controller
-     */
-    @ViewChild('tabs', {static: false})
-    tabs: IonTabs;
-
-    /**
      * The time for when the next refresh will be attempted for any pieces of data that may be refreshed
      */
     nextRefreshTime = 0;
@@ -46,23 +40,12 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
      * sets up our request properly
      */
     requestUpdated() {
-        this.checkForDefaultTab();
-        this.userService.cacheUser(this.currentRequest.requested_by);
+        if (this.currentRequest.requested_by_id) {
+            this.userService.cacheUser(this.currentRequest.requested_by);
+            this.navController.navigateRoot('/pending-request').catch(console.error);
+        }
         if (!this.currentRequest.completed_by_id) {
             this.setNextRefreshTime(10);
-        }
-    }
-
-    /**
-     * Checks to see if our default tab has been set
-     */
-    checkForDefaultTab() {
-        if (this.currentRequest && !this.currentRequest.completed_at) {
-            setTimeout(() => {
-                if (this.tabs.getSelected() == undefined) {
-                    this.tabs.select('request-accepted-info').catch(console.error);
-                }
-            }, 100);
         }
     }
 

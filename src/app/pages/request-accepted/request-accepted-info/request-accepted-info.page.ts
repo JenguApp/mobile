@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Request} from '../../models/request/request';
-import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {Request} from '../../../models/request/request';
+import {CurrentRequestService} from '../../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-request-accepted-info',
