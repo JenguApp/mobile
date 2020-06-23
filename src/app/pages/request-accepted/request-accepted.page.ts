@@ -12,7 +12,7 @@ export class RequestAcceptedPage extends BaseRequestingDeliveriesPage {
      * sets up our request properly
      */
     requestUpdated() {
-        this.userService.cacheUser(this.currentRequest.requested_by);
+        this.userService.cacheUser(this.currentRequest.completed_by);
 
     }
 

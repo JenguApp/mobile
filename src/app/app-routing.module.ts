@@ -46,6 +46,10 @@ const routes: Routes = [
     },
     // Add more pages below
     {
+        path: 'active-delivery',
+        loadChildren: './pages/active-delivery/active-delivery.module#ActiveDeliveryPageModule'
+    },
+    {
         path: 'browsing-deliveries',
         loadChildren: './pages/browsing-deliveries/browsing-deliveries.module#BrowsingDeliveriesPageModule'
     },

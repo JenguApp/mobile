@@ -1,0 +1,14 @@
+<app-logged-in-header [isHome]=true></app-logged-in-header>
+
+<ion-content *ngIf="currentRequestDataLoaded" id="wrapper">
+    <ion-tabs>
+        <ion-tab-bar slot="bottom" selectedTab="active-delivery-info">
+            <ion-tab-button tab="active-delivery-info">
+                <ion-icon name="list-outline"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="thread/{{currentRequest.requested_by_id}}">
+                <ion-icon name="chatbubble-outline"></ion-icon>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+</ion-content>

@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {Request} from '../../models/request/request';
+import {Request} from '../../../models/request/request';
 import {AlertController} from '@ionic/angular';
-import { CompletingRequestService } from '../../services/data-services/completing-request.service';
-import {RequestsProvider} from '../../providers/requests/requests';
+import {RequestsProvider} from '../../../providers/requests/requests';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
-
+import {CurrentRequestService} from '../../../services/data-services/current-request.service';
 
 @Component({
-    selector: 'app-delivery-info',
-    templateUrl: './delivery-info.page.html',
-    styleUrls: ['./delivery-info.page.scss'],
+    selector: 'app-active-delivery-info',
+    templateUrl: './active-delivery-info.page.html',
+    styleUrls: ['./active-delivery-info.page.scss'],
 })
-export class DeliveryInfoPage implements OnInit {
+export class ActiveDeliveryInfoPage implements OnInit {
 
     /**
      * The request that the user is currently completing
@@ -26,12 +25,12 @@ export class DeliveryInfoPage implements OnInit {
     /**
      * Default Constructor
      * @param alertController
-     * @param completingRequestService
+     * @param currentRequestService
      * @param requests
      * @param launchNavigator
      */
     constructor(private alertController: AlertController,
-                private completingRequestService: CompletingRequestService,
+                private currentRequestService: CurrentRequestService,
                 private requests: RequestsProvider,
                 private launchNavigator: LaunchNavigator) {
     }
@@ -40,7 +39,7 @@ export class DeliveryInfoPage implements OnInit {
      * Sets everything up
      */
     ngOnInit(): void {
-        this.completingRequestService.getCompletingRequest().then(completingRequest => {
+        this.currentRequestService.getCurrentRequest().then(completingRequest => {
             this.completingRequest = completingRequest;
         });
     }
@@ -72,7 +71,7 @@ export class DeliveryInfoPage implements OnInit {
                     text: 'All Set!',
                     handler: () => {
                         this.requests.deliveryRequests.completeDeliveryRequest(completingRequest).then((request) => {
-                            this.completingRequestService.setCompletingRequest(null);
+                            this.currentRequestService.setCurrentRequest(null);
                         });
                     }
                 }

@@ -6,12 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import {ComponentsModule} from '../../components/components.module';
-import {BrowsingDeliveriesPage} from './delivery.page';
+import {ActiveDeliveryPage} from './active-delivery.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: BrowsingDeliveriesPage,
+    component: ActiveDeliveryPage,
     children: [
       {
         path: 'thread/:user_id',
@@ -23,11 +23,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'delivery-info',
+        path: 'active-delivery-info',
         children: [
           {
             path: '',
-            loadChildren: '../delivery-info/delivery-info.module#DeliveryInfoPageModule'
+            loadChildren: './active-delivery-info/active-delivery-info.module#ActiveDeliveryInfoPageModule'
           }
         ]
       },
@@ -44,6 +44,6 @@ const routes: Routes = [
     ComponentsModule,
     ReactiveFormsModule,
   ],
-  declarations: [BrowsingDeliveriesPage]
+  declarations: [ActiveDeliveryPage]
 })
-export class DeliveryPageModule {}
+export class ActiveDeliveryPageModule {}

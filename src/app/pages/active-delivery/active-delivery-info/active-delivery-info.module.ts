@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import {ComponentsModule} from '../../components/components.module';
-import {DeliveryInfoPage} from './delivery-info.page';
+import {ComponentsModule} from '../../../components/components.module';
+import {ActiveDeliveryInfoPage} from './active-delivery-info.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeliveryInfoPage
+    component: ActiveDeliveryInfoPage
   }
 ];
 
@@ -24,6 +24,6 @@ const routes: Routes = [
     ComponentsModule,
     ReactiveFormsModule,
   ],
-  declarations: [DeliveryInfoPage]
+  declarations: [ActiveDeliveryInfoPage]
 })
-export class DeliveryInfoPageModule {}
+export class ActiveDeliveryInfoPageModule {}

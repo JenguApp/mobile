@@ -1,21 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeliveryInfoPage } from './delivery-info.page';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ComponentsModule} from '../../components/components.module';
+import {ComponentsModule} from '../../../components/components.module';
 import {NavController, ToastController} from '@ionic/angular';
-import {RequestsProvider} from '../../providers/requests/requests';
-import RequestsProviderMock from '../../providers/requests/requests.mock';
+import {RequestsProvider} from '../../../providers/requests/requests';
+import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import {StorageProvider} from '../../providers/storage/storage';
-import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {StorageProvider} from '../../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
+import {ActiveDeliveryInfoPage} from './active-delivery-info.page';
 
-describe('DeliveryInfoPage', () => {
-    let component: DeliveryInfoPage;
+describe('ActiveDeliveryInfoPage', () => {
+    let component: ActiveDeliveryInfoPage;
     let navController;
-    let fixture: ComponentFixture<DeliveryInfoPage>;
+    let fixture: ComponentFixture<ActiveDeliveryInfoPage>;
     let activatedRoute;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
@@ -28,7 +28,7 @@ describe('DeliveryInfoPage', () => {
         });
         TestBed.configureTestingModule({
             declarations: [
-                DeliveryInfoPage,
+                ActiveDeliveryInfoPage,
             ],
             imports: [
                 ReactiveFormsModule,
@@ -48,7 +48,7 @@ describe('DeliveryInfoPage', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DeliveryInfoPage);
+        fixture = TestBed.createComponent(ActiveDeliveryInfoPage);
         component = fixture.debugElement.componentInstance;
         fixture.detectChanges();
     });
