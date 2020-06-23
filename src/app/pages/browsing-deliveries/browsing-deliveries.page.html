@@ -1,0 +1,5 @@
+<app-logged-in-header [isHome]=true></app-logged-in-header>
+
+<ion-content *ngIf="currentRequestDataLoaded" id="wrapper">
+    <app-delivery-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-delivery-map>
+</ion-content>

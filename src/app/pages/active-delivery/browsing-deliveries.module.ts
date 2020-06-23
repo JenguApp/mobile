@@ -6,12 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import {ComponentsModule} from '../../components/components.module';
-import {DeliveryPage} from './delivery.page';
+import {BrowsingDeliveriesPage} from './delivery.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeliveryPage,
+    component: BrowsingDeliveriesPage,
     children: [
       {
         path: 'thread/:user_id',
@@ -44,6 +44,6 @@ const routes: Routes = [
     ComponentsModule,
     ReactiveFormsModule,
   ],
-  declarations: [DeliveryPage]
+  declarations: [BrowsingDeliveriesPage]
 })
 export class DeliveryPageModule {}

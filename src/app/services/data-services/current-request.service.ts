@@ -140,7 +140,7 @@ export class CurrentRequestService {
         this.getCurrentRequest().then(request => {
             // TODO take to the right page
         }).catch(() => {
-            const route = state == 'deliver' ? '/delivering' : '/requesting-deliveries';
+            const route = state == 'deliver' ? '/browsing-deliveries' : '/requesting-deliveries';
             navController.navigateRoot(route).catch(console.error);
         });
     }

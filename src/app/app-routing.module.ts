@@ -46,8 +46,8 @@ const routes: Routes = [
     },
     // Add more pages below
     {
-        path: 'delivery',
-        loadChildren: './pages/delivery/delivery.module#DeliveryPageModule'
+        path: 'browsing-deliveries',
+        loadChildren: './pages/browsing-deliveries/browsing-deliveries.module#BrowsingDeliveriesPageModule'
     },
     {
         path: 'location-selection',

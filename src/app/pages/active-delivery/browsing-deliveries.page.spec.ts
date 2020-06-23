@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeliveryPage } from './delivery.page';
+import { BrowsingDeliveriesPage } from './delivery.page';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
@@ -10,8 +10,8 @@ import {AvailableRequestInfoWindowComponent} from '../../components/available-re
 import {DeliveryMapComponent} from '../../components/map/delivery-map/delivery-map.component';
 
 describe('StateDeliveryComponent', () => {
-    let component: DeliveryPage;
-    let fixture: ComponentFixture<DeliveryPage>;
+    let component: BrowsingDeliveriesPage;
+    let fixture: ComponentFixture<BrowsingDeliveriesPage>;
     let navController;
     let alertController;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
@@ -33,14 +33,14 @@ describe('StateDeliveryComponent', () => {
             declarations: [
                 AvailableRequestInfoWindowComponent,
                 DeliveryMapComponent,
-                DeliveryPage,
+                BrowsingDeliveriesPage,
             ]
         })
         .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DeliveryPage);
+        fixture = TestBed.createComponent(BrowsingDeliveriesPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

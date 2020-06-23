@@ -8,13 +8,14 @@ import {IonTabs, NavController} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {StorageProvider} from '../../providers/storage/storage';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {BaseDeliveringPage} from '../base-delivering.page';
 
 @Component({
-    selector: 'app-delivery',
-    templateUrl: './delivery.page.html',
-    styleUrls: ['./delivery.page.scss']
+    selector: 'app-browsing-deliveries',
+    templateUrl: './browsing-deliveries.page.html',
+    styleUrls: ['./browsing-deliveries.page.scss']
 })
-export class DeliveryPage implements OnInit {
+export class BrowsingDeliveriesPage extends BaseDeliveringPage {
 
     /**
      * The currently logged in user

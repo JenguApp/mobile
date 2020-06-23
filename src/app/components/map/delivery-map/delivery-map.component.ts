@@ -4,7 +4,7 @@ import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {Request} from '../../../models/request/request';
 import {ToastController} from '@ionic/angular';
-import { CompletingRequestService } from '../../../services/data-services/completing-request.service';
+import {CurrentRequestService} from '../../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-delivery-map',
@@ -27,12 +27,12 @@ export class DeliveryMapComponent extends MapComponent {
      * Default Constructor
      * @param requests
      * @param toastController
-     * @param completingRequestService
+     * @param currentRequestService
      * @param changeDetection
      */
     constructor(private requests: RequestsProvider,
                 private toastController: ToastController,
-                private completingRequestService: CompletingRequestService,
+                private currentRequestService: CurrentRequestService,
                 private changeDetection: ChangeDetectorRef) {
         super();
     }
@@ -131,7 +131,7 @@ export class DeliveryMapComponent extends MapComponent {
     acceptRequest(request: Request) {
         this.request = null;
         this.requests.deliveryRequests.acceptDeliveryRequest(request, this.handleExpiredRequest.bind(this)).then((request) => {
-            this.completingRequestService.setCompletingRequest(request);
+            this.currentRequestService.setCurrentRequest(request);
         });
     }
 }
