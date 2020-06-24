@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import { CompletingRequestService } from '../../services/data-services/completing-request.service';
 import {Request} from '../../models/request/request';
 import {AlertController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-delivery-completed',
@@ -25,12 +25,12 @@ export class DeliveryCompletedComponent {
 
     /**
      * Default Constructor
-     * @param completingRequestService
+     * @param currentRequestService
      * @param requests
      * @param toastController
      * @param alertController
      */
-    constructor(private completingRequestService: CompletingRequestService,
+    constructor(private currentRequestService: CurrentRequestService,
                 private requests: RequestsProvider,
                 private toastController: ToastController,
                 private alertController: AlertController) {
@@ -40,7 +40,7 @@ export class DeliveryCompletedComponent {
      * Completes the request properly
      */
     complete() {
-        this.completingRequestService.setCompletingRequest(null);
+        this.currentRequestService.setCurrentRequest(null);
     }
 
     /**
@@ -69,7 +69,7 @@ export class DeliveryCompletedComponent {
                             }).then(toast => {
                                 toast.present().catch(console.error);
                             });
-                            this.completingRequestService.setCompletingRequest(null);
+                            this.currentRequestService.setCurrentRequest(null);
                         });
                     }
                 }

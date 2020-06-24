@@ -12,26 +12,6 @@ const routes: Routes = [
   {
     path: '',
     component: BrowsingDeliveriesPage,
-    children: [
-      {
-        path: 'thread/:user_id',
-        children: [
-          {
-            path: '',
-            loadChildren: '../thread/thread.module#ThreadPageModule'
-          }
-        ]
-      },
-      {
-        path: 'delivery-info',
-        children: [
-          {
-            path: '',
-            loadChildren: '../delivery-info/delivery-info.module#DeliveryInfoPageModule'
-          }
-        ]
-      },
-    ]
   }
 ];
 
@@ -46,4 +26,4 @@ const routes: Routes = [
   ],
   declarations: [BrowsingDeliveriesPage]
 })
-export class BrowsingDeliveriesModule {}
+export class BrowsingDeliveriesPageModule {}

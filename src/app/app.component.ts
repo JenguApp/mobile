@@ -7,6 +7,7 @@ import {environment} from '../environments/environment';
 import {AuthManagerService} from './services/auth-manager/auth-manager.service';
 import {State, StateManagerService} from './services/state-manager';
 import {Router, RouterOutlet} from '@angular/router';
+import {CurrentRequestService} from './services/data-services/current-request.service';
 
 /**
  * Main entry of the app
@@ -41,6 +42,7 @@ export class AppComponent {
      * @param storage
      * @param router
      * @param stateManagerService
+     * @param currentRequestService
      */
     constructor(
         private platform: Platform,
@@ -52,6 +54,7 @@ export class AppComponent {
         private storage: StorageProvider,
         private router: Router,
         private stateManagerService: StateManagerService,
+        private currentRequestService: CurrentRequestService,
     ) {
         this.initializeApp();
     }
@@ -105,7 +108,7 @@ export class AppComponent {
     selectState(event) {
         const state = event.detail.value as State;
         this.stateManagerService.setCurrentState(state);
-        this.stateManagerService.navigateToStateRoot(this.navCtl, state);
+        this.currentRequestService.navigateToCurrentPage(this.navCtl, state);
         this.menuCtl.close('side-menu').catch(console.error);
     }
 

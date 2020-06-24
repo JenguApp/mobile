@@ -6,6 +6,7 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
 import {StorageProvider} from '../../providers/storage/storage';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 /**
  * Main home page of the app
@@ -34,6 +35,7 @@ export class HomePage extends BasePage implements OnInit {
      * @param storageProvider
      * @param requests
      * @param navController
+     * @param currentRequestService
      * @param userService
      */
     constructor(private stateManager: StateManagerService,
@@ -41,6 +43,7 @@ export class HomePage extends BasePage implements OnInit {
                 private storageProvider: StorageProvider,
                 private requests: RequestsProvider,
                 private navController: NavController,
+                private currentRequestService: CurrentRequestService,
                 private userService: UserService) {
         super();
     }
@@ -104,7 +107,7 @@ export class HomePage extends BasePage implements OnInit {
      */
     finalizeLoad() {
         if (this.me && this.currentState) {
-            this.stateManager.navigateToStateRoot(this.navController, this.currentState);
+            this.currentRequestService.navigateToCurrentPage(this.navController, this.currentState);
         }
     }
 }
