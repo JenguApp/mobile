@@ -137,11 +137,29 @@ export class CurrentRequestService {
      * @param state
      */
     navigateToCurrentPage(navController: NavController, state: State) {
-        this.getCurrentRequest().then(request => {
-            // TODO take to the right page
+        this.getCurrentRequest().then(async request => {
+            const userId = await this.storageProvider.loadLoggedInUserId();
+            if (userId == request.completed_by_id) {
+                navController.navigateRoot('/active-delivery').catch(console.error);
+            } else if (userId == request.requested_by_id) {
+                const route = request.completed_by_id == null ? '/pending-request' : '/request-accepted';
+                navController.navigateRoot(route).catch(console.error);
+            } else {
+                this.navigateToDefaultState(navController, state);
+            }
         }).catch(() => {
-            const route = state == 'deliver' ? '/browsing-deliveries' : '/requesting-deliveries';
-            navController.navigateRoot(route).catch(console.error);
+            this.navigateToDefaultState(navController, state);
         });
+    }
+
+    /**
+     *
+     * @param navController
+     * @param state
+     */
+    navigateToDefaultState(navController: NavController, state: State) {
+
+        const route = state == 'deliver' ? '/browsing-deliveries' : '/requesting-deliveries';
+        navController.navigateRoot(route).catch(console.error);
     }
 }
