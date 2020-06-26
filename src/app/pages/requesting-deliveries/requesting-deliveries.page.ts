@@ -1,5 +1,9 @@
 import {Component} from '@angular/core';
 import {BaseRequestingDeliveriesPage} from '../base-requesting-deliveries.page';
+import {RequestsProvider} from '../../providers/requests/requests';
+import {NavController} from '@ionic/angular';
+import {UserService} from '../../services/user.service';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 @Component({
     selector: 'app-requesting-deliveries',
@@ -7,6 +11,20 @@ import {BaseRequestingDeliveriesPage} from '../base-requesting-deliveries.page';
     styleUrls: ['./requesting-deliveries.page.scss']
 })
 export class RequestingDeliveriesPage extends BaseRequestingDeliveriesPage {
+
+    /**
+     * Default Constructor
+     * @param requests
+     * @param navController
+     * @param userService
+     * @param currentRequestService
+     */
+    constructor(protected requests: RequestsProvider,
+                protected navController: NavController,
+                protected userService: UserService,
+                protected currentRequestService: CurrentRequestService) {
+        super(requests, navController, userService, currentRequestService);
+    }
 
     /**
      * This should always be called

@@ -5,6 +5,7 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseRequestingDeliveriesPage} from '../base-requesting-deliveries.page';
+import {State, StateManagerService} from '../../services/state-manager';
 
 @Component({
     selector: 'app-pending-request',
@@ -28,6 +29,14 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
      */
     loadingAnimating = false;
 
+    /**
+     * Default Constructor
+     * @param requests
+     * @param navController
+     * @param userService
+     * @param currentRequestService
+     * @param toastController
+     */
     constructor(protected requests: RequestsProvider,
                 protected navController: NavController,
                 protected userService: UserService,
@@ -40,9 +49,9 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
      * sets up our request properly
      */
     requestUpdated() {
-        if (this.currentRequest.requested_by_id) {
+        if (this.currentRequest.requested_by_id != null) {
             this.userService.cacheUser(this.currentRequest.requested_by);
-            this.navController.navigateRoot('/pending-request').catch(console.error);
+            this.currentRequestService.navigateToCurrentPage(this.navController, 'request')
         }
         if (!this.currentRequest.completed_by_id) {
             this.setNextRefreshTime(10);

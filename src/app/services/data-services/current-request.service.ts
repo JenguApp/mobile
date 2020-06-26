@@ -147,7 +147,8 @@ export class CurrentRequestService {
             } else {
                 this.navigateToDefaultState(navController, state);
             }
-        }).catch(() => {
+        }).catch(error => {
+            console.log('catch', error);
             this.navigateToDefaultState(navController, state);
         });
     }

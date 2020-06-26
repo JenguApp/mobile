@@ -28,7 +28,6 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
      */
     currentRequest: Request = null;
 
-
     /**
      * Default Constructor
      * @param requests
