@@ -68,11 +68,21 @@ export class CurrentRequestService {
         this.currentRequest = currentRequest;
         if (currentRequest) {
             this.storageProvider.saveCurrentActiveRequest(currentRequest).catch(console.error);
+        } else {
+            this.storageProvider.clearCurrentActiveRequest().catch(console.error);
+        }
+    }
+
+    /**
+     * Notifies all listeners of the request update
+     * @param currentRequest
+     */
+    notifyRequest(currentRequest: Request) {
+        if (currentRequest) {
             this.currentRequestSubscribers.forEach(subscriber => {
                 subscriber.next(currentRequest);
             });
         } else {
-            this.storageProvider.clearCurrentActiveRequest().catch(console.error);
             this.currentRequestSubscribers.forEach(subscriber => {
                 subscriber.complete();
             });
@@ -89,8 +99,12 @@ export class CurrentRequestService {
             } else {
                 return Promise.resolve(this.currentRequest);
             }
+        } else {
+            return this.storageProvider.loadCurrentActiveRequest().then(request => {
+                this.currentRequest = request;
+                return Promise.resolve(request);
+            });
         }
-        return Promise.reject();
     }
 
     /**
@@ -110,7 +124,9 @@ export class CurrentRequestService {
         }
         this.refreshTimeout = setTimeout(() => {
             if (this.currentRequest) {
-                this.refreshRequest(this.currentRequest);
+                this.refreshRequest(this.currentRequest).then(request => {
+                    this.notifyRequest(request);
+                }).catch(console.error);
             } else {
                 this.currentRequestSubscribers.forEach(subscriber => {
                     subscriber.error();
@@ -124,9 +140,9 @@ export class CurrentRequestService {
      * @param request
      */
     refreshRequest(request: Request): Promise<Request> {
-        return this.requestsProvider.deliveryRequests.refreshRequest(request).then(request => {
-            this.setCurrentRequest(request);
-            return Promise.resolve(request);
+        return this.requestsProvider.deliveryRequests.refreshRequest(request).then(refreshedRequest => {
+            this.setCurrentRequest(refreshedRequest);
+            return Promise.resolve(refreshedRequest);
         });
     }
 
@@ -148,7 +164,6 @@ export class CurrentRequestService {
                 this.navigateToDefaultState(navController, state);
             }
         }).catch(error => {
-            console.log('catch', error);
             this.navigateToDefaultState(navController, state);
         });
     }
@@ -159,7 +174,6 @@ export class CurrentRequestService {
      * @param state
      */
     navigateToDefaultState(navController: NavController, state: State) {
-
         const route = state == 'deliver' ? '/browsing-deliveries' : '/requesting-deliveries';
         navController.navigateRoot(route).catch(console.error);
     }

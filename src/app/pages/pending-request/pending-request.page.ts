@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {Request} from '../../models/request/request';
-import {IonTabs, NavController, ToastController} from '@ionic/angular';
+import {NavController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseRequestingDeliveriesPage} from '../base-requesting-deliveries.page';
-import {State, StateManagerService} from '../../services/state-manager';
 
 @Component({
     selector: 'app-pending-request',

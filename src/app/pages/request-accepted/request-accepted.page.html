@@ -1,9 +1,9 @@
 <app-logged-in-header [isHome]=true></app-logged-in-header>
 
-<ion-content *ngIf="currentRequestDataLoaded; else loading" id="wrapper">
+<ion-content *ngIf="currentRequestDataLoaded; else loading">
 
     <ion-tabs>
-        <ion-tab-bar slot="bottom" [selectedTab]="'request-accepted-info'">
+        <ion-tab-bar slot="bottom" selected-tab="request-accepted-info">
             <ion-tab-button tab="request-accepted-info">
                 <ion-icon name="list-outline"></ion-icon>
             </ion-tab-button>

@@ -66,6 +66,10 @@ const routes: Routes = [
         loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
     },
     {
+        path: 'request-accepted',
+        loadChildren: './pages/request-accepted/request-accepted.module#RequestAcceptedPageModule'
+    },
+    {
         path: 'requesting-deliveries',
         loadChildren: './pages/requesting-deliveries/requesting-deliveries.module#RequestingDeliveriesPageModule'
     },

@@ -10,7 +10,7 @@ import {RequestAcceptedPage} from './request-accepted.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     component: RequestAcceptedPage,
     children: [
       {
@@ -32,6 +32,11 @@ const routes: Routes = [
         ]
       },
     ]
+  },
+  {
+    path: '',
+    redirectTo: '/request-accepted/tabs/request-accepted-info',
+    pathMatch: 'full'
   }
 ];
 
@@ -46,4 +51,4 @@ const routes: Routes = [
   ],
   declarations: [RequestAcceptedPage]
 })
-export class PendingRequestPageModule {}
+export class RequestAcceptedPageModule {}
