@@ -10,7 +10,7 @@ import {ActiveDeliveryPage} from './active-delivery.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     component: ActiveDeliveryPage,
     children: [
       {
@@ -32,6 +32,11 @@ const routes: Routes = [
         ]
       },
     ]
+  },
+  {
+    path: '',
+    redirectTo: '/active-delivery/tabs/active-delivery-info',
+    pathMatch: 'full'
   }
 ];
 

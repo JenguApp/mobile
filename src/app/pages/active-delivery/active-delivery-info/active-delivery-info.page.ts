@@ -71,7 +71,8 @@ export class ActiveDeliveryInfoPage implements OnInit {
                     text: 'All Set!',
                     handler: () => {
                         this.requests.deliveryRequests.completeDeliveryRequest(completingRequest).then((request) => {
-                            this.currentRequestService.setCurrentRequest(null);
+                            this.currentRequestService.setCurrentRequest(request);
+                            this.completingRequest = request;
                         });
                     }
                 }
