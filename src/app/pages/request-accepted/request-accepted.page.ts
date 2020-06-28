@@ -26,12 +26,24 @@ export class RequestAcceptedPage extends BaseRequestingDeliveriesPage {
         super(requests, navController, userService, currentRequestService);
     }
 
+    ngOnInit() {
+        super.ngOnInit();
+        this.setRefreshTimer();
+    }
+
     /**
      * sets up our request properly
      */
     requestUpdated() {
         this.userService.cacheUser(this.currentRequest.completed_by);
+        this.setRefreshTimer();
+    }
 
+    /**
+     * Awaits for the refresh
+     */
+    setRefreshTimer() {
+        this.currentRequestService.waitForRequestRefresh(60);
     }
 
     /**

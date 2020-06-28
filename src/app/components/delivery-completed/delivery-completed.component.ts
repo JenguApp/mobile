@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {Request} from '../../models/request/request';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController, NavController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {State} from '../../services/state-manager';
 
 @Component({
     selector: 'app-delivery-completed',
@@ -24,15 +25,23 @@ export class DeliveryCompletedComponent {
     request: Request;
 
     /**
+     * The state to return the user to after they have gone back to the main page
+     */
+    @Input()
+    state: State;
+
+    /**
      * Default Constructor
      * @param currentRequestService
      * @param requests
      * @param toastController
+     * @param navController
      * @param alertController
      */
     constructor(private currentRequestService: CurrentRequestService,
                 private requests: RequestsProvider,
                 private toastController: ToastController,
+                private navController: NavController,
                 private alertController: AlertController) {
     }
 
@@ -41,6 +50,7 @@ export class DeliveryCompletedComponent {
      */
     complete() {
         this.currentRequestService.setCurrentRequest(null);
+        this.currentRequestService.navigateToCurrentPage(this.navController, this.state);
     }
 
     /**
@@ -69,7 +79,7 @@ export class DeliveryCompletedComponent {
                             }).then(toast => {
                                 toast.present().catch(console.error);
                             });
-                            this.currentRequestService.setCurrentRequest(null);
+                            this.complete();
                         });
                     }
                 }

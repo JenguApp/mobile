@@ -13,7 +13,7 @@
         <ion-button (click)="complete(completingRequest)" *ngIf="hasNavigated">All Done!</ion-button>
     </div>
     <ng-template #completed>
-        <app-delivery-completed completionText="Complete Another Delivery" [request]="completingRequest">
+        <app-delivery-completed completionText="Complete Another Delivery" [request]="completingRequest"  state="deliver">
             <h1>All Set!</h1>
             <p>Thanks a ton for your support.</p>
         </app-delivery-completed>

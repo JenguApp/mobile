@@ -125,6 +125,7 @@ export class CurrentRequestService {
         this.refreshTimeout = setTimeout(() => {
             if (this.currentRequest) {
                 this.refreshRequest(this.currentRequest).then(request => {
+                    this.setCurrentRequest(request);
                     this.notifyRequest(request);
                 }).catch(console.error);
             } else {

@@ -4,7 +4,7 @@
         <p>{{currentRequest.completed_by.name}} is currently gathering your supplies. We will notify you when they message you, or drop off the goods.</p>
     </div>
     <ng-template #completed>
-        <app-delivery-completed completionText="Complete Another Delivery" [request]="currentRequest">
+        <app-delivery-completed completionText="Request Another Delivery" [request]="currentRequest" state="request">
             <h1>All Set!</h1>
             <p>Your delivery has arrived.</p>
         </app-delivery-completed>
