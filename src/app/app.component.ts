@@ -62,6 +62,7 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleLightContent();
+            this.splashScreen.hide();
 
             this.router.events.subscribe(e => {
                 if (e instanceof ActivationStart) {
@@ -71,8 +72,6 @@ export class AppComponent {
             this.stateManagerService.getCurrentState().then(state => {
                 this.currentState = state;
             });
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
             this.authManagerService.getLogoutObservable().subscribe(() => this.handleLogout());
             this.storage.loadAuthToken()
                 .then(token => {

@@ -32,6 +32,8 @@ describe('DeliveryMapComponent', () => {
                         northeast: {},
                         southwest: {}
                     } as VisibleRegion;
+                },
+                clear() {
                 }
             } as any;
         });
