@@ -163,9 +163,9 @@ export default class DeliveryRequests {
      */
     async searchAvailableRequests(longitude: number, latitude: number, radius: number): Promise<Page<Request>> {
         return this.requestHandler.get('requests', true, false, ['requestedBy'], {}, {}, {}, 50, null, {
-            radius: radius.toString(),
-            latitude: latitude.toString(),
-            longitude: longitude.toString(),
+            radius: radius ? radius.toString() : '',
+            latitude: latitude ? latitude.toString() : '',
+            longitude: longitude ? longitude.toString() : '',
         }).then(data => {
             return Promise.resolve(new Page(data, Request));
         });

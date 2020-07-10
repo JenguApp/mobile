@@ -20,7 +20,7 @@ describe('AppComponent', () => {
     let navController;
 
     beforeEach(async(() => {
-        statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
+        statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleLightContent']);
         splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
         platformReadySpy = Promise.resolve();
         resolveSpy = Promise.resolve();
@@ -56,7 +56,7 @@ describe('AppComponent', () => {
         TestBed.createComponent(AppComponent);
         expect(platformSpy.ready).toHaveBeenCalled();
         await platformReadySpy;
-        expect(statusBarSpy.styleDefault).toHaveBeenCalled();
+        expect(statusBarSpy.styleLightContent).toHaveBeenCalled();
         expect(splashScreenSpy.hide).toHaveBeenCalled();
     });
 
