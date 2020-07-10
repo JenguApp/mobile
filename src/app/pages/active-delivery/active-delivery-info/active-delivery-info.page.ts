@@ -4,6 +4,7 @@ import {AlertController} from '@ionic/angular';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 import {CurrentRequestService} from '../../../services/data-services/current-request.service';
+import {Lightbox, LightboxConfig} from 'ngx-lightbox';
 
 @Component({
     selector: 'app-active-delivery-info',
@@ -27,12 +28,19 @@ export class ActiveDeliveryInfoPage implements OnInit {
      * @param alertController
      * @param currentRequestService
      * @param requests
+     * @param lightBox
+     * @param lightBoxConfig
      * @param launchNavigator
      */
     constructor(private alertController: AlertController,
                 private currentRequestService: CurrentRequestService,
                 private requests: RequestsProvider,
+                private lightBox: Lightbox,
+                private lightBoxConfig: LightboxConfig,
                 private launchNavigator: LaunchNavigator) {
+        this.lightBoxConfig.centerVertically = true;
+        this.lightBoxConfig.alwaysShowNavOnTouchDevices = true;
+        this.lightBoxConfig.enableTransition = false;
     }
 
     /**
@@ -80,5 +88,15 @@ export class ActiveDeliveryInfoPage implements OnInit {
         }).then(alert => {
             alert.present().catch(console.error);
         });
+    }
+
+    /**
+     * Opens an asset for full view
+     */
+    openImage(asset) {
+        this.lightBox.open([{
+            src: asset.url,
+            caption: asset.caption,
+        } as any]);
     }
 }

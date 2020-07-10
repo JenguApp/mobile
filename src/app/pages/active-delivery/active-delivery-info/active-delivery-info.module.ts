@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import {ComponentsModule} from '../../../components/components.module';
 import {ActiveDeliveryInfoPage} from './active-delivery-info.page';
+import {LightboxModule} from "ngx-lightbox";
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ComponentsModule,
     ReactiveFormsModule,
+    LightboxModule,
   ],
   declarations: [ActiveDeliveryInfoPage]
 })
