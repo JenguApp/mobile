@@ -5,9 +5,8 @@
         <ion-list>
             <ion-list-header>Requested Items</ion-list-header>
             <ion-item *ngFor="let requestedItem of completingRequest.requested_items;">
-                <img *ngIf="requestedItem?.asset?.url" [src]="requestedItem.asset.url" slot="start">
-                <ion-icon *ngIf="!requestedItem?.asset?.url" name="camera" slot="start"></ion-icon>
                 {{requestedItem.name}}
+                <img *ngIf="requestedItem?.asset?.url" [src]="requestedItem.asset.url" slot="end">
             </ion-item>
         </ion-list>
         <ion-button (click)="openNavigation()">Open Delivery Map</ion-button>

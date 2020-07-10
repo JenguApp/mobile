@@ -67,11 +67,6 @@ export class AppComponent {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
 
-            this.router.events.subscribe(e => {
-                if (e instanceof ActivationStart) {
-                    this.outlet.deactivate();
-                }
-            });
             this.stateManagerService.getCurrentState().then(state => {
                 this.currentState = state;
             });

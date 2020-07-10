@@ -67,6 +67,7 @@ export default class DeliveryRequests {
             'completedBy',
             'requestedBy',
             'requestedItems',
+            'requestedItems.asset',
         ]).then(data => {
             return Promise.resolve(new Page(data, Request));
         })
@@ -81,7 +82,8 @@ export default class DeliveryRequests {
         return this.requestHandler.get('requests/' + request.id, true, false, [
             'completedBy',
             'requestedBy',
-            'requestedItems'
+            'requestedItems',
+            'requestedItems.asset',
         ]).then(data => {
             return Promise.resolve(new Request(data));
         });
