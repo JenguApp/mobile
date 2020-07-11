@@ -57,6 +57,11 @@ export class RequestFormItemComponent implements OnChanges {
     localItem: RequestedItem = null;
 
     /**
+     * Whether or not the image is currently uploading
+     */
+    uploading = false;
+
+    /**
      * Default Constructor
      * @param camera
      * @param requests
@@ -123,7 +128,12 @@ export class RequestFormItemComponent implements OnChanges {
             correctOrientation: true
         };
         this.camera.getPicture(options).then((imageData) => {
-            this.localItem.replaceAsset(this.requests, this.user, imageData, this.changeDetection);
+            this.uploading = true;
+            this.changeDetection.detectChanges();
+            this.localItem.replaceAsset(this.requests, this.user, imageData).then(() => {
+                this.uploading = false;
+                this.changeDetection.detectChanges();
+            });
         });
     }
 

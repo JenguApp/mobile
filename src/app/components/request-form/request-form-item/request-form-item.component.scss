@@ -1,5 +1,17 @@
-img {
-  width: 1.2em;
-  height: 1.2em;
-  margin: 7px 20px 7px 6px;
+.image-capture-area {
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  img, ion-icon {
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+  }
+  ion-spinner {
+    position: absolute;
+    bottom: -50%;
+    width: 1.5em;
+    right: 0;
+    left: 0;
+  }
 }

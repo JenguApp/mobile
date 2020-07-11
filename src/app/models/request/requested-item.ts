@@ -3,7 +3,6 @@ import {Asset} from '../asset';
 import {Relation} from '../relation';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {User} from '../user/user';
-import {ChangeDetectorRef} from '@angular/core';
 
 export class RequestedItem extends BaseModel {
 
@@ -32,12 +31,11 @@ export class RequestedItem extends BaseModel {
      * @param requests
      * @param user
      * @param imageData
-     * @param changeDetection
      */
-    replaceAsset(requests: RequestsProvider, user: User, imageData: string, changeDetection: ChangeDetectorRef) {
-        requests.deliveryRequests.uploadAsset(user, imageData).then(asset => {
+    replaceAsset(requests: RequestsProvider, user: User, imageData: string): Promise<any> {
+        return requests.deliveryRequests.uploadAsset(user, imageData).then(asset => {
             this.asset = asset;
-            changeDetection.detectChanges();
+            return Promise.resolve();
         });
     }
 }
