@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {path} from '@angular-devkit/core';
 
 const routes: Routes = [
     {
@@ -56,6 +55,10 @@ const routes: Routes = [
     {
         path: 'location-selection',
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
+    },
+    {
+        path: 'organization-creation',
+        loadChildren: './pages/organization-creation/organization-creation.module#OrganizationCreationPageModule'
     },
     {
         path: 'pending-request',

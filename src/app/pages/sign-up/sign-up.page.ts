@@ -8,7 +8,6 @@ import {User} from "../../models/user/user";
 import {UserService} from '../../services/user.service';
 import {AppComponent} from '../../app.component';
 import {BasePage} from '../base.page';
-import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-sign-up',
