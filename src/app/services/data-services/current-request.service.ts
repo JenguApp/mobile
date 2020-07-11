@@ -111,7 +111,7 @@ export class CurrentRequestService {
      * Whether or not there is currently a pending request
      */
     hasPendingRequest(): boolean {
-        return this.currentRequest !== null;
+        return this.currentRequest != null;
     }
 
     /**

@@ -70,6 +70,7 @@ export class RequestReviewPage implements OnInit {
         ).then(request => {
             this.requestCreationService.clear();
             this.pendingRequestService.setCurrentRequest(request);
+            this.pendingRequestService.notifyRequest(request);
             this.navController.navigateRoot('/pending-request').catch(console.error);
         }).catch(error => {
             //TODO handle error properly

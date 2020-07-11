@@ -71,6 +71,8 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
             });
             this.currentRequest = null;
             this.currentRequestService.setCurrentRequest(null);
+            this.currentRequestService.notifyRequest(null);
+            this.currentRequestService.navigateToCurrentPage(this.navController, 'request');
         });
     }
 

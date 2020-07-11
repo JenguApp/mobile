@@ -32,6 +32,11 @@ export class AppComponent {
     currentState: State = 'request';
 
     /**
+     * Whether or not there currently is pending request
+     */
+    hasPendingRequest = false;
+
+    /**
      * Default Constructor
      * @param platform
      * @param splashScreen
@@ -80,6 +85,20 @@ export class AppComponent {
                     this.navCtl.navigateRoot('/sign-up').catch(console.error);
                 } else {
                     this.navCtl.navigateRoot('/sign-in').catch(console.error);
+                }
+            });
+            this.currentRequestService.getCurrentRequest().then(request => {
+                this.hasPendingRequest = request != null;
+            });
+            console.log('hasPendingRequest', this.hasPendingRequest);
+            this.currentRequestService.listenForCurrentRequestChanges({
+                next: () => {
+                    this.hasPendingRequest = true;
+                    console.log('next', this.hasPendingRequest);
+                },
+                complete: () => {
+                    this.hasPendingRequest = false;
+                    console.log('complete', this.hasPendingRequest);
                 }
             });
         });

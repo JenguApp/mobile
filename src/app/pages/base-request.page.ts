@@ -74,6 +74,7 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
      */
     protected setRequest(request: Request) {
         this.currentRequest = request;
+        this.currentRequestService.notifyRequest(request);
         if (!request) {
             this.noActiveRequest();
         } else {

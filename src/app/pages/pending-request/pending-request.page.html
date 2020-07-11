@@ -2,7 +2,7 @@
 
 <ion-content *ngIf="currentRequestDataLoaded; else loading" id="wrapper">
 
-    <div *ngIf="currentRequest.completed_by_id == null; else accepted" class="ion-padding" id="pending-request-area">
+    <div *ngIf="currentRequest.completed_by_id == null" class="ion-padding" id="pending-request-area">
 
         <h2>Your request has been received!</h2>
         <p>Please wait while we connect you with a local Jengu.</p>

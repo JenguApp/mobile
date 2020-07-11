@@ -6,7 +6,6 @@ import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {IonTabs, NavController} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
-import {StorageProvider} from '../../providers/storage/storage';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseDeliveringPage} from '../base-delivering.page';
 
