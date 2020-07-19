@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {MenuController, NavController, Platform} from '@ionic/angular';
+import {AlertController, MenuController, NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {StorageProvider} from './providers/storage/storage';
@@ -8,6 +8,9 @@ import {AuthManagerService} from './services/auth-manager/auth-manager.service';
 import {State, StateManagerService} from './services/state-manager';
 import {Router, RouterOutlet} from '@angular/router';
 import {CurrentRequestService} from './services/data-services/current-request.service';
+import {UserService} from './services/user.service';
+import {User} from './models/user/user';
+import {Organization} from './models/organization/organization';
 
 /**
  * Main entry of the app
@@ -27,6 +30,11 @@ export class AppComponent {
     static LOGGED_IN = false;
 
     /**
+     * The logged in user
+     */
+    me: User;
+
+    /**
      * The current state the app is in
      */
     currentState: State = 'request';
@@ -43,8 +51,10 @@ export class AppComponent {
      * @param statusBar
      * @param authManagerService
      * @param navCtl
+     * @param alertController
      * @param menuCtl
      * @param storage
+     * @param userService
      * @param router
      * @param stateManagerService
      * @param currentRequestService
@@ -55,8 +65,10 @@ export class AppComponent {
         private statusBar: StatusBar,
         private authManagerService: AuthManagerService,
         private navCtl: NavController,
+        private alertController: AlertController,
         private menuCtl: MenuController,
         private storage: StorageProvider,
+        private userService: UserService,
         private router: Router,
         private stateManagerService: StateManagerService,
         private currentRequestService: CurrentRequestService,
@@ -76,8 +88,16 @@ export class AppComponent {
                 this.currentState = state;
             });
             this.authManagerService.getLogoutObservable().subscribe(() => this.handleLogout());
+            this.userService.getMeObserver().subscribe({next: user => {
+                this.me = user;
+            }});
             this.storage.loadAuthToken()
                 .then(token => {
+                    this.userService.getMe().then(user => {
+                        this.me = user;
+                        this.navCtl.navigateRoot('/home').catch(console.error);
+                        AppComponent.LOGGED_IN = true;
+                    });
                     this.navCtl.navigateRoot('/home').catch(console.error);
                     AppComponent.LOGGED_IN = true;
                 }).catch(error => {
@@ -138,6 +158,58 @@ export class AppComponent {
      */
     hasSubscriptions() {
         return environment.subscriptions_enabled;
+    }
+
+    /**
+     * Whether or not this app has organization creation enabled
+     */
+    organizationsEnabled() {
+        return environment.organizations_enabled;
+    }
+
+    /**
+     * Returns true for whether ro not the user can manager an organization
+     */
+    hasOrganizations() {
+        return this.me && this.me.organization_managers.length > 0;
+    }
+
+    /**
+     * Asks the user what organization they want to access
+     */
+    openOrganizationDialogue() {
+        const organizationManagers = this.me.organization_managers;
+
+        if (organizationManagers.length == 1) {
+            this.goToOrganization(organizationManagers[0].organization);
+        }
+
+        else {
+            let activeAlert;
+            this.alertController.create({
+                header: 'Select Organization',
+                inputs: organizationManagers.map(organizationManager => ({
+                    type: 'radio',
+                    label: organizationManager.organization.name,
+                    handler: (input) => {
+                        activeAlert.dismiss();
+                        this.goToOrganization(organizationManager.organization);
+                    }
+                })),
+            }).then(alert => {
+                activeAlert = alert;
+                alert.present();
+            });
+        }
+    }
+
+    /**
+     * Goes to the organization dashboard
+     * @param organization
+     */
+    goToOrganization(organization: Organization) {
+        this.menuCtl.close('side-menu').catch(console.error);
+        this.navCtl.navigateRoot('/organization-dashboard/' + organization.id).catch(console.error);
     }
 
     /**

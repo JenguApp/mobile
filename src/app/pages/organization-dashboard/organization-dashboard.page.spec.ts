@@ -4,36 +4,39 @@ import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
-import {OrganizationCreationPage} from './organization-creation.page';
+import {OrganizationDashboardPage} from './organization-dashboard.page';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
-import {StorageProvider} from '../../providers/storage/storage';
-import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 
-describe('OrganizationCreationPage', () => {
-    let component: OrganizationCreationPage;
-    let fixture: ComponentFixture<OrganizationCreationPage>;
+describe('OrganizationDashboardPage', () => {
+    let component: OrganizationDashboardPage;
+    let fixture: ComponentFixture<OrganizationDashboardPage>;
     let navController;
     let alertController;
+    let activatedRoute;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
+        activatedRoute = {};
+        activatedRoute.snapshot = {};
+        activatedRoute.snapshot.paramMap = convertToParamMap({
+            organization_id: 1234
+        });
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
-                ReactiveFormsModule,
                 IonicModule.forRoot(),
             ],
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
+                {provide: ActivatedRoute, useValue: activatedRoute},
                 { provide: RequestsProvider, useValue: requestsProvider},
-                {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
             ],
             declarations: [
-                OrganizationCreationPage,
+                OrganizationDashboardPage,
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -41,7 +44,7 @@ describe('OrganizationCreationPage', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(OrganizationCreationPage);
+        fixture = TestBed.createComponent(OrganizationDashboardPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

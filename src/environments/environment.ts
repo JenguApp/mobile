@@ -12,6 +12,7 @@ export const environment = {
     forgot_password_url: null,
     sign_up_enabled: true,
     subscriptions_enabled: false,
+    organizations_enabled: true,
 };
 
 /*

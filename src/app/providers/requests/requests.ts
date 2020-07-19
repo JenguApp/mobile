@@ -5,6 +5,7 @@ import Subscriptions from './subscriptions/subscriptions';
 import Social from './social/social';
 import Messaging from './messaging/messaging';
 import DeliveryRequests from './delivery-requests/delivery-requests';
+import OrganizationRequests from './organization/organization';
 
 /**
  * Provider for interacting with all app wide requests
@@ -33,6 +34,11 @@ export class RequestsProvider {
     messaging: Messaging;
 
     /**
+     * The organization requests
+     */
+    organization: OrganizationRequests;
+
+    /**
      * All requests related to the deliveries
      */
     deliveryRequests: DeliveryRequests;
@@ -46,6 +52,7 @@ export class RequestsProvider {
         this.subscriptions = new Subscriptions(this.requestHandler);
         this.social = new Social(this.requestHandler);
         this.messaging = new Messaging(requestHandler);
+        this.organization = new OrganizationRequests(this.requestHandler);
         this.deliveryRequests = new DeliveryRequests(requestHandler);
     }
 }

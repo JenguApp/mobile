@@ -12,6 +12,14 @@ const routes: Routes = [
         loadChildren: './pages/home/home.module#HomePageModule'
     },
     {
+        path: 'organization-creation',
+        loadChildren: './pages/organization-creation/organization-creation.module#OrganizationCreationPageModule'
+    },
+    {
+        path: 'organization-dashboard/:organization_id',
+        loadChildren: './pages/organization-dashboard/organization-dashboard.module#OrganizationDashboardPageModule'
+    },
+    {
         path: 'profile-editor',
         loadChildren: './pages/profile-editor/profile-editor.module#ProfileEditorPageModule'
     },
@@ -55,10 +63,6 @@ const routes: Routes = [
     {
         path: 'location-selection',
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
-    },
-    {
-        path: 'organization-creation',
-        loadChildren: './pages/organization-creation/organization-creation.module#OrganizationCreationPageModule'
     },
     {
         path: 'pending-request',

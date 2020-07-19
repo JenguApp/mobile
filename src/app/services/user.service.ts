@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {User} from '../models/user/user';
 import {Contact} from '../models/user/contact';
+import {RequestsProvider} from '../providers/requests/requests';
+import {StorageProvider} from '../providers/storage/storage';
+import {Observable, Subscriber} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -23,18 +26,63 @@ export class UserService {
     contacts: Contact[] = [];
 
     /**
+     * The logout observer
+     */
+    readonly meObserver: Observable<User>;
+
+    /**
+     * The subscriber for the logout
+     */
+    private meSubscribers: Subscriber<User>[] = [];
+
+    /**
+     * Default Constructor
+     * @param requests
+     * @param storageProvider
+     */
+    constructor(private requests: RequestsProvider,
+                private storageProvider: StorageProvider) {
+        this.meObserver = new Observable((subscriber) => {
+            this.meSubscribers.push(subscriber);
+        });
+    }
+
+    /**
      * Stores the logged in user for us
      * @param user
      */
     storeMe(user: User) {
         this.me = user;
+        this.meSubscribers.forEach(subscriber => {
+            subscriber.next(user);
+        });
+    }
+
+    /**
+     * Gets the observer for the auth refreshed events
+     */
+    getMeObserver(): Observable<User> {
+        return this.meObserver;
     }
 
     /**
      * Gets the current logged in user
      */
-    getMe(): User | null {
-        return this.me;
+    getMe(): Promise<User> {
+        if (this.me) {
+            return Promise.resolve(this.me);
+        }
+
+        return this.storageProvider.loadAuthToken().then(maybeToken => {
+            if (maybeToken) {
+                return this.requests.auth.loadInitialInformation().then(user => {
+                    this.storeMe(user);
+                    return Promise.resolve(user);
+                });
+            }
+
+            return Promise.reject();
+        });
     }
 
     /**

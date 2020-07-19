@@ -46,4 +46,4 @@ _Special note #2 - While using cordova ios <5, the builds will need to have `-- 
 
 ## Parent Project
 
-This project is based on Athenia version 0.7.1
+This project is based on Athenia version 0.8.0
