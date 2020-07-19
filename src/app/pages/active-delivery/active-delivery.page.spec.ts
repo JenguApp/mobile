@@ -5,13 +5,10 @@ import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
-import {AvailableRequestInfoWindowComponent} from '../../components/available-request-info-window/available-request-info-window.component';
-import {DeliveryMapComponent} from '../../components/map/delivery-map/delivery-map.component';
 import {ActiveDeliveryPage} from './active-delivery.page';
 import {ComponentsModule} from '../../components/components.module';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
-import {LightboxModule} from 'ngx-lightbox';
 
 describe('ActiveDeliveryPage', () => {
     let component: ActiveDeliveryPage;
@@ -21,7 +18,8 @@ describe('ActiveDeliveryPage', () => {
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['goBack']);
+        const resolveSpy = Promise.resolve();
+        navController = jasmine.createSpyObj('NavController', {navigateRoot: resolveSpy});
         alertController = new AlertController();
         TestBed.configureTestingModule({
             imports: [

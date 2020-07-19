@@ -5,7 +5,7 @@ export class NativeStorageMock extends NativeStorage {
 
     getItem(reference: string): Promise<any> {
         return new Promise((resolve) => {
-            resolve('retrieved');
+            resolve('{"retrieved":true}');
         });
     }
 

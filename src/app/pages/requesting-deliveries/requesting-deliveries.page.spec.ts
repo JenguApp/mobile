@@ -20,7 +20,8 @@ describe('RequestingDeliveriesPage', () => {
     let alertController;
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['goBack']);
+        const resolveSpy = Promise.resolve();
+        navController = jasmine.createSpyObj('NavController', {navigateRoot: resolveSpy});
         alertController = new AlertController();
         TestBed.configureTestingModule({
             imports: [

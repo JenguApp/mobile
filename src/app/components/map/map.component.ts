@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
      */
     ngOnInit() {
 
-        let mapOptions: GoogleMapOptions = {
+        const mapOptions: GoogleMapOptions = {
             camera: {
                 target: {
                     lat: this.startingLatitude,
@@ -52,7 +52,7 @@ export class MapComponent implements OnInit {
                 tilt: false,
                 zoom: false,
                 rotate: false,
-            }
+            };
         }
 
         this.map = GoogleMaps.create('map_canvas', mapOptions);
