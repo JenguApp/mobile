@@ -90,15 +90,12 @@ export class AppComponent {
             this.currentRequestService.getCurrentRequest().then(request => {
                 this.hasPendingRequest = request != null;
             });
-            console.log('hasPendingRequest', this.hasPendingRequest);
             this.currentRequestService.listenForCurrentRequestChanges({
                 next: () => {
                     this.hasPendingRequest = true;
-                    console.log('next', this.hasPendingRequest);
                 },
                 complete: () => {
                     this.hasPendingRequest = false;
-                    console.log('complete', this.hasPendingRequest);
                 }
             });
         });
