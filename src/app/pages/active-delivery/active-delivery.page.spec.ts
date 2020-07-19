@@ -8,6 +8,10 @@ import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {AvailableRequestInfoWindowComponent} from '../../components/available-request-info-window/available-request-info-window.component';
 import {DeliveryMapComponent} from '../../components/map/delivery-map/delivery-map.component';
 import {ActiveDeliveryPage} from './active-delivery.page';
+import {ComponentsModule} from '../../components/components.module';
+import {StorageProvider} from '../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {LightboxModule} from 'ngx-lightbox';
 
 describe('ActiveDeliveryPage', () => {
     let component: ActiveDeliveryPage;
@@ -22,17 +26,17 @@ describe('ActiveDeliveryPage', () => {
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
+                ComponentsModule,
                 IonicModule.forRoot(),
             ],
             providers: [
-                {provide: AlertController, useValue: alertController},
-                {provide: NavController, useValue: navController},
-                {provide: Geolocation, useValue: new Geolocation()},
+                { provide: AlertController, useValue: alertController },
+                { provide: NavController, useValue: navController },
+                { provide: Geolocation, useValue: new Geolocation() },
                 { provide: RequestsProvider, useValue: requestsProvider},
+                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
             ],
             declarations: [
-                AvailableRequestInfoWindowComponent,
-                DeliveryMapComponent,
                 ActiveDeliveryPage,
             ]
         })

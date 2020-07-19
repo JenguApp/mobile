@@ -11,6 +11,7 @@ import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 import {ActiveDeliveryInfoPage} from './active-delivery-info.page';
+import {LightboxModule} from 'ngx-lightbox';
 
 describe('ActiveDeliveryInfoPage', () => {
     let component: ActiveDeliveryInfoPage;
@@ -32,6 +33,7 @@ describe('ActiveDeliveryInfoPage', () => {
             ],
             imports: [
                 ReactiveFormsModule,
+                LightboxModule,
                 ComponentsModule,
             ],
             providers: [

@@ -45,26 +45,26 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
      * Loads information on the users current requests
      */
     ngOnInit(): void {
-        this.me = this.userService.getMe();
-        if (!this.me) {
-            this.navController.navigateRoot('/home').catch(console.error);
-            return;
-        }
-        this.currentRequestService.listenForCurrentRequestChanges({
-            next: completingRequest => {
-                this.setRequest(completingRequest);
-            },
-        });
-        this.currentRequestService.getCurrentRequest().then(request => {
-            this.setRequest(request);
-            this.currentRequestDataLoaded = true;
-        }).catch(() => {
-            this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
-                const request = this.findCurrentRequest(requestsPage);
-                this.currentRequestService.setCurrentRequest(request);
-                this.currentRequestDataLoaded = true;
-                this.setRequest(request);
+        this.userService.getMe().then(me => {
+            this.me = me;
+            this.currentRequestService.listenForCurrentRequestChanges({
+                next: completingRequest => {
+                    this.setRequest(completingRequest);
+                },
             });
+            this.currentRequestService.getCurrentRequest().then(request => {
+                this.setRequest(request);
+                this.currentRequestDataLoaded = true;
+            }).catch(() => {
+                this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
+                    const request = this.findCurrentRequest(requestsPage);
+                    this.currentRequestService.setCurrentRequest(request);
+                    this.currentRequestDataLoaded = true;
+                    this.setRequest(request);
+                });
+            });
+        }).catch(() => {
+            this.navController.navigateRoot('/home').catch(console.error);
         });
     }
 

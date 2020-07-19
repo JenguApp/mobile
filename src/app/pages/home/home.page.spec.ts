@@ -22,7 +22,7 @@ describe('HomePage', () => {
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             providers: [
                 { provide: RequestsProvider, useValue: requestsProvider},
-                {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
+                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
                 { provide: NavController, useValue: navController},
             ],
         })

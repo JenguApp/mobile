@@ -62,16 +62,10 @@ export class HomePage extends BasePage implements OnInit {
      * Loads the logged in user object
      */
     loadMe() {
-        this.me = this.userService.getMe();
-        if (!this.me) {
-            this.requests.auth.loadInitialInformation().then(user => {
-                this.userService.storeMe(user);
-                this.me = user;
-                this.finalizeLoad();
-            });
-        } else {
+        this.userService.getMe().then(me => {
+            this.me = me;
             this.finalizeLoad();
-        }
+        });
     }
 
     /**
@@ -89,7 +83,7 @@ export class HomePage extends BasePage implements OnInit {
             });
         }).catch(e => {
             this.loadDefaultState();
-        })
+        });
     }
 
     /**

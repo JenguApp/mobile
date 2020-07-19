@@ -8,8 +8,11 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {RequestingDeliveriesPage} from './requesting-deliveries.page';
+import {ComponentsModule} from '../../components/components.module';
+import {StorageProvider} from '../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 
-describe('StateRequestingDeliveriesComponent', () => {
+describe('RequestingDeliveriesPage', () => {
     let component: RequestingDeliveriesPage;
     let fixture: ComponentFixture<RequestingDeliveriesPage>;
     let navController;
@@ -22,17 +25,17 @@ describe('StateRequestingDeliveriesComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
+                ComponentsModule,
                 IonicModule.forRoot(),
             ],
             providers: [
-                {provide: AlertController, useValue: alertController},
-                {provide: NavController, useValue: navController},
-                {provide: Geolocation, useValue: new Geolocation()},
+                { provide: AlertController, useValue: alertController },
+                { provide: NavController, useValue: navController },
+                { provide: Geolocation, useValue: new Geolocation() },
                 { provide: RequestsProvider, useValue: requestsProvider},
+                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
             ],
             declarations: [
-                RequestFormItemComponent,
-                RequestFormComponent,
                 RequestingDeliveriesPage,
             ]
         })

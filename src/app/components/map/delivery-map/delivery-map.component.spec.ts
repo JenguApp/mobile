@@ -8,6 +8,8 @@ import {AvailableRequestInfoWindowComponent} from '../../available-request-info-
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {Observable} from 'rxjs';
+import {StorageProvider} from '../../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 
 describe('DeliveryMapComponent', () => {
     let component: DeliveryMapComponent;
@@ -46,10 +48,11 @@ describe('DeliveryMapComponent', () => {
                 IonicModule.forRoot(),
             ],
             providers: [
-                {provide: AlertController, useValue: alertController},
-                {provide: ToastController, useValue: new ToastController()},
-                {provide: NavController, useValue: navController},
+                { provide: AlertController, useValue: alertController },
+                { provide: ToastController, useValue: new ToastController() },
+                { provide: NavController, useValue: navController },
                 { provide: RequestsProvider, useValue: requestsProvider},
+                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
             ],
             declarations: [
                 AvailableRequestInfoWindowComponent,
