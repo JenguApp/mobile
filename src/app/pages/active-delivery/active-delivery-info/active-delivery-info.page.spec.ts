@@ -12,6 +12,7 @@ import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 import {ActiveDeliveryInfoPage} from './active-delivery-info.page';
 import {LightboxModule} from 'ngx-lightbox';
+import {CurrentRequestService} from '../../../services/data-services/current-request.service';
 
 describe('ActiveDeliveryInfoPage', () => {
     let component: ActiveDeliveryInfoPage;
@@ -27,6 +28,7 @@ describe('ActiveDeliveryInfoPage', () => {
         activatedRoute.snapshot.paramMap = convertToParamMap({
             user_id: 1234
         });
+        const storageProvider = new StorageProvider(new NativeStorageMock());
         TestBed.configureTestingModule({
             declarations: [
                 ActiveDeliveryInfoPage,
@@ -41,7 +43,8 @@ describe('ActiveDeliveryInfoPage', () => {
                 { provide: NavController, useValue: navController},
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: ActivatedRoute, useValue: activatedRoute},
-                {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
                 {provide: LaunchNavigator, useValue: new LaunchNavigator()}
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],

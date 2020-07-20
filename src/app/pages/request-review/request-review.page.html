@@ -2,7 +2,7 @@
 
 <ion-content class="ion-padding">
     <app-request-form reviewForm="true" #requestForm></app-request-form>
-    <app-location-review-map [startingLatitude]="latitude" [startingLongitude]="longitude"></app-location-review-map>
+    <app-location-review-map *ngIf="latitude && longitude" [startingLatitude]="latitude" [startingLongitude]="longitude"></app-location-review-map>
     <ion-textarea placeholder="Add Some Drop Off Instructions" #dropOffNotes></ion-textarea>
     <div id="submit-wrapper">
         <ion-button (click)="submit()">Submit</ion-button>

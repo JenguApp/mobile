@@ -15,6 +15,7 @@ import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {Camera} from '@ionic-native/camera/ngx';
 import {GoogleMaps} from '@ionic-native/google-maps/ngx';
 import {Marker} from '@ionic-native/google-maps';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 describe('RequestReviewPage', () => {
     let component: RequestReviewPage;
@@ -37,6 +38,7 @@ describe('RequestReviewPage', () => {
                 }
             } as any;
         });
+        const storageProvider = new StorageProvider(new NativeStorageMock());
         GoogleMaps.create = spy;
         navController = jasmine.createSpyObj('NavController', ['navigateBack']);
         activatedRoute = {};
@@ -61,7 +63,8 @@ describe('RequestReviewPage', () => {
                 {provide: Camera, useValue: camera},
                 {provide: FileOpener, useValue: fileOpener},
                 {provide: GoogleMaps, useValue: new GoogleMaps()},
-                {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

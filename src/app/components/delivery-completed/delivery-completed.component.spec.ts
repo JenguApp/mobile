@@ -8,6 +8,7 @@ import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {AvailableRequestInfoWindowComponent} from '../available-request-info-window/available-request-info-window.component';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 describe('DeliveryCompletedComponent', () => {
     let component: DeliveryCompletedComponent;
@@ -19,6 +20,7 @@ describe('DeliveryCompletedComponent', () => {
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
+        const storageProvider = new StorageProvider(new NativeStorageMock());
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
@@ -28,7 +30,8 @@ describe('DeliveryCompletedComponent', () => {
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
                 { provide: RequestsProvider, useValue: requestsProvider},
-                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
                 AvailableRequestInfoWindowComponent,

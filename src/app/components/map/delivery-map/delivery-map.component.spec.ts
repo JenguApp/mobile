@@ -10,6 +10,7 @@ import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {Observable} from 'rxjs';
 import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
+import {CurrentRequestService} from '../../../services/data-services/current-request.service';
 
 describe('DeliveryMapComponent', () => {
     let component: DeliveryMapComponent;
@@ -36,10 +37,12 @@ describe('DeliveryMapComponent', () => {
                     } as VisibleRegion;
                 },
                 clear() {
+                    return Promise.resolve();
                 }
             } as any;
         });
         GoogleMaps.create = spy;
+        const storageProvider = new StorageProvider(new NativeStorageMock());
         const resolveSpy = Promise.resolve();
         navController = jasmine.createSpyObj('NavController', {navigateRoot: resolveSpy});
         alertController = new AlertController();
@@ -53,7 +56,8 @@ describe('DeliveryMapComponent', () => {
                 { provide: ToastController, useValue: new ToastController() },
                 { provide: NavController, useValue: navController },
                 { provide: RequestsProvider, useValue: requestsProvider},
-                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
                 AvailableRequestInfoWindowComponent,

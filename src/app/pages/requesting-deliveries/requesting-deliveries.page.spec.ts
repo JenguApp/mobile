@@ -11,6 +11,7 @@ import {RequestingDeliveriesPage} from './requesting-deliveries.page';
 import {ComponentsModule} from '../../components/components.module';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 describe('RequestingDeliveriesPage', () => {
     let component: RequestingDeliveriesPage;
@@ -21,6 +22,7 @@ describe('RequestingDeliveriesPage', () => {
 
     beforeEach(async(() => {
         const resolveSpy = Promise.resolve();
+        const storageProvider = new StorageProvider(new NativeStorageMock());
         navController = jasmine.createSpyObj('NavController', {navigateRoot: resolveSpy});
         alertController = new AlertController();
         TestBed.configureTestingModule({
@@ -34,7 +36,8 @@ describe('RequestingDeliveriesPage', () => {
                 { provide: NavController, useValue: navController },
                 { provide: Geolocation, useValue: new Geolocation() },
                 { provide: RequestsProvider, useValue: requestsProvider},
-                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
                 RequestingDeliveriesPage,

@@ -13,6 +13,7 @@ import {FileOpener} from '@ionic-native/file-opener/ngx';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 describe('LocationSelectionPage', () => {
     let component: LocationSelectionPage;
@@ -30,6 +31,7 @@ describe('LocationSelectionPage', () => {
         activatedRoute.snapshot.paramMap = convertToParamMap({
             user_id: 1234
         });
+        const storageProvider = new StorageProvider(new NativeStorageMock());
         TestBed.configureTestingModule({
             declarations: [
                 LocationSelectionPage,
@@ -46,7 +48,8 @@ describe('LocationSelectionPage', () => {
                 {provide: File, useValue: file},
                 {provide: FileOpener, useValue: fileOpener},
                 { provide: Geolocation, useValue: new Geolocation() },
-                {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

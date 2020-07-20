@@ -22,11 +22,12 @@ describe('UserService', () => {
         expect(service).toBeTruthy();
     });
 
-    it ('should cache the logged in user properly', () => {
+    it ('should cache the logged in user properly', async () => {
         const service: UserService = TestBed.get(UserService);
 
         service.storeMe(new User({}));
-        expect(service.getMe()).toBeTruthy();
+        const result = await service.getMe();
+        expect(result).toBeTruthy();
     });
 
     it('should cache a user properly', () => {

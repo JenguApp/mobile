@@ -8,11 +8,13 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {NavController} from '@ionic/angular';
 import Spy = jasmine.Spy;
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
 
 describe('HomePage', () => {
     let component: HomePage;
     let fixture: ComponentFixture<HomePage>;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
+    const storageProvider = new StorageProvider(new NativeStorageMock());
     const navController = jasmine.createSpyObj('NavController', ['navigateRoot']);
     (navController.navigateRoot as Spy).and.returnValue(Promise.resolve());
 
@@ -22,7 +24,8 @@ describe('HomePage', () => {
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             providers: [
                 { provide: RequestsProvider, useValue: requestsProvider},
-                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
+                { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
+                { provide: StorageProvider, useValue: storageProvider },
                 { provide: NavController, useValue: navController},
             ],
         })

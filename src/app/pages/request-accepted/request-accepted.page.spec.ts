@@ -20,7 +20,7 @@ describe('RequestAcceptedPage', () => {
     let alertController;
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['goBack']);
+        navController = jasmine.createSpyObj('NavController', ['navigateRoot']);
         alertController = new AlertController();
         TestBed.configureTestingModule({
             imports: [
