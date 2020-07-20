@@ -53,7 +53,7 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
                 },
             });
             this.currentRequestService.getCurrentRequest().then(request => {
-                this.setRequest(request);
+                this.setRequest(request, true);
                 this.currentRequestDataLoaded = true;
             }).catch(() => {
                 this.requests.deliveryRequests.loadMyRequests(this.me).then(requestsPage => {
@@ -71,10 +71,13 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
     /**
      * Sets our request data, and runs our update functions
      * @param request
+     * @param notify
      */
-    protected setRequest(request: Request) {
+    protected setRequest(request: Request, notify = false) {
         this.currentRequest = request;
-        this.currentRequestService.notifyRequest(request);
+        if (notify) {
+            this.currentRequestService.notifyRequest(request);
+        }
         if (!request) {
             this.noActiveRequest();
         } else {

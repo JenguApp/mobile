@@ -10,18 +10,16 @@ import {ComponentsModule} from '../../components/components.module';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {navControllerStub} from '../../../../test-config/mocks-ionic';
 
 describe('ActiveDeliveryPage', () => {
     let component: ActiveDeliveryPage;
     let fixture: ComponentFixture<ActiveDeliveryPage>;
-    let navController;
     let alertController;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
-        const resolveSpy = Promise.resolve();
         const storageProvider = new StorageProvider(new NativeStorageMock());
-        navController = jasmine.createSpyObj('NavController', {navigateRoot: resolveSpy});
         alertController = new AlertController();
         TestBed.configureTestingModule({
             imports: [
@@ -31,7 +29,7 @@ describe('ActiveDeliveryPage', () => {
             ],
             providers: [
                 { provide: AlertController, useValue: alertController },
-                { provide: NavController, useValue: navController },
+                { provide: NavController, useValue: navControllerStub },
                 { provide: Geolocation, useValue: new Geolocation() },
                 { provide: RequestsProvider, useValue: requestsProvider},
                 { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },

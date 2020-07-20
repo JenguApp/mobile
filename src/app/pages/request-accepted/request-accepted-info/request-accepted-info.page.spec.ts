@@ -11,16 +11,15 @@ import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../../services/data-services/current-request.service';
+import {navControllerStub} from '../../../../../test-config/mocks-ionic';
 
 describe('RequestAcceptedInfo', () => {
     let component: RequestAcceptedInfoPage;
-    let navController;
     let fixture: ComponentFixture<RequestAcceptedInfoPage>;
     let activatedRoute;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['navigateBack']);
         activatedRoute = {};
         activatedRoute.snapshot = {};
         activatedRoute.snapshot.paramMap = convertToParamMap({
@@ -37,7 +36,7 @@ describe('RequestAcceptedInfo', () => {
             ],
             providers: [
                 { provide: ToastController, useValue: new ToastController()},
-                { provide: NavController, useValue: navController},
+                { provide: NavController, useValue: navControllerStub},
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },

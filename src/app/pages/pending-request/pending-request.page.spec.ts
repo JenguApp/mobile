@@ -12,16 +12,15 @@ import {ComponentsModule} from '../../components/components.module';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {navControllerStub} from '../../../../test-config/mocks-ionic';
 
 describe('PendingRequestPage', () => {
     let component: PendingRequestPage;
     let fixture: ComponentFixture<PendingRequestPage>;
-    let navController;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
     let alertController;
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
         const storageProvider = new StorageProvider(new NativeStorageMock());
         TestBed.configureTestingModule({
@@ -32,7 +31,7 @@ describe('PendingRequestPage', () => {
             ],
             providers: [
                 { provide: AlertController, useValue: alertController },
-                { provide: NavController, useValue: navController },
+                { provide: NavController, useValue: navControllerStub },
                 { provide: Geolocation, useValue: new Geolocation() },
                 { provide: RequestsProvider, useValue: requestsProvider},
                 { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },

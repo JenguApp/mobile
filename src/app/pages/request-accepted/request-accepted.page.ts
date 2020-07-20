@@ -35,7 +35,9 @@ export class RequestAcceptedPage extends BaseRequestingDeliveriesPage {
      * sets up our request properly
      */
     requestUpdated() {
-        this.userService.cacheUser(this.currentRequest.completed_by);
+        if (this.currentRequest.completed_by) {
+            this.userService.cacheUser(this.currentRequest.completed_by);
+        }
         this.setRefreshTimer();
     }
 

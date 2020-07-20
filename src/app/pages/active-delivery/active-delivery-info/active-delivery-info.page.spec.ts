@@ -13,16 +13,15 @@ import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 import {ActiveDeliveryInfoPage} from './active-delivery-info.page';
 import {LightboxModule} from 'ngx-lightbox';
 import {CurrentRequestService} from '../../../services/data-services/current-request.service';
+import {navControllerStub} from '../../../../../test-config/mocks-ionic';
 
 describe('ActiveDeliveryInfoPage', () => {
     let component: ActiveDeliveryInfoPage;
-    let navController;
     let fixture: ComponentFixture<ActiveDeliveryInfoPage>;
     let activatedRoute;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['navigateBack']);
         activatedRoute = {};
         activatedRoute.snapshot = {};
         activatedRoute.snapshot.paramMap = convertToParamMap({
@@ -40,7 +39,7 @@ describe('ActiveDeliveryInfoPage', () => {
             ],
             providers: [
                 { provide: ToastController, useValue: new ToastController()},
-                { provide: NavController, useValue: navController},
+                { provide: NavController, useValue: navControllerStub},
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },

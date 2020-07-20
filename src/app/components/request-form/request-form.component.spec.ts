@@ -7,17 +7,16 @@ import {RequestFormItemComponent} from './request-form-item/request-form-item.co
 import {Camera} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
+import {navControllerStub} from '../../../../test-config/mocks-ionic';
 
 describe('RequestFormComponent', () => {
     let component: RequestFormComponent;
     let fixture: ComponentFixture<RequestFormComponent>;
-    let navController;
     let alertController;
     const camera: Camera = new Camera();
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
         TestBed.configureTestingModule({
             imports: [
@@ -26,7 +25,7 @@ describe('RequestFormComponent', () => {
             ],
             providers: [
                 {provide: AlertController, useValue: alertController},
-                {provide: NavController, useValue: navController},
+                {provide: NavController, useValue: navControllerStub},
                 {provide: Camera, useValue: camera},
                 { provide: RequestsProvider, useValue: requestsProvider},
             ],

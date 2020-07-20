@@ -11,16 +11,15 @@ import {RequestAcceptedPage} from './request-accepted.page';
 import {ComponentsModule} from '../../components/components.module';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {navControllerStub} from '../../../../test-config/mocks-ionic';
 
 describe('RequestAcceptedPage', () => {
     let component: RequestAcceptedPage;
     let fixture: ComponentFixture<RequestAcceptedPage>;
-    let navController;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
     let alertController;
 
     beforeEach(async(() => {
-        navController = jasmine.createSpyObj('NavController', ['navigateRoot']);
         alertController = new AlertController();
         TestBed.configureTestingModule({
             imports: [
@@ -30,7 +29,7 @@ describe('RequestAcceptedPage', () => {
             ],
             providers: [
                 { provide: AlertController, useValue: alertController },
-                { provide: NavController, useValue: navController },
+                { provide: NavController, useValue: navControllerStub },
                 { provide: Geolocation, useValue: new Geolocation() },
                 { provide: RequestsProvider, useValue: requestsProvider},
                 { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },

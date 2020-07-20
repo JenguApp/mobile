@@ -1,4 +1,4 @@
-import {Platform} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
 import {NgZone} from '@angular/core';
 
 export class PlatformMock extends Platform {
@@ -63,6 +63,15 @@ export class PlatformMock extends Platform {
         return document['activeElement'];
     }
 }
+
+export const navControllerStub = {
+    goBack: () => {
+        return Promise.resolve();
+    },
+    navigateRoot: () => {
+        return Promise.resolve();
+    },
+};
 
 export class FileMock extends File {
     cacheDirectory = '';

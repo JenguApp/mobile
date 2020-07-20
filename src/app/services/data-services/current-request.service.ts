@@ -147,7 +147,6 @@ export class CurrentRequestService {
         });
     }
 
-
     /**
      * Helper function to take us to the state root
      * @param navController

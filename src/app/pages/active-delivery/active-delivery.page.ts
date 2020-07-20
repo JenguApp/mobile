@@ -30,7 +30,9 @@ export class ActiveDeliveryPage extends BaseDeliveringPage {
      * sets up our request properly
      */
     requestUpdated() {
-        this.userService.cacheUser(this.currentRequest.requested_by);
+        if (this.currentRequest.requested_by) {
+            this.userService.cacheUser(this.currentRequest.requested_by);
+        }
     }
 
     /**
