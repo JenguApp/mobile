@@ -15,6 +15,7 @@ import {LocationReviewMapComponent} from './map/location-review-map/location-rev
 import {AvailableRequestInfoWindowComponent} from './available-request-info-window/available-request-info-window.component';
 import {DeliveryCompletedComponent} from './delivery-completed/delivery-completed.component';
 import {MapComponent} from './map/map.component';
+import {OrganizationUsersManagementComponent} from './organization-users-management/organization-users-management.component';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import {MapComponent} from './map/map.component';
         AvailableRequestInfoWindowComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
+        OrganizationUsersManagementComponent,
         RatingBarComponent,
         DeliveryCompletedComponent,
         DeliveryMapComponent,
@@ -43,6 +45,7 @@ import {MapComponent} from './map/map.component';
         AvailableRequestInfoWindowComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
+        OrganizationUsersManagementComponent,
         RatingBarComponent,
         DeliveryCompletedComponent,
         DeliveryMapComponent,

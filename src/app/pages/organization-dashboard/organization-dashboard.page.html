@@ -1,7 +1,10 @@
 <app-logged-in-header [isHome]=true></app-logged-in-header>
 
-<ion-content>
-
-    <!-- Put Organization stuff here -->
-
-</ion-content>
+<ion-tabs #tabs>
+    <ion-tab-bar slot="bottom" *ngIf="organizationId">
+        <ion-tab-button tab="user-management/{{organizationId}}">
+            <ion-icon name="people-outline"></ion-icon>
+            <ion-label>Members</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

@@ -1,15 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlertController, NavController } from "@ionic/angular";
-import {RequestsProvider} from '../../providers/requests/requests';
-import RequestsProviderMock from '../../providers/requests/requests.mock';
-import {OrganizationDashboardPage} from './organization-dashboard.page';
+import { CommonModule } from "@angular/common";
+import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {UserManagementPage} from './user-management.page';
+import {RequestsProvider} from '../../../providers/requests/requests';
+import RequestsProviderMock from '../../../providers/requests/requests.mock';
 
-describe('OrganizationDashboardPage', () => {
-    let component: OrganizationDashboardPage;
-    let fixture: ComponentFixture<OrganizationDashboardPage>;
+describe('UserManagementPage', () => {
+    let component: UserManagementPage;
+    let fixture: ComponentFixture<UserManagementPage>;
     let navController;
     let alertController;
     let activatedRoute;
@@ -24,6 +25,10 @@ describe('OrganizationDashboardPage', () => {
             organization_id: 1234
         });
         TestBed.configureTestingModule({
+            imports: [
+                CommonModule,
+                IonicModule.forRoot(),
+            ],
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
@@ -31,7 +36,7 @@ describe('OrganizationDashboardPage', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
-                OrganizationDashboardPage,
+                UserManagementPage,
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -39,7 +44,7 @@ describe('OrganizationDashboardPage', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(OrganizationDashboardPage);
+        fixture = TestBed.createComponent(UserManagementPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

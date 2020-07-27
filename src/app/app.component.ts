@@ -11,6 +11,7 @@ import {CurrentRequestService} from './services/data-services/current-request.se
 import {UserService} from './services/user.service';
 import {User} from './models/user/user';
 import {Organization} from './models/organization/organization';
+import {OrganizationService} from './services/organization.service';
 
 /**
  * Main entry of the app
@@ -55,6 +56,7 @@ export class AppComponent {
      * @param menuCtl
      * @param storage
      * @param userService
+     * @param organizationService
      * @param router
      * @param stateManagerService
      * @param currentRequestService
@@ -69,6 +71,7 @@ export class AppComponent {
         private menuCtl: MenuController,
         private storage: StorageProvider,
         private userService: UserService,
+        private organizationService: OrganizationService,
         private router: Router,
         private stateManagerService: StateManagerService,
         private currentRequestService: CurrentRequestService,
@@ -208,6 +211,7 @@ export class AppComponent {
      * @param organization
      */
     goToOrganization(organization: Organization) {
+        this.organizationService.cacheOrganization(organization);
         this.menuCtl.close('side-menu').catch(console.error);
         this.navCtl.navigateRoot('/organization-dashboard/' + organization.id).catch(console.error);
     }

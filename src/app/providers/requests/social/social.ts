@@ -32,8 +32,10 @@ export default class Social {
                 'initiatedBy',
                 'requested',
             ], {}, {}, {}, 100).then(response => {
-            return response && response.data ? Promise.resolve(response.data.map(data => new Contact(data))) : Promise.reject();
-        });
+                const result = response && response.data ?  response.data.map(data => new Contact(data)) : [];
+                return Promise.resolve(result);
+            }
+        );
     }
 
     /**

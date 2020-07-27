@@ -1,40 +1,41 @@
-import {Component, OnInit,} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BasePage} from '../base.page';
-import {RequestsProvider} from '../../providers/requests/requests';
-import {OrganizationService} from '../../services/organization.service';
-import {Organization} from '../../models/organization/organization';
 import {ActivatedRoute} from '@angular/router';
+import {IonTabs} from '@ionic/angular';
 
 @Component({
     selector: 'app-organization-dashboard',
     templateUrl: './organization-dashboard.page.html',
     styleUrls: ['./organization-dashboard.page.scss']
 })
-export class OrganizationDashboardPage extends BasePage implements OnInit{
+export class OrganizationDashboardPage extends BasePage implements OnInit {
 
     /**
-     * The organization
+     * The message input
      */
-    private organization: Organization;
+    @ViewChild('tabs', {static: false})
+    tabs: IonTabs;
+
+    /**
+     * The id of the organization
+     */
+    organizationId: number;
 
     /**
      * Default Constructor
-     * @param organizationService
      * @param route
      */
-    constructor(private organizationService: OrganizationService,
-                private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute) {
         super();
+        this.organizationId = parseInt(this.route.snapshot.paramMap.get('organization_id'), 0);
     }
 
     /**
-     * setups the initial location
+     * Takes us to the default tab
      */
     ngOnInit(): void {
-        const organizationId = parseInt(this.route.snapshot.paramMap.get('organization_id'), 0);
-        this.organizationService.getOrganization(organizationId).then(organization => {
-            this.organization = organization;
-        });
+        setTimeout(() => {
+            this.tabs.select('user-management/' + this.organizationId).catch(console.error);
+        }, 50);
     }
 }

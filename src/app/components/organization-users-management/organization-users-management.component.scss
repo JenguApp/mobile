@@ -1,0 +1,41 @@
+ion-content {
+  position: relative;
+
+  #add-btn {
+    text-align: right;
+  }
+
+  #manager-form-wrapper {
+    z-index: 1;
+    background: rgba(0,0,0, .2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    #manager-form {
+      position: absolute;
+      top: 50px;
+      left: 40px;
+      right: 40px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      background: white;
+
+      > ion-item {
+        margin: 0 0 10px;
+      }
+
+      ion-item {
+        --padding-start: 0;
+      }
+
+      ion-radio-group {
+        margin: 10px 0;
+        width: 100%;
+      }
+    }
+  }
+}
