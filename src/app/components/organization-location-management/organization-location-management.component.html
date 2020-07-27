@@ -1,0 +1,15 @@
+<ion-content class="ion-padding">
+    <div (click)="goToCreateLocation()" id="add-btn">
+        Add Location <ion-icon name="add-outline" ></ion-icon>
+    </div>
+
+    <ion-list *ngIf="organization">
+        <ion-item *ngFor="let location of locations">
+            {{organizationManager.name()}} - {{organizationManager.roleName()}}
+            <span slot="end">
+                <ion-icon name="create-outline" (click)="showManagerDialogue(organizationManager)"></ion-icon>
+                <ion-icon name="close-circle-outline" (click)="promptDeletion(organizationManager)"></ion-icon>
+            </span>
+        </ion-item>
+    </ion-list>
+</ion-content>

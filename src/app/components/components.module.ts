@@ -16,6 +16,7 @@ import {AvailableRequestInfoWindowComponent} from './available-request-info-wind
 import {DeliveryCompletedComponent} from './delivery-completed/delivery-completed.component';
 import {MapComponent} from './map/map.component';
 import {OrganizationUsersManagementComponent} from './organization-users-management/organization-users-management.component';
+import {OrganizationLocationManagementComponent} from './organization-location-management/organization-location-management.component';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import {OrganizationUsersManagementComponent} from './organization-users-managem
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
+        OrganizationLocationManagementComponent,
         RequestFormComponent,
         RequestFormItemComponent,
     ],
@@ -52,6 +54,7 @@ import {OrganizationUsersManagementComponent} from './organization-users-managem
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
+        OrganizationLocationManagementComponent,
         RequestFormComponent,
         RequestFormItemComponent,
     ],
