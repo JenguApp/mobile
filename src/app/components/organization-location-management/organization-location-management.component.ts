@@ -1,11 +1,8 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { RequestsProvider } from '../../providers/requests/requests';
 import {Organization} from '../../models/organization/organization';
-import {OrganizationManager} from '../../models/organization/organization-manager';
 import {AlertController, NavController} from '@ionic/angular';
-import Role from '../../models/user/role';
-import {UserService} from '../../services/user.service';
-import {User} from '../../models/user/user';
+import {Location} from '../../models/organization/location';
 
 @Component({
     selector: 'app-organization-location-management',
@@ -28,7 +25,7 @@ export class OrganizationLocationManagementComponent implements OnChanges {
     /**
      * The organization managers for this organization
      */
-    locations: OrganizationManager[] = [];
+    locations: Location[] = [];
 
     /**
      * Default Constructor
@@ -57,7 +54,7 @@ export class OrganizationLocationManagementComponent implements OnChanges {
      * @param pageNumber
      */
     loadLocationPage(pageNumber) {
-        this.requests.organization.loadOrganizationManagers(this.organization, pageNumber).then(page => {
+        this.requests.organization.loadOrganizationLocations(this.organization, pageNumber).then(page => {
             this.locations = this.locations.concat(page.data);
             if (page.last_page > pageNumber) {
                 this.loadLocationPage(pageNumber + 1);
@@ -67,9 +64,9 @@ export class OrganizationLocationManagementComponent implements OnChanges {
 
     /**
      * Makes sure the user wants to delete the organization manager
-     * @param organizationManager
+     * @param location
      */
-    promptDeletion(organizationManager: OrganizationManager) {
+    promptDeletion(location: Location) {
         let alert;
         this.alertController.create({
             header: 'Are you sure?',
@@ -81,10 +78,10 @@ export class OrganizationLocationManagementComponent implements OnChanges {
                 {
                     text: 'Yes',
                     handler: () => {
-                        this.requests.organization.deleteOrganizationManager(organizationManager).then(() => {
+                        this.requests.organization.deleteOrganizationLocation(location).then(() => {
                             alert.dismiss();
                             this.locations =
-                                this.locations.filter(i => i.id != organizationManager.id);
+                                this.locations.filter(i => i.id != location.id);
                         });
                     }
                 }

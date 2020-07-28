@@ -9,6 +9,11 @@ import {Relation} from '../relation';
 export class Location extends BaseModel {
 
     /**
+     * The id of the organization this is related to
+     */
+    organization_id: number;
+
+    /**
      * The location name
      */
     name: string;

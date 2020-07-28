@@ -2,6 +2,7 @@ import {RequestHandlerProvider} from '../../request-handler/request-handler';
 import {Organization} from '../../../models/organization/organization';
 import {OrganizationManager} from '../../../models/organization/organization-manager';
 import {Page} from '../../../models/page';
+import {Location} from '../../../models/organization/location';
 
 /**
  * All requests needed for handling authentication within the app
@@ -87,6 +88,49 @@ export default class OrganizationRequests {
             'user',
         ], null, null, null, 100, pageNumber).then(data => {
             return Promise.resolve(new Page(data, OrganizationManager));
+        });
+    }
+
+    /**
+     *
+     * @param organization
+     * @param pageNumber
+     */
+    async loadOrganizationLocations(organization: Organization, pageNumber: number): Promise<Page<Location>> {
+        return this.requestHandler.get('organizations/' + organization.id + '/locations', true, true, [
+            'requestedItems',
+        ], null, null, null, 100, pageNumber).then(data => {
+            return Promise.resolve(new Page(data, Location));
+        });
+    }
+
+    /**
+     * Creates an organization manager related to the email passed in
+     * @param organizationId
+     * @param locationData
+     */
+    async createOrganizationLocation(organizationId: any, locationData: any): Promise<Location> {
+        return this.requestHandler.post('organizations/' + organizationId + '/locations', true, true, locationData).then(data => {
+            return Promise.resolve(new Location(data));
+        });
+    }
+
+    /**
+     * Delete the organization manager properly
+     * @param location
+     */
+    async deleteOrganizationLocation(location: Location): Promise<any> {
+        return this.requestHandler.delete('organizations/' + location.organization_id + '/locations/' + location.id, true, true);
+    }
+
+    /**
+     * Delete the organization manager properly
+     * @param location
+     * @param locationData
+     */
+    async updateOrganizationLocation(location: Location, locationData: any): Promise<Location> {
+        return this.requestHandler.patch('organizations/' + location.organization_id + '/locations/' + location.id, true, true, locationData).then(data => {
+            return Promise.resolve(new Location(data));
         });
     }
 }
