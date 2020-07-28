@@ -10,12 +10,16 @@ import {OrganizationManager} from '../../models/organization/organization-manage
 import Role from '../../models/user/role';
 
 @Component({
-    selector: 'app-organization-creation',
-    templateUrl: './organization-creation.page.html',
-    styleUrls: ['./organization-creation.page.scss']
+    selector: 'app-location-creation',
+    templateUrl: './location-creation.page.html',
+    styleUrls: ['./location-creation.page.scss']
 })
-export class OrganizationCreationPage extends BasePage implements OnInit{
+export class LocationCreationPage extends BasePage implements OnInit{
 
+    /**
+     * The action the user is running
+     */
+    action: string;
     /**
      * The form object that helps us validate the sign in form
      */
@@ -55,7 +59,18 @@ export class OrganizationCreationPage extends BasePage implements OnInit{
         this.form = this.formBuilder.group({
 
             name: ['', Validators.compose([
-                Validators.maxLength(120),
+                Validators.required,
+            ])],
+            address_line_1: ['', Validators.compose([
+                Validators.required,
+            ])],
+            address_line_2: ['', Validators.compose([])],
+            city: ['', Validators.compose([
+                Validators.required,
+            ])],
+            postal_code: ['', Validators.compose([])],
+            region: ['', Validators.compose([])],
+            country: ['', Validators.compose([
                 Validators.required,
             ])],
         });

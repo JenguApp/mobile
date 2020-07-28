@@ -6,12 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import {ComponentsModule} from '../../components/components.module';
-import {OrganizationCreationPage} from './organization-creation.page';
+import {LocationCreationPage} from './location-creation.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrganizationCreationPage,
+    component: LocationCreationPage,
   }
 ];
 
@@ -24,6 +24,6 @@ const routes: Routes = [
     ComponentsModule,
     ReactiveFormsModule,
   ],
-  declarations: [OrganizationCreationPage]
+  declarations: [LocationCreationPage]
 })
-export class OrganizationCreationPageModule {}
+export class LocationCreationPageModule {}

@@ -2,9 +2,7 @@
 
 <ion-content class="ion-padding">
 
-    <h2>Create An Organization</h2>
-
-    <p>Creating an organization in Jengu allows you to add users to your organization, and create a distribution network for those within your community.</p>
+    <h2>{{action}} Location</h2>
 
     <form [formGroup]="form">
         <ion-item>
@@ -13,8 +11,41 @@
         </ion-item>
 
         <div color="alert" *ngIf="submitted && !form.controls.name.valid" class="validator-error">
-            Please enter your organization's name.
+            Please enter your location's name.
         </div>
+
+        <ion-item>
+            <ion-label position="stacked">Address Line 1</ion-label>
+            <ion-input type="text" ngDefaultControl formControlName="address_line_1" [formControl]="form.controls.address_line_1"></ion-input>
+        </ion-item>
+
+        <div color="alert" *ngIf="submitted && !form.controls.address_line_1.valid" class="validator-error">
+            Please the first line of your locations address.
+        </div>
+
+        <ion-item>
+            <ion-label position="stacked">Address Line 2</ion-label>
+            <ion-input type="text" ngDefaultControl formControlName="address_line_2" [formControl]="form.controls.address_line_2"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">City</ion-label>
+            <ion-input type="text" ngDefaultControl formControlName="city" [formControl]="form.controls.city"></ion-input>
+        </ion-item>
+
+        <div color="alert" *ngIf="submitted && !form.controls.city.valid" class="validator-error">
+            Please enter the city for the location.
+        </div>
+
+        <ion-item>
+            <ion-label position="stacked">Postal Code</ion-label>
+            <ion-input type="text" ngDefaultControl formControlName="postal_code" [formControl]="form.controls.postal_code"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">Region</ion-label>
+            <ion-input type="text" ngDefaultControl formControlName="region" [formControl]="form.controls.region"></ion-input>
+        </ion-item>
 
         <div class="submit-wrapper">
             <ion-button large (click)="submit()">Create</ion-button>

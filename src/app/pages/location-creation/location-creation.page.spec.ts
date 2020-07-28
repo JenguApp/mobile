@@ -4,15 +4,15 @@ import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
-import {OrganizationCreationPage} from './organization-creation.page';
+import {LocationCreationPage} from './location-creation.page';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 
-describe('OrganizationCreationPage', () => {
-    let component: OrganizationCreationPage;
-    let fixture: ComponentFixture<OrganizationCreationPage>;
+describe('LocationCreationPage', () => {
+    let component: LocationCreationPage;
+    let fixture: ComponentFixture<LocationCreationPage>;
     let navController;
     let alertController;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
@@ -33,7 +33,7 @@ describe('OrganizationCreationPage', () => {
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
             ],
             declarations: [
-                OrganizationCreationPage,
+                LocationCreationPage,
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -41,7 +41,7 @@ describe('OrganizationCreationPage', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(OrganizationCreationPage);
+        fixture = TestBed.createComponent(LocationCreationPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
