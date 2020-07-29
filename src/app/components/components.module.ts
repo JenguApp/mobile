@@ -17,6 +17,7 @@ import {DeliveryCompletedComponent} from './delivery-completed/delivery-complete
 import {MapComponent} from './map/map.component';
 import {OrganizationUsersManagementComponent} from './organization-users-management/organization-users-management.component';
 import {OrganizationLocationManagementComponent} from './organization-location-management/organization-location-management.component';
+import {CountrySelectComponent} from './country-select/country-select.component';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import {OrganizationLocationManagementComponent} from './organization-location-m
         ArticleEditorComponent,
         ArticleViewerComponent,
         AvailableRequestInfoWindowComponent,
+        CountrySelectComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         OrganizationUsersManagementComponent,
@@ -45,6 +47,7 @@ import {OrganizationLocationManagementComponent} from './organization-location-m
         ArticleEditorComponent,
         ArticleViewerComponent,
         AvailableRequestInfoWindowComponent,
+        CountrySelectComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
         OrganizationUsersManagementComponent,
