@@ -27,10 +27,16 @@ export class LocationCreationPage extends BasePage implements OnInit{
      * The action the user is running
      */
     action: string;
+
     /**
      * The form object that helps us validate the sign in form
      */
     form: FormGroup;
+
+    /**
+     * Whether or not the user has a validation error with the country
+     */
+    countryValidationError = false;
 
     /**
      * Boolean switch for whether or not the form has been submitted
@@ -92,7 +98,9 @@ export class LocationCreationPage extends BasePage implements OnInit{
     submit () {
         this.submitted = true;
 
-        if (this.form.valid) {
+        this.countryValidationError = !this.countrySelectComponent.value;
+
+        if (this.form.valid && !this.countryValidationError) {
 
             const name = this.form.controls['name'].value;
 
