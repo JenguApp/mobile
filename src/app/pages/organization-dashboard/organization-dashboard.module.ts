@@ -22,6 +22,15 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'location-management/:organization_id',
+        children: [
+          {
+            path: '',
+            loadChildren: './location-management/location-management.module#LocationManagementPageModule'
+          }
+        ]
+      },
     ]
   }
 ];

@@ -1,4 +1,4 @@
-import {Component, OnInit,} from '@angular/core';
+import {Component, OnInit, ViewChild,} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BasePage} from '../base.page';
 import {RequestsProvider} from '../../providers/requests/requests';
@@ -8,6 +8,7 @@ import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
 import {OrganizationManager} from '../../models/organization/organization-manager';
 import Role from '../../models/user/role';
+import {CountrySelectComponent} from '../../components/country-select/country-select.component';
 
 @Component({
     selector: 'app-location-creation',
@@ -15,6 +16,12 @@ import Role from '../../models/user/role';
     styleUrls: ['./location-creation.page.scss']
 })
 export class LocationCreationPage extends BasePage implements OnInit{
+
+    /**
+     * The Country Select Component
+     */
+    @ViewChild('countrySelectComponent', {static: true})
+    countrySelectComponent: CountrySelectComponent;
 
     /**
      * The action the user is running

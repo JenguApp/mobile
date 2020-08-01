@@ -2,6 +2,10 @@
 
 <ion-tabs #tabs>
     <ion-tab-bar slot="bottom" *ngIf="organizationId">
+        <ion-tab-button tab="location-management/{{organizationId}}">
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-label>Locations</ion-label>
+        </ion-tab-button>
         <ion-tab-button tab="user-management/{{organizationId}}">
             <ion-icon name="people-outline"></ion-icon>
             <ion-label>Members</ion-label>

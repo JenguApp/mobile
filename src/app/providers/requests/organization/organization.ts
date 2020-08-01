@@ -98,7 +98,6 @@ export default class OrganizationRequests {
      */
     async loadOrganizationLocations(organization: Organization, pageNumber: number): Promise<Page<Location>> {
         return this.requestHandler.get('organizations/' + organization.id + '/locations', true, true, [
-            'requestedItems',
         ], null, null, null, 100, pageNumber).then(data => {
             return Promise.resolve(new Page(data, Location));
         });

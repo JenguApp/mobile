@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { RequestsProvider } from '../../providers/requests/requests';
 import {Organization} from '../../models/organization/organization';
 import {AlertController, NavController} from '@ionic/angular';
@@ -90,5 +90,13 @@ export class OrganizationLocationManagementComponent implements OnChanges {
             alert = a;
             alert.present();
         });
+    }
+
+    /**
+     * Takes the user to the location manager
+     * @param location
+     */
+    goToLocationEditor(location: Location = null) {
+        this.navController.navigateForward('/organization-location-dashboard' + (location ? '/' + location.id : '')).catch(console.error);
     }
 }
