@@ -69,8 +69,8 @@ const routes: Routes = [
         loadChildren: './pages/location-creation/location-creation.module#LocationCreationPageModule'
     },
     {
-        path: 'organization-location-dashboard/:location_id',
-        loadChildren: './pages/location-creation/location-creation.module#LocationCreationPageModule'
+        path: 'location-dashboard/:location_id',
+        loadChildren: './pages/location-dashboard/location-dashboard.module#LocationDashboardPageModule'
     },
     {
         path: 'pending-request',
