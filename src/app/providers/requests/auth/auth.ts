@@ -83,31 +83,4 @@ export default class Auth {
                 );
             });
     }
-
-    /**
-     * Creates a payment method for a user
-     * @param user
-     * @param stripeToken
-     */
-    async createPaymentMethod(user: User, stripeToken: string): Promise<PaymentMethod> {
-        return this.requestHandler.post('users/' + user.id + '/payment-methods', true, true, {
-            token: stripeToken,
-        }).then (result => {
-            return Promise.resolve(new PaymentMethod(result));
-        });
-    }
-
-    /**
-     * Runes the upload request, the file contents should be a base 64 encoded string
-     *
-     * @param user
-     * @param fileContents
-     */
-    async uploadProfileImage(user: User, fileContents: string): Promise<Asset> {
-        return this.requestHandler.post('users/' + user.id + '/profile-images', true, false, {
-            file_contents: fileContents,
-        }).then(response => {
-            return Promise.resolve(new Asset(response));
-        });
-    }
 }

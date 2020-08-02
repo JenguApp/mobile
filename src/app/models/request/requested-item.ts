@@ -33,7 +33,7 @@ export class RequestedItem extends BaseModel {
      * @param imageData
      */
     replaceAsset(requests: RequestsProvider, user: User, imageData: string): Promise<any> {
-        return requests.deliveryRequests.uploadAsset(user, imageData).then(asset => {
+        return requests.entityRequests.uploadAsset(user, imageData).then(asset => {
             this.asset = asset;
             return Promise.resolve();
         });

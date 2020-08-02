@@ -89,21 +89,6 @@ export default class DeliveryRequests {
         });
     }
 
-
-    /**
-     * Runes the upload request, the file contents should be a base 64 encoded string
-     *
-     * @param user
-     * @param fileContents
-     */
-    async uploadAsset(user: User, fileContents: string): Promise<Asset> {
-        return this.requestHandler.post('users/' + user.id + '/assets', true, false, {
-            file_contents: fileContents,
-        }).then(response => {
-            return Promise.resolve(new Asset(response));
-        });
-    }
-
     /**
      * Cancels the request properly
      * @param user
