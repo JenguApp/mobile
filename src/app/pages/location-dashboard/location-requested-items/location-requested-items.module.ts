@@ -26,4 +26,4 @@ const routes: Routes = [
   ],
   declarations: [LocationRequestedItemsPage]
 })
-export class LocationRequestedItemsPagePageModule {}
+export class LocationRequestedItemsPageModule {}
