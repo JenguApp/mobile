@@ -1,15 +1,16 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { RequestsProvider } from '../../providers/requests/requests';
 import {Organization} from '../../models/organization/organization';
 import {AlertController, NavController} from '@ionic/angular';
 import {Location} from '../../models/organization/location';
+import {LocationService} from '../../services/data-services/location.service';
 
 @Component({
     selector: 'app-organization-location-management',
     templateUrl: './organization-location-management.component.html',
     styleUrls: ['./organization-location-management.component.scss']
 })
-export class OrganizationLocationManagementComponent implements OnChanges {
+export class OrganizationLocationManagementComponent implements OnChanges, OnInit {
 
     /**
      * The organization we are managing
@@ -31,11 +32,22 @@ export class OrganizationLocationManagementComponent implements OnChanges {
      * Default Constructor
      * @param requests
      * @param alertController
+     * @param locationService
      * @param navController
      */
     constructor(private requests: RequestsProvider,
                 private alertController: AlertController,
+                private locationService: LocationService,
                 private navController: NavController) {
+    }
+
+    /**
+     * Registers our location observer
+     */
+    ngOnInit(): void {
+        this.locationService.getLocationObserver().subscribe({
+            next: location => this.mergeLocations([location])
+        });
     }
 
     /**
@@ -55,9 +67,24 @@ export class OrganizationLocationManagementComponent implements OnChanges {
      */
     loadLocationPage(pageNumber) {
         this.requests.organization.loadOrganizationLocations(this.organization, pageNumber).then(page => {
-            this.locations = this.locations.concat(page.data);
+            this.mergeLocations(page.data);
             if (page.last_page > pageNumber) {
                 this.loadLocationPage(pageNumber + 1);
+            }
+        });
+    }
+
+    /**
+     * Merges the passed in locations into the local instance of locations
+     * @param locations
+     */
+    mergeLocations(locations: Location[]) {
+        locations.forEach(location => {
+            const index = this.locations.findIndex(i => i.id === location.id);
+            if (index) {
+                this.locations[index] = location;
+            } else {
+                this.locations.push(location);
             }
         });
     }
@@ -97,6 +124,8 @@ export class OrganizationLocationManagementComponent implements OnChanges {
      * @param location
      */
     goToLocationEditor(location: Location = null) {
-        this.navController.navigateForward('/organization-location-dashboard' + (location ? '/' + location.id : '')).catch(console.error);
+        const url = location ?
+            '/organization-location-dashboard/' + location.id : '/organization-location-creation/' + this.organization.id;
+        this.navController.navigateForward(url).catch(console.error);
     }
 }

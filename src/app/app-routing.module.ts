@@ -65,7 +65,7 @@ const routes: Routes = [
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
     },
     {
-        path: 'organization-location-dashboard',
+        path: 'organization-location-creation/:organization_id',
         loadChildren: './pages/location-creation/location-creation.module#LocationCreationPageModule'
     },
     {

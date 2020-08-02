@@ -9,17 +9,24 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
 
 describe('LocationCreationPage', () => {
     let component: LocationCreationPage;
     let fixture: ComponentFixture<LocationCreationPage>;
     let navController;
     let alertController;
+    let activatedRoute;
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
         navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
+        activatedRoute = {};
+        activatedRoute.snapshot = {};
+        activatedRoute.snapshot.paramMap = convertToParamMap({
+            organization_id: 1234
+        });
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
@@ -28,6 +35,7 @@ describe('LocationCreationPage', () => {
             ],
             providers: [
                 {provide: AlertController, useValue: alertController},
+                { provide: ActivatedRoute, useValue: activatedRoute },
                 {provide: NavController, useValue: navController},
                 { provide: RequestsProvider, useValue: requestsProvider},
                 {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},

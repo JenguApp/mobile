@@ -4,13 +4,13 @@ import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import {UserManagementPage} from './user-management.page';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
+import {LocationManagementPage} from './location-management.page';
 
-describe('UserManagementPage', () => {
-    let component: UserManagementPage;
-    let fixture: ComponentFixture<UserManagementPage>;
+describe('LocationManagementPage', () => {
+    let component: LocationManagementPage;
+    let fixture: ComponentFixture<LocationManagementPage>;
     let navController;
     let alertController;
     let activatedRoute;
@@ -36,7 +36,7 @@ describe('UserManagementPage', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
-                UserManagementPage,
+                LocationManagementPage,
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -44,7 +44,7 @@ describe('UserManagementPage', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UserManagementPage);
+        fixture = TestBed.createComponent(LocationManagementPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
