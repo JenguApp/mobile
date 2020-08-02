@@ -8,7 +8,6 @@ import {RatingBarComponent} from './rating-bar/rating-bar.component';
 import {ArticleEditorComponent} from './article-editor/article-editor.component';
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
 import {RequestFormComponent} from './request-form/request-form.component';
-import {RequestFormItemComponent} from './request-form/request-form-item/request-form-item.component';
 import {DeliveryMapComponent} from './map/delivery-map/delivery-map.component';
 import {LocationSelectMapComponent} from './map/location-select-map/location-select-map.component';
 import {LocationReviewMapComponent} from './map/location-review-map/location-review-map.component';
@@ -18,6 +17,8 @@ import {MapComponent} from './map/map.component';
 import {OrganizationUsersManagementComponent} from './organization-users-management/organization-users-management.component';
 import {OrganizationLocationManagementComponent} from './organization-location-management/organization-location-management.component';
 import {CountrySelectComponent} from './country-select/country-select.component';
+import {RequestedItemsEditableListComponent} from './requested-items-editable-list/requested-items-editable-list.component';
+import {RequestedItemEditorComponent} from './requested-item-editor/requested-item-editor.component';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import {CountrySelectComponent} from './country-select/country-select.component'
         MapComponent,
         OrganizationLocationManagementComponent,
         RequestFormComponent,
-        RequestFormItemComponent,
+        RequestedItemsEditableListComponent,
+        RequestedItemEditorComponent,
     ],
     exports: [
         ArticleEditorComponent,
@@ -59,7 +61,8 @@ import {CountrySelectComponent} from './country-select/country-select.component'
         MapComponent,
         OrganizationLocationManagementComponent,
         RequestFormComponent,
-        RequestFormItemComponent,
+        RequestedItemsEditableListComponent,
+        RequestedItemEditorComponent,
     ],
 })
 export class ComponentsModule {}

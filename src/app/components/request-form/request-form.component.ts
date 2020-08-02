@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
-import {RequestFormItemComponent} from './request-form-item/request-form-item.component';
 import {IonTextarea, NavController} from '@ionic/angular';
 import {RequestCreationService} from '../../services/data-services/request-creation.service';
+import {RequestedItemsEditableListComponent} from '../requested-items-editable-list/requested-items-editable-list.component';
 
 @Component({
     selector: 'app-request-form',
@@ -33,22 +33,16 @@ export class RequestFormComponent implements AfterViewInit {
     reviewForm: boolean = false;
 
     /**
-     * The new item that is being filled in
-     */
-    @ViewChild('newItem', {static: false})
-    newItem: RequestFormItemComponent;
-
-    /**
      * The description the user entered
      */
     @ViewChild('description', {static: false})
     descriptionTextArea: IonTextarea;
 
     /**
-     * all entered items on the page
+     * The requested items editor
      */
-    @ViewChildren('enteredItems')
-    enteredItems: QueryList<RequestFormItemComponent>;
+    @ViewChild('requestedItemsEditor', {static: false})
+    requestedItemsEditor: RequestedItemsEditableListComponent;
 
     /**
      * All requested items the user has entered so far
@@ -75,34 +69,10 @@ export class RequestFormComponent implements AfterViewInit {
     }
 
     /**
-     * Removes an item from the list of requested items
-     * @param removedItem
-     */
-    removeItem(removedItem: RequestFormItemComponent) {
-        this.requestedItems =
-            this.enteredItems.filter(i => i != removedItem)
-                            .map(i => i.getRequestedItemModel());
-    }
-
-    /**
-     * Adds an item properly
-     */
-    addItem() {
-        this.requestedItems.push(this.newItem.getRequestedItemModel());
-        this.newItem.clear();
-    }
-
-    /**
      * Stores the information into the form
      */
     storeForm() {
-        const requestedItems = this.enteredItems
-            .map(element => element.getRequestedItemModel())
-            .filter(requestedItem => requestedItem.name.length > 0 || requestedItem.asset);
-        const newItem = this.newItem.getRequestedItemModel();
-        if (newItem.name && newItem.name.length > 0 || newItem.asset) {
-            requestedItems.push(newItem);
-        }
+        const requestedItems = this.requestedItemsEditor.getCurrentRequestedItems();
         this.requestCreationService.storeInitialInformation(this.descriptionTextArea.value, requestedItems);
     }
 

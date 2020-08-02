@@ -8,18 +8,18 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import {RequestedItem} from '../../../models/request/requested-item';
+import {RequestedItem} from '../../models/request/requested-item';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
-import {RequestsProvider} from '../../../providers/requests/requests';
-import {User} from '../../../models/user/user';
+import {RequestsProvider} from '../../providers/requests/requests';
+import {User} from '../../models/user/user';
 import {AlertController, IonInput} from '@ionic/angular';
 
 @Component({
-    selector: 'app-request-form-item',
-    templateUrl: './request-form-item.component.html',
-    styleUrls: ['./request-form-item.component.scss']
+    selector: 'app-requested-item-editor',
+    templateUrl: './requested-item-editor.component.html',
+    styleUrls: ['./requested-item-editor.component.scss']
 })
-export class RequestFormItemComponent implements OnChanges {
+export class RequestedItemEditorComponent implements OnChanges {
 
     /**
      * The requested item that
@@ -43,7 +43,7 @@ export class RequestFormItemComponent implements OnChanges {
      * The rating change callback
      */
     @Output()
-    itemRemoved: EventEmitter<RequestFormItemComponent> = new EventEmitter();
+    itemRemoved: EventEmitter<RequestedItemEditorComponent> = new EventEmitter();
 
     /**
      * The input for the name

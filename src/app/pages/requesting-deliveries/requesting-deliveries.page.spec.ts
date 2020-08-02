@@ -2,8 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
-import {RequestFormComponent} from '../../components/request-form/request-form.component';
-import {RequestFormItemComponent} from '../../components/request-form/request-form-item/request-form-item.component';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
