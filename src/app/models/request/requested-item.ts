@@ -10,6 +10,11 @@ import IsEntity from '../contracts/is-entity';
 export class RequestedItem extends BaseModel {
 
     /**
+     * The id of the location this may be related to
+     */
+    location_id: number;
+
+    /**
      * The name the user entered for the line item
      */
     name: string;

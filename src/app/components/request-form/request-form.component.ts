@@ -3,9 +3,7 @@ import {
     ChangeDetectorRef,
     Component,
     Input,
-    QueryList,
     ViewChild,
-    ViewChildren
 } from '@angular/core';
 import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
