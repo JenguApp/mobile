@@ -2,8 +2,11 @@ import {BaseModel} from '../base-model';
 import {Asset} from '../asset';
 import {Relation} from '../relation';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {User} from '../user/user';
+import IsEntity from '../contracts/is-entity';
 
+/**
+ * Our data wrapper for our requested item
+ */
 export class RequestedItem extends BaseModel {
 
     /**
@@ -29,11 +32,11 @@ export class RequestedItem extends BaseModel {
     /**
      * replaces the asset properly
      * @param requests
-     * @param user
+     * @param entity
      * @param imageData
      */
-    replaceAsset(requests: RequestsProvider, user: User, imageData: string): Promise<any> {
-        return requests.entityRequests.uploadAsset(user, imageData).then(asset => {
+    replaceAsset(requests: RequestsProvider, entity: IsEntity, imageData: string): Promise<any> {
+        return requests.entityRequests.uploadAsset(entity, imageData).then(asset => {
             this.asset = asset;
             return Promise.resolve();
         });

@@ -11,8 +11,8 @@ import {
 import {RequestedItem} from '../../models/request/requested-item';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {User} from '../../models/user/user';
 import {AlertController, IonInput} from '@ionic/angular';
+import IsEntity from '../../models/contracts/is-entity';
 
 @Component({
     selector: 'app-requested-item-editor',
@@ -31,7 +31,7 @@ export class RequestedItemEditorComponent implements OnChanges {
      * The currently logged in user
      */
     @Input()
-    user: User;
+    entity: IsEntity;
 
     /**
      * The change detection passed in, so that we can send messages backwards
@@ -130,7 +130,7 @@ export class RequestedItemEditorComponent implements OnChanges {
         this.camera.getPicture(options).then((imageData) => {
             this.uploading = true;
             this.changeDetection.detectChanges();
-            this.localItem.replaceAsset(this.requests, this.user, imageData).then(() => {
+            this.localItem.replaceAsset(this.requests, this.entity, imageData).then(() => {
                 this.uploading = false;
                 this.changeDetection.detectChanges();
             });

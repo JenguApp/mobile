@@ -1,6 +1,7 @@
-import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {RequestedItemEditorComponent} from '../requested-item-editor/requested-item-editor.component';
 import {RequestedItem} from '../../models/request/requested-item';
+import IsEntity from '../../models/contracts/is-entity';
 
 @Component({
     selector: 'app-requested-items-editable-list',
@@ -8,7 +9,6 @@ import {RequestedItem} from '../../models/request/requested-item';
     styleUrls: ['./requested-items-editable-list.component.scss']
 })
 export class RequestedItemsEditableListComponent {
-
 
     /**
      * The new item that is being filled in
@@ -23,10 +23,22 @@ export class RequestedItemsEditableListComponent {
     enteredItems: QueryList<RequestedItemEditorComponent>;
 
     /**
+     * The entity we use to process our uploads
+     */
+    @Input()
+    entity: IsEntity;
+
+    /**
      * All requested items the user has entered so far
      */
     @Input()
     requestedItems: RequestedItem[] = [];
+
+    /**
+     * The change detection to help notify when to detect changes
+     */
+    @Input()
+    changeDetection: ChangeDetectorRef;
 
     /**
      * Removes an item from the list of requested items

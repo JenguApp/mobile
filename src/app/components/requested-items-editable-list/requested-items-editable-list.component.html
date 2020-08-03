@@ -1,6 +1,6 @@
 <ion-list>
-  <app-requested-item-editor #enteredItems *ngFor="let requestedItem of requestedItems" [requestedItem]="requestedItem" [user]="user" (itemRemoved)="removeItem($event)" [changeDetection]="changeDetection"></app-requested-item-editor>
+  <app-requested-item-editor #enteredItems *ngFor="let requestedItem of requestedItems" [requestedItem]="requestedItem" [entity]="entity" (itemRemoved)="removeItem($event)" [changeDetection]="changeDetection"></app-requested-item-editor>
 
-  <app-requested-item-editor #newItem [user]="user" [changeDetection]="changeDetection"></app-requested-item-editor>
+  <app-requested-item-editor #newItem [entity]="entity" [changeDetection]="changeDetection"></app-requested-item-editor>
 </ion-list>
 <ion-button (click)="addItem()">Add Item</ion-button>
