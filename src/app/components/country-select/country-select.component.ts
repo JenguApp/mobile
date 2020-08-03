@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import country from 'country-list-js';
 import {IonSelect} from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import {IonSelect} from '@ionic/angular';
     templateUrl: './country-select.component.html',
     styleUrls: ['./country-select.component.scss']
 })
-export class CountrySelectComponent {
+export class CountrySelectComponent implements OnInit {
 
     /**
      * The actual select element
@@ -27,10 +27,15 @@ export class CountrySelectComponent {
     _value: string;
 
     /**
-     * All country names available
+     * The names ordered properly
      */
-    countryNames(): string[] {
-        return country.names();
+    orderedNames: string[];
+
+    /**
+     * Default constructor
+     */
+    ngOnInit() {
+        this.orderedNames = country.names().sort();
     }
 
     /**

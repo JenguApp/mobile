@@ -1,5 +1,5 @@
 <ion-select #selectElement placeholder="Please Select Your Country" [value]="_value">
-    <ion-select-option *ngFor="let name of countryNames()" value="{{name}}">
+    <ion-select-option *ngFor="let name of orderedNames" value="{{name}}">
         {{name}}
     </ion-select-option>
 </ion-select>

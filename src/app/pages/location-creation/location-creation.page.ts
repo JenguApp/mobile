@@ -128,7 +128,8 @@ export class LocationCreationPage extends BasePage implements OnInit{
             request.then(location => {
                 this.locationService.cacheLocation(location);
                 if (!this.location) {
-                    // TODO take user to main location management page
+                    this.navController.back();
+                    this.navController.navigateForward('location-dashboard/' + this.location.id).catch(console.error);
                 }
             });
         }

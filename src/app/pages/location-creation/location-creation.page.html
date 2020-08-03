@@ -2,7 +2,7 @@
 
 <ion-content class="ion-padding">
 
-    <h2>{{action}} Location</h2>
+    <h2>{{location ? 'Update' : 'Create'}} Location</h2>
 
     <form [formGroup]="form">
         <ion-item>
@@ -30,7 +30,7 @@
 
         <app-country-select #countrySelectComponent></app-country-select>
 
-        <div color="alert" *ngIf="countryValidationError" class="validation-error">
+        <div color="alert" *ngIf="countryValidationError" class="validator-error">
             Please select your country.
         </div>
 
