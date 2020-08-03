@@ -7,6 +7,8 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {navControllerStub} from '../../../../test-config/mocks-ionic';
+import {RequestedItemsEditableListComponent} from '../requested-items-editable-list/requested-items-editable-list.component';
+import {RequestedItemEditorComponent} from '../requested-item-editor/requested-item-editor.component';
 
 describe('RequestFormComponent', () => {
     let component: RequestFormComponent;
@@ -29,6 +31,8 @@ describe('RequestFormComponent', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
+                RequestedItemEditorComponent,
+                RequestedItemsEditableListComponent,
                 RequestFormComponent,
             ]
         })
