@@ -101,9 +101,6 @@ export class LocationCreationPage extends BasePage implements OnInit{
             ])],
             postal_code: ['', Validators.compose([])],
             region: ['', Validators.compose([])],
-            country: ['', Validators.compose([
-                Validators.required,
-            ])],
         });
         this.userService.getMe().then(me => {
             this.me = me;
@@ -116,11 +113,19 @@ export class LocationCreationPage extends BasePage implements OnInit{
     submit () {
         this.submitted = true;
 
-        this.countryValidationError = !this.countrySelectComponent.value;
+        this.countryValidationError = this.countrySelectComponent.value.length === 0;
 
         if (this.form.valid && !this.countryValidationError) {
 
-            const locationData = {};
+            const locationData = {
+                name: this.form.controls['name'].value,
+                address_line_1: this.form.controls['address_line_1'].value,
+                address_line_2: this.form.controls['address_line_2'].value,
+                city: this.form.controls['city'].value,
+                postal_code: this.form.controls['postal_code'].value,
+                region: this.form.controls['region'].value,
+                country: this.countrySelectComponent.value,
+            };
 
             const request = this.location ?
                 this.requestsProvider.organization.updateOrganizationLocation(this.location, locationData) :

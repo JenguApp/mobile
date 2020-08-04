@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { RequestsProvider } from '../../providers/requests/requests';
 import {Organization} from '../../models/organization/organization';
 import {AlertController, NavController} from '@ionic/angular';
@@ -38,6 +38,7 @@ export class OrganizationLocationManagementComponent implements OnChanges, OnIni
     constructor(private requests: RequestsProvider,
                 private alertController: AlertController,
                 private locationService: LocationService,
+                private changeDetection: ChangeDetectorRef,
                 private navController: NavController) {
     }
 
@@ -81,12 +82,14 @@ export class OrganizationLocationManagementComponent implements OnChanges, OnIni
     mergeLocations(locations: Location[]) {
         locations.forEach(location => {
             const index = this.locations.findIndex(i => i.id === location.id);
-            if (index) {
+            if (index !== -1) {
                 this.locations[index] = location;
             } else {
                 this.locations.push(location);
             }
         });
+        console.log('locations', this.locations);
+        this.changeDetection.detectChanges();
     }
 
     /**

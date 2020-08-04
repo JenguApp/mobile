@@ -80,7 +80,7 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
     mergeRequestedItems(requestedItems: RequestedItem[]) {
         requestedItems.forEach(requestedItem => {
             const index = this.requestedItems.findIndex(i => i.id === requestedItem.id);
-            if (index) {
+            if (index !== -1) {
                 this.requestedItems[index] = requestedItem;
             } else {
                 this.requestedItems.push(requestedItem);
