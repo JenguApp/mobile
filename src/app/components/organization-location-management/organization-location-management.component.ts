@@ -33,6 +33,7 @@ export class OrganizationLocationManagementComponent implements OnChanges, OnIni
      * @param requests
      * @param alertController
      * @param locationService
+     * @param changeDetection
      * @param navController
      */
     constructor(private requests: RequestsProvider,
@@ -88,7 +89,6 @@ export class OrganizationLocationManagementComponent implements OnChanges, OnIni
                 this.locations.push(location);
             }
         });
-        console.log('locations', this.locations);
         this.changeDetection.detectChanges();
     }
 
@@ -128,7 +128,7 @@ export class OrganizationLocationManagementComponent implements OnChanges, OnIni
      */
     goToLocationEditor(location: Location = null) {
         const url = location ?
-            '/organization-location-dashboard/' + location.id : '/organization-location-creation/' + this.organization.id;
+            '/location-dashboard/' + location.id : '/organization-location-creation/' + this.organization.id;
         this.navController.navigateForward(url).catch(console.error);
     }
 }
