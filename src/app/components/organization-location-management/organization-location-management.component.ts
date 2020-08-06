@@ -127,6 +127,9 @@ export class OrganizationLocationManagementComponent implements OnChanges, OnIni
      * @param location
      */
     goToLocationEditor(location: Location = null) {
+        if (location) {
+            this.locationService.cacheLocation(location);
+        }
         const url = location ?
             '/location-dashboard/' + location.id : '/organization-location-creation/' + this.organization.id;
         this.navController.navigateForward(url).catch(console.error);

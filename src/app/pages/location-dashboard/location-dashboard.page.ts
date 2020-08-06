@@ -35,7 +35,7 @@ export class LocationDashboardPage extends BasePage implements OnInit {
      */
     ngOnInit(): void {
         setTimeout(() => {
-            this.tabs.select('location-requested-items/' + this.locationId).catch(console.error);
+            this.tabs.select('location-requested-items').catch(console.error);
         }, 50);
     }
 }

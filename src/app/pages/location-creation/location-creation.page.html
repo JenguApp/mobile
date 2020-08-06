@@ -54,7 +54,7 @@
         </ion-item>
 
         <div class="submit-wrapper">
-            <ion-button large (click)="submit()">Create</ion-button>
+            <ion-button large (click)="submit()">{{location ? 'Save' : 'Create'}}</ion-button>
         </div>
     </form>
 
