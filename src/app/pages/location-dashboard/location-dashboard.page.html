@@ -2,9 +2,9 @@
 
 <ion-tabs #tabs>
     <ion-tab-bar slot="bottom" *ngIf="locationId">
-        <ion-tab-button tab="location-requested-items">
+        <ion-tab-button tab="location-requested-items/{{locationId}}">
             <ion-icon name="location-outline"></ion-icon>
-            <ion-label>Requested Items</ion-label>
+            <ion-label>Available Items</ion-label>
         </ion-tab-button>
         <ion-tab-button tab="location-editor/{{locationId}}">
             <ion-icon name="people-outline"></ion-icon>

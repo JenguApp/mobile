@@ -21,7 +21,7 @@ export default class LocationRequestedItemsRequests {
      * @param pageNumber
      */
     async loadRequestedItems(locationId: any, pageNumber = 1): Promise<Page<RequestedItem>> {
-        return this.requestHandler.get('locations/' + locationId, true, true, [], {}, null, null, null, pageNumber).then(data => {
+        return this.requestHandler.get('locations/' + locationId + '/requested-items', true, true, [], {}, null, null, null, pageNumber).then(data => {
             return Promise.resolve(new Page(data, RequestedItem));
         });
     }
@@ -34,7 +34,7 @@ export default class LocationRequestedItemsRequests {
      */
     async createRequestedItem(locationId: any, requestedItemData: any): Promise<RequestedItem> {
 
-        return this.requestHandler.post('locations/' + locationId, true, true, requestedItemData).then(data => {
+        return this.requestHandler.post('locations/' + locationId + '/requested-items', true, true, requestedItemData).then(data => {
             return Promise.resolve(new RequestedItem(data));
         });
     }

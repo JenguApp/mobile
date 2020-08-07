@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LocationDashboardPage,
     children: [
       {
-        path: 'location-requested-items',
+        path: 'location-requested-items/:location_id',
         children: [
           {
             path: '',
