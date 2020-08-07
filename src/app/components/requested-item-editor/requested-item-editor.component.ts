@@ -40,6 +40,12 @@ export class RequestedItemEditorComponent implements OnChanges {
     changeDetection: ChangeDetectorRef;
 
     /**
+     * Whether or not we should show the quantity inputs
+     */
+    @Input()
+    showQuantity: boolean;
+
+    /**
      * The rating change callback
      */
     @Output()
@@ -50,6 +56,18 @@ export class RequestedItemEditorComponent implements OnChanges {
      */
     @ViewChild('name', {static: true})
     nameInput: IonInput;
+
+    /**
+     * The input for the quantity if it exists
+     */
+    @ViewChild('quantity', {static: true})
+    quantityInput: IonInput;
+
+    /**
+     * The input for the maxQuantityPerRequest if it exists
+     */
+    @ViewChild('maxQuantityPerRequest', {static: true})
+    maxQuantityPerRequestInput: IonInput;
 
     /**
      * The private instance of our requested item
@@ -143,6 +161,11 @@ export class RequestedItemEditorComponent implements OnChanges {
     getRequestedItemModel(): RequestedItem {
 
         this.localItem.name = this.nameInput.value as string;
+
+        if (this.showQuantity) {
+            this.localItem.quantity = this.quantityInput.value as number;
+            this.localItem.max_quantity_per_request = this.maxQuantityPerRequestInput.value as number;
+        }
 
         return this.localItem;
     }

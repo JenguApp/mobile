@@ -41,6 +41,12 @@ export class RequestedItemsEditableListComponent {
     changeDetection: ChangeDetectorRef;
 
     /**
+     * Whether or not we should show the quantity inputs
+     */
+    @Input()
+    showQuantity: boolean;
+
+    /**
      * Removes an item from the list of requested items
      * @param removedItem
      */

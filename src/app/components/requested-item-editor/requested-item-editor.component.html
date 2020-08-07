@@ -5,5 +5,12 @@
     <ion-spinner name="dots" *ngIf="uploading"></ion-spinner>
   </div>
   <ion-input #name placeholder="Item Name" [value]="requestedItem?.name"></ion-input>
+  <div *ngIf="showQuantity">
+    <ion-label position="stacked">Available Quantity</ion-label>
+    <ion-input #quantity placeholder="Available Quantity" [value]="requestedItem?.quantity"></ion-input>
+    <ion-label position="stacked">Max Per Request</ion-label>
+    <ion-input #maxQuantityPerRequest placeholder="Max Per Request" [value]="requestedItem?.max_quantity_per_request"></ion-input>
+  </div>
+
   <ion-button slot="end" *ngIf="requestedItem" (click)="remove()">-</ion-button>
 </ion-item>
