@@ -20,6 +20,16 @@ export class RequestedItem extends BaseModel {
     name: string;
 
     /**
+     * The available quantity for the requested item
+     */
+    quantity: number;
+
+    /**
+     * The max amount available per request
+     */
+    max_quantity_per_request: number;
+
+    /**
      * An asset that was potentially attached
      */
     asset: Asset;

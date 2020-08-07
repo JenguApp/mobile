@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BasePage} from '../../base.page';
 import {Location} from '../../../models/organization/location';
@@ -7,6 +7,9 @@ import {Organization} from '../../../models/organization/organization';
 import {OrganizationService} from '../../../services/organization.service';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {RequestedItem} from '../../../models/request/requested-item';
+import {
+    RequestedItemsEditableListComponent
+} from '../../../components/requested-items-editable-list/requested-items-editable-list.component';
 
 @Component({
     selector: 'app-location-requested-items',
@@ -31,15 +34,21 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
     requestedItems: RequestedItem[] = [];
 
     /**
+     * The editable list of items
+     */
+    @ViewChild('requestedItemsEditableList', {static: true})
+    requestedItemsEditableList: RequestedItemsEditableListComponent;
+
+    /**
      * Default Constructor
      * @param locationService
-     * @param route
      * @param changeDetection
+     * @param route
      * @param requests
      * @param organizationService
      */
     constructor(private route: ActivatedRoute,
-                private changeDetection: ChangeDetectorRef,
+                public changeDetection: ChangeDetectorRef,
                 private requests: RequestsProvider,
                 private locationService: LocationService,
                 private organizationService: OrganizationService) {
@@ -86,5 +95,61 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
                 this.requestedItems.push(requestedItem);
             }
         });
+    }
+
+    /**
+     * Saves the form properly
+     */
+    save() {
+        const newItems = this.requestedItemsEditableList.getCurrentRequestedItems();
+        Promise.all(newItems.map(item => this.saveItem(item))).then(requestedItems => {
+            this.requestedItems = requestedItems;
+        });
+    }
+
+    /**
+     * Saves the item
+     * @param item
+     */
+    saveItem(item: RequestedItem): Promise<RequestedItem> {
+
+        const existing = item.id ? this.requestedItems.find(i => i.id == item.id) : null;
+        if (existing) {
+            if (this.isRequestedItemDirty(existing, item)) {
+                return this.requests.locationRequestedItems.updatedRequestedItem(
+                    existing,
+                    this.getItemServerData(item)
+                );
+            } else {
+                return Promise.resolve(item);
+            }
+        } else {
+            return this.requests.locationRequestedItems.createRequestedItem(
+                this.location.id,
+                this.getItemServerData(item)
+            );
+        }
+    }
+
+    /**
+     * Checks to see if the two items have different update data
+     * @param existing
+     * @param newItem
+     */
+    isRequestedItemDirty(existing: RequestedItem, newItem: RequestedItem): boolean {
+        return this.getItemServerData(existing) !== this.getItemServerData(newItem);
+    }
+
+    /**
+     * Gets the item data that we can use to send to the server
+     * @param item
+     */
+    getItemServerData(item: RequestedItem): any {
+        return {
+            quantity: item.quantity,
+            max_quantity_per_request: item.max_quantity_per_request,
+            name: item.name,
+            asset_id: item.asset ? item.asset.id : null,
+        };
     }
 }
