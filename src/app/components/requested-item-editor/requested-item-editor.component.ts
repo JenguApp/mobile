@@ -60,13 +60,13 @@ export class RequestedItemEditorComponent implements OnChanges {
     /**
      * The input for the quantity if it exists
      */
-    @ViewChild('quantity', {static: true})
+    @ViewChild('quantity', {static: false})
     quantityInput: IonInput;
 
     /**
      * The input for the maxQuantityPerRequest if it exists
      */
-    @ViewChild('maxQuantityPerRequest', {static: true})
+    @ViewChild('maxQuantityPerRequest', {static: false})
     maxQuantityPerRequestInput: IonInput;
 
     /**

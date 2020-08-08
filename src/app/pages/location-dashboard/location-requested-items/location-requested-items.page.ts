@@ -36,7 +36,7 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
     /**
      * The editable list of items
      */
-    @ViewChild('requestedItemsEditableList', {static: true})
+    @ViewChild('requestedItemsEditableList', {static: false})
     requestedItemsEditableList: RequestedItemsEditableListComponent;
 
     /**
@@ -146,8 +146,8 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
      */
     getItemServerData(item: RequestedItem): any {
         return {
-            quantity: item.quantity,
-            max_quantity_per_request: item.max_quantity_per_request,
+            quantity: item.quantity ? item.quantity : null,
+            max_quantity_per_request: item.max_quantity_per_request ? item.max_quantity_per_request : null,
             name: item.name,
             asset_id: item.asset ? item.asset.id : null,
         };
