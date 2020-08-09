@@ -2,6 +2,7 @@
   position: relative;
   width: 1.5em;
   height: 1.5em;
+  margin-top: 5px;
   img, ion-icon {
     position: absolute;
     width: 1.5em;
@@ -15,6 +16,12 @@
     left: 0;
   }
 }
+.item-wrapper {
+  align-items: flex-start;
+}
 .input-wrapper {
   --padding-start: 0;
+}
+.remove-item {
+  width: 100%;
 }

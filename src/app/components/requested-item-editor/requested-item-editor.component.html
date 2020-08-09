@@ -1,8 +1,10 @@
-<ion-item>
-  <div slot="start" (click)="promptCaptureMethod()" class="image-capture-area">
-    <img *ngIf="localItem?.asset?.url" [src]="localItem.asset.url">
-    <ion-icon *ngIf="!localItem?.asset?.url" name="camera"></ion-icon>
-    <ion-spinner name="dots" *ngIf="uploading"></ion-spinner>
+<ion-item class="item-wrapper">
+  <div slot="start" class="image-capture-area">
+    <div (click)="promptCaptureMethod()" class="image-capture-area">
+      <img *ngIf="localItem?.asset?.url" [src]="localItem.asset.url">
+      <ion-icon *ngIf="!localItem?.asset?.url" name="camera"></ion-icon>
+      <ion-spinner name="dots" *ngIf="uploading"></ion-spinner>
+    </div>
   </div>
   <div>
     <ion-item class="input-wrapper">
@@ -20,5 +22,6 @@
     </div>
   </div>
 
-  <ion-button slot="end" *ngIf="requestedItem" (click)="remove()">-</ion-button>
+  <ion-button slot="end" *ngIf="requestedItem && !showQuantity" (click)="remove()">-</ion-button>
 </ion-item>
+<ion-button class="remove-item" *ngIf="requestedItem && showQuantity" (click)="remove()">Delete Item</ion-button>
