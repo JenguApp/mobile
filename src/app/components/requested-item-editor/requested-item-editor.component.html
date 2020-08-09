@@ -24,4 +24,4 @@
 
   <ion-button slot="end" *ngIf="requestedItem && !showQuantity" (click)="remove()">-</ion-button>
 </ion-item>
-<ion-button class="remove-item" *ngIf="requestedItem && showQuantity" (click)="remove()">Delete Item</ion-button>
+<ion-button class="remove-item" *ngIf="requestedItem && showQuantity" (click)="promptDestroy()">Delete Item</ion-button>

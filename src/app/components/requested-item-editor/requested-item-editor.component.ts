@@ -134,6 +134,43 @@ export class RequestedItemEditorComponent implements OnChanges {
     }
 
     /**
+     * Prompts the user if they really want to destroy the item if it already exists
+     */
+    promptDestroy() {
+        if (this.requestedItem.id) {
+
+            this.alertController.create({
+                header: 'Are you sure?',
+                message: 'This cannot be undone.',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                    },
+                    {
+                        text: 'Destroy',
+                        handler: () => {
+                            this.destroy();
+                        }
+                    },
+                ]
+            }).then(alert => {
+                alert.present();
+            });
+        } else {
+            this.remove();
+        }
+    }
+
+    /**
+     * Destroys the requested item properly
+     */
+    destroy() {
+        this.requests.locationRequestedItems.deleteOrganizationManager(this.requestedItem).then(() => {
+            this.remove();
+        });
+    }
+
+    /**
      * Inits the image capture
      */
     captureImage(sourceType) {
