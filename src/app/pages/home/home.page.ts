@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BasePage} from '../base.page';
 import {State, StateManagerService} from '../../services/state-manager';
 import {NavController, Platform} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
@@ -7,6 +6,7 @@ import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
 import {StorageProvider} from '../../providers/storage/storage';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import CanBeHomePage from '../can-be-home.page';
 
 /**
  * Main home page of the app
@@ -16,7 +16,7 @@ import {CurrentRequestService} from '../../services/data-services/current-reques
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage extends BasePage implements OnInit {
+export class HomePage extends CanBeHomePage implements OnInit {
 
     /**
      * The Logged in user
@@ -38,20 +38,21 @@ export class HomePage extends BasePage implements OnInit {
      * @param currentRequestService
      * @param userService
      */
-    constructor(private stateManager: StateManagerService,
-                private platform: Platform,
-                private storageProvider: StorageProvider,
+    constructor(protected platform: Platform,
+                protected storageProvider: StorageProvider,
+                private stateManager: StateManagerService,
                 private requests: RequestsProvider,
                 private navController: NavController,
                 private currentRequestService: CurrentRequestService,
                 private userService: UserService) {
-        super();
+        super(platform, storageProvider);
     }
 
     /**
      * loads the current state
      */
     ngOnInit(): void {
+        super.ngOnInit();
         this.platform.ready().then(() => {
             this.loadMe();
             this.loadInitialState();

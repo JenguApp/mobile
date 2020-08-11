@@ -42,6 +42,7 @@
     "@ionic/angular": "^5.2.3",
     "card": "^2.4.0",
     "cordova-android": "^8.1.0",
+    "cordova-androidx-build": "^1.0.4",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-advanced-http": "^2.5.1",

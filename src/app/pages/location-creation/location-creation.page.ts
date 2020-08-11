@@ -84,7 +84,6 @@ export class LocationCreationPage extends BasePage implements OnInit{
         } else {
             const locationId = parseInt(this.route.snapshot.paramMap.get('location_id'), 0);
             this.location = this.locationService.getLocation(locationId);
-            console.log('location', this.location);
         }
 
         this.form = this.formBuilder.group({
