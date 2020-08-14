@@ -83,7 +83,15 @@ export class LocationCreationPage extends BasePage implements OnInit{
             this.organizationId = parseInt(maybeOrganizationId, 0);
         } else {
             const locationId = parseInt(this.route.snapshot.paramMap.get('location_id'), 0);
-            this.location = this.locationService.getLocation(locationId);
+            this.locationService.getLocation(locationId).then(location => {
+                this.location = location;
+                this.form.controls['name'].setValue(this.location.name);
+                this.form.controls['address_line_1'].setValue(this.location.address_line_1);
+                this.form.controls['address_line_2'].setValue(this.location.address_line_2);
+                this.form.controls['city'].setValue(this.location.city);
+                this.form.controls['postal_code'].setValue(this.location.postal_code);
+                this.form.controls['region'].setValue(this.location.region);
+            });
         }
 
         this.form = this.formBuilder.group({
@@ -102,14 +110,6 @@ export class LocationCreationPage extends BasePage implements OnInit{
             region: ['', Validators.compose([])],
         });
 
-        if (this.location) {
-            this.form.controls['name'].setValue(this.location.name);
-            this.form.controls['address_line_1'].setValue(this.location.address_line_1);
-            this.form.controls['address_line_2'].setValue(this.location.address_line_2);
-            this.form.controls['city'].setValue(this.location.city);
-            this.form.controls['postal_code'].setValue(this.location.postal_code);
-            this.form.controls['region'].setValue(this.location.region);
-        }
         this.userService.getMe().then(me => {
             this.me = me;
         });

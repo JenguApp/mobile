@@ -60,13 +60,13 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
      */
     ngOnInit(): void {
         const locationId = parseInt(this.route.snapshot.paramMap.get('location_id'), 0);
-        this.location = this.locationService.getLocation(locationId);
-        if (this.location) {
+        this.locationService.getLocation(locationId).then(location => {
+            this.location = location;
             this.organizationService.getOrganization(this.location.organization_id).then(organization => {
                 this.organization = organization;
             });
             this.loadRequestedItemsPage(1);
-        }
+        });
     }
 
     /**

@@ -6,6 +6,8 @@ import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {OrganizationDashboardPage} from './organization-dashboard.page';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {StorageProvider} from '../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 
 describe('OrganizationDashboardPage', () => {
     let component: OrganizationDashboardPage;
@@ -25,6 +27,7 @@ describe('OrganizationDashboardPage', () => {
         });
         TestBed.configureTestingModule({
             providers: [
+                {provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock())},
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
                 {provide: ActivatedRoute, useValue: activatedRoute},

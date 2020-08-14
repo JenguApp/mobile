@@ -1,6 +1,7 @@
 import {RequestHandlerProvider} from '../../request-handler/request-handler';
 import {Page} from '../../../models/page';
 import {RequestedItem} from '../../../models/request/requested-item';
+import {Location} from '../../../models/organization/location';
 
 /**
  * All requests needed for handling authentication within the app
@@ -12,6 +13,17 @@ export default class LocationRequestedItemsRequests {
      * @param requestHandler
      */
     constructor(private requestHandler: RequestHandlerProvider) {
+    }
+
+    /**
+     * Loads a location off the server properly
+     * @param locationId
+     */
+    async loadLocation(locationId: any): Promise<Location>
+    {
+        return this.requestHandler.get('locations/' + locationId, true, true, [
+            'requestedItems'
+        ]).then(data => new Location(data));
     }
 
     /**

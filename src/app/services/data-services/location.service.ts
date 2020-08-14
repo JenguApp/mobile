@@ -56,7 +56,12 @@ export class LocationService {
      * Gets a location by an id
      * @param id
      */
-    getLocation(id: number): Location | null {
-        return this.loadedLocations[id] ? this.loadedLocations[id] : null;
+    getLocation(id: number): Promise<Location>
+    {
+        return this.loadedLocations[id] ? Promise.resolve(this.loadedLocations[id]) :
+            this.requests.locationRequestedItems.loadLocation(id).then(location => {
+                this.loadedLocations[id] = location;
+                return Promise.resolve(location);
+            });
     }
 }
