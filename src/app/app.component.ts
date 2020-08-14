@@ -105,7 +105,6 @@ export class AppComponent {
                             this.navCtl.navigateRoot('/home').catch(console.error);
                         });
                     });
-                    this.navCtl.navigateRoot('/home').catch(console.error);
                     AppComponent.LOGGED_IN = true;
                 }).catch(error => {
                 if (environment.sign_up_enabled) {

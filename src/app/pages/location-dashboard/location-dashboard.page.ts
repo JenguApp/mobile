@@ -41,6 +41,7 @@ export class LocationDashboardPage extends CanBeHomePage implements OnInit
      */
     ngOnInit(): void
     {
+        super.ngOnInit();
         setTimeout(() => {
             this.tabs.select('location-requested-items/' + this.locationId).catch(console.error);
         }, 50);
