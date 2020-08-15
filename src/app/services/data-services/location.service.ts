@@ -59,7 +59,7 @@ export class LocationService {
     getLocation(id: number): Promise<Location>
     {
         return this.loadedLocations[id] ? Promise.resolve(this.loadedLocations[id]) :
-            this.requests.locationRequestedItems.loadLocation(id).then(location => {
+            this.requests.locationRequests.loadLocation(id).then(location => {
                 this.loadedLocations[id] = location;
                 return Promise.resolve(location);
             });

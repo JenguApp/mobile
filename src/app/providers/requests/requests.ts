@@ -8,6 +8,7 @@ import DeliveryRequests from './delivery-requests/delivery-requests';
 import OrganizationRequests from './organization/organization';
 import EntityRequests from './entity/entity';
 import LocationRequestedItemsRequests from './location-requested-items/location-requested-items';
+import LocationRequests from './location/location';
 
 /**
  * Provider for interacting with all app wide requests
@@ -56,6 +57,11 @@ export class RequestsProvider {
     locationRequestedItems: LocationRequestedItemsRequests;
 
     /**
+     * All requests related to querying locations
+     */
+    locationRequests: LocationRequests;
+
+    /**
      * Default constructor
      * @param requestHandler
      */
@@ -68,5 +74,6 @@ export class RequestsProvider {
         this.entityRequests = new EntityRequests(this.requestHandler);
         this.deliveryRequests = new DeliveryRequests(requestHandler);
         this.locationRequestedItems = new LocationRequestedItemsRequests(this.requestHandler);
+        this.locationRequests = new LocationRequests(this.requestHandler);
     }
 }

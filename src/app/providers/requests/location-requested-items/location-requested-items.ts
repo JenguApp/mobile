@@ -16,17 +16,6 @@ export default class LocationRequestedItemsRequests {
     }
 
     /**
-     * Loads a location off the server properly
-     * @param locationId
-     */
-    async loadLocation(locationId: any): Promise<Location>
-    {
-        return this.requestHandler.get('locations/' + locationId, true, true, [
-            'requestedItems'
-        ]).then(data => new Location(data));
-    }
-
-    /**
      * Loads an organization based on the id passed in
      *
      * @param locationId

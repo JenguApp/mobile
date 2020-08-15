@@ -19,6 +19,7 @@ import {OrganizationLocationManagementComponent} from './organization-location-m
 import {CountrySelectComponent} from './country-select/country-select.component';
 import {RequestedItemsEditableListComponent} from './requested-items-editable-list/requested-items-editable-list.component';
 import {RequestedItemEditorComponent} from './requested-item-editor/requested-item-editor.component';
+import {LocationBrowseMapComponent} from './map/location-browse-map/location-browse-map.component';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import {RequestedItemEditorComponent} from './requested-item-editor/requested-it
         RatingBarComponent,
         DeliveryCompletedComponent,
         DeliveryMapComponent,
+        LocationBrowseMapComponent,
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
@@ -56,6 +58,7 @@ import {RequestedItemEditorComponent} from './requested-item-editor/requested-it
         RatingBarComponent,
         DeliveryCompletedComponent,
         DeliveryMapComponent,
+        LocationBrowseMapComponent,
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
