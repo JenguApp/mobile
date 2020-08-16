@@ -3,7 +3,7 @@ import {Request} from '../../models/request/request';
 import {AlertController, NavController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
-import {State} from '../../services/state-manager';
+import {State, StateManagerService} from '../../services/state-manager';
 
 @Component({
     selector: 'app-delivery-completed',
@@ -50,7 +50,7 @@ export class DeliveryCompletedComponent {
      */
     complete() {
         this.currentRequestService.setCurrentRequest(null);
-        this.currentRequestService.navigateToCurrentPage(this.navController, this.state);
+        this.navController.navigateRoot('/home').catch(console.error);
     }
 
     /**

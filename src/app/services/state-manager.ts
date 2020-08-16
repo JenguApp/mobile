@@ -1,65 +1,36 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subscriber} from 'rxjs';
-import {StorageProvider} from '../providers/storage/storage';
 import {NavController} from '@ionic/angular';
-
-export type State = 'request' | 'deliver';
+import {CurrentRequestService} from './data-services/current-request.service';
+import {Request} from '../models/request/request';
+import {StorageProvider} from '../providers/storage/storage';
 
 @Injectable({
     providedIn: 'root'
 })
-export class StateManagerService {
-
-    /**
-     * The currently loaded state
-     */
-    currentState: State = null;
-
-    /**
-     * The observer for when the state has changed internally in the app
-     */
-    stateChangeObserver: Observable<State>;
-
-    /**
-     * The subscribers to the state change
-     */
-    stateChangeSubscribers: Subscriber<State>[] = [];
+export class StateManagerService
+{
 
     /**
      * Default Constructor
      * @param storageProvider
+     * @param currentRequestService
      */
-    constructor(private storageProvider: StorageProvider) {
-        this.stateChangeObserver = new Observable<State>((subscriber) => {
-            this.stateChangeSubscribers.push(subscriber);
-        })
-    }
+    constructor(private storageProvider: StorageProvider,
+                private currentRequestService: CurrentRequestService)
+    {}
 
     /**
-     * Gets the current state stored properly
+     * Helper function to take us to the state root
+     * @param navController
+     * @param request
      */
-    async getCurrentState(): Promise<State> {
-        if (this.currentState) {
-            return Promise.resolve(this.currentState);
-        } else {
-            return this.storageProvider.loadCurrentState().then(state => {
-                this.currentState = state as State;
-                return Promise.resolve(this.currentState);
-            }).catch(() => {
-                return Promise.resolve('request' as State);
-            });
+    async navigateToCurrentPage(navController: NavController, request: Request) {
+        const userId = await this.storageProvider.loadLoggedInUserId();
+        if (userId == request.completed_by_id) {
+            navController.navigateRoot('/active-delivery').catch(console.error);
+        } else if (userId == request.requested_by_id) {
+            const route = request.completed_by_id == null ? '/pending-request' : '/request-accepted';
+            navController.navigateRoot(route).catch(console.error);
         }
-    }
-
-    /**
-     * Sets the current state properly
-     * @param currentState
-     */
-    setCurrentState(currentState: State) {
-        this.currentState = currentState;
-        this.stateChangeSubscribers.forEach(subscriber => {
-            subscriber.next(currentState);
-        });
-        this.storageProvider.saveCurrentState(currentState).catch(console.error);
     }
 }

@@ -8,6 +8,7 @@ import {IonTabs, NavController} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseDeliveringPage} from '../base-delivering.page';
+import {StateManagerService} from '../../services/state-manager';
 
 @Component({
     selector: 'app-browsing-deliveries',
@@ -47,6 +48,7 @@ export class BrowsingDeliveriesPage extends BaseDeliveringPage {
      * @param navController
      * @param currentRequestService
      * @param userService
+     * @param stateManagerService
      * @param locationManager
      * @param requests
      */
@@ -54,6 +56,7 @@ export class BrowsingDeliveriesPage extends BaseDeliveringPage {
                 protected navController: NavController,
                 protected userService: UserService,
                 protected currentRequestService: CurrentRequestService,
+                private stateManagerService: StateManagerService,
                 private locationManager: LocationManagerService) {
         super(requests, navController, userService, currentRequestService);
     }
@@ -78,7 +81,8 @@ export class BrowsingDeliveriesPage extends BaseDeliveringPage {
     /**
      * Takes the user to the next step
      */
-    requestUpdated() {
-        this.currentRequestService.navigateToCurrentPage(this.navController, 'request');
+    requestUpdated()
+    {
+        this.stateManagerService.navigateToCurrentPage(this.navController, this.currentRequest).catch(console.error);
     }
 }

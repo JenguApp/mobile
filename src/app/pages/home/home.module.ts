@@ -12,6 +12,33 @@ const routes: Routes = [
         path: '',
         component: HomePage,
         children: [
+            {
+                path: 'browsing-deliveries',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../browsing-deliveries/browsing-deliveries.module#BrowsingDeliveriesPageModule'
+                    }
+                ]
+            },
+            {
+                path: 'locations-map',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../locations-map/locations-map.module#LocationsMapPageModule'
+                    }
+                ]
+            },
+            {
+                path: 'requesting-deliveries',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../requesting-deliveries/requesting-deliveries.module#RequestingDeliveriesPageModule'
+                    }
+                ]
+            },
         ]
     }
 ];

@@ -41,6 +41,7 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
                 protected currentRequestService: CurrentRequestService) {
         super();
     }
+
     /**
      * Loads information on the users current requests
      */

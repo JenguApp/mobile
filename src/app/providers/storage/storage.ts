@@ -87,11 +87,11 @@ export class StorageProvider
     // Put all custom storage variables below
     /**
      * Saves the current application state
-     * @param currentState
+     * @param homeTab
      */
-    saveCurrentState(currentState: string): Promise<any>
+    saveDefaultHomePageTab(homeTab: string): Promise<any>
     {
-        return this.storage.setItem('state', currentState);
+        return this.storage.setItem('default_home_tab', homeTab);
     }
 
     /**
@@ -107,9 +107,9 @@ export class StorageProvider
     /**
      * Loads the current state that has been stored
      */
-    loadCurrentState(): Promise<string>
+    loadDefaultHomePageTab(): Promise<string>
     {
-        return this.storage.getItem('state');
+        return this.storage.getItem('default_home_tab');
     }
 
     /**

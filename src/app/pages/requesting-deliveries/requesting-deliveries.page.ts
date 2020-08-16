@@ -4,6 +4,8 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import {NavController} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {StateManagerService} from '../../services/state-manager';
+import {Request} from '../../models/request/request';
 
 @Component({
     selector: 'app-requesting-deliveries',
@@ -18,11 +20,13 @@ export class RequestingDeliveriesPage extends BaseRequestingDeliveriesPage {
      * @param navController
      * @param userService
      * @param currentRequestService
+     * @param stateManagerService
      */
     constructor(protected requests: RequestsProvider,
                 protected navController: NavController,
                 protected userService: UserService,
-                protected currentRequestService: CurrentRequestService) {
+                protected currentRequestService: CurrentRequestService,
+                private stateManagerService: StateManagerService) {
         super(requests, navController, userService, currentRequestService);
     }
 
@@ -34,7 +38,8 @@ export class RequestingDeliveriesPage extends BaseRequestingDeliveriesPage {
     /**
      * This means that there is a current request, so we want to take the user to the appropriate page
      */
-    requestUpdated() {
-        this.currentRequestService.navigateToCurrentPage(this.navController, 'request');
+    requestUpdated()
+    {
+        this.stateManagerService.navigateToCurrentPage(this.navController, this.currentRequest).catch(console.error);
     }
 }

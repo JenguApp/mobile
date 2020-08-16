@@ -5,6 +5,7 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseRequestingDeliveriesPage} from '../base-requesting-deliveries.page';
+import {StateManagerService} from '../../services/state-manager';
 
 @Component({
     selector: 'app-pending-request',
@@ -34,12 +35,14 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
      * @param navController
      * @param userService
      * @param currentRequestService
+     * @param stateManagerService
      * @param toastController
      */
     constructor(protected requests: RequestsProvider,
                 protected navController: NavController,
                 protected userService: UserService,
                 protected currentRequestService: CurrentRequestService,
+                protected stateManagerService: StateManagerService,
                 protected toastController: ToastController) {
         super(requests, navController, userService, currentRequestService);
     }
@@ -50,7 +53,7 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
     requestUpdated() {
         if (this.currentRequest.requested_by_id != null) {
             this.userService.cacheUser(this.currentRequest.requested_by);
-            this.currentRequestService.navigateToCurrentPage(this.navController, 'request')
+            this.stateManagerService.navigateToCurrentPage(this.navController, this.currentRequest).catch(console.error);
         }
         if (!this.currentRequest.completed_by_id) {
             this.setNextRefreshTime(10);
@@ -72,7 +75,7 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
             this.currentRequest = null;
             this.currentRequestService.setCurrentRequest(null);
             this.currentRequestService.notifyRequest(null);
-            this.currentRequestService.navigateToCurrentPage(this.navController, 'request');
+            this.navController.navigateRoot('/home').catch(console.error);
         });
     }
 

@@ -5,6 +5,7 @@ import {RequestsProvider} from '../../../providers/requests/requests';
 import {Request} from '../../../models/request/request';
 import {NavController, ToastController} from '@ionic/angular';
 import {CurrentRequestService} from '../../../services/data-services/current-request.service';
+import {StateManagerService} from '../../../services/state-manager';
 
 @Component({
     selector: 'app-delivery-map',
@@ -28,12 +29,14 @@ export class DeliveryMapComponent extends MapComponent {
      * @param requests
      * @param toastController
      * @param currentRequestService
+     * @param stateManagerService
      * @param navController
      * @param changeDetection
      */
     constructor(private requests: RequestsProvider,
                 private toastController: ToastController,
                 private currentRequestService: CurrentRequestService,
+                private stateManagerService: StateManagerService,
                 private navController: NavController,
                 private changeDetection: ChangeDetectorRef) {
         super();
@@ -134,7 +137,7 @@ export class DeliveryMapComponent extends MapComponent {
         this.request = null;
         this.requests.deliveryRequests.acceptDeliveryRequest(request, this.handleExpiredRequest.bind(this)).then((request) => {
             this.currentRequestService.setCurrentRequest(request);
-            this.currentRequestService.navigateToCurrentPage(this.navController, 'deliver');
+            this.stateManagerService.navigateToCurrentPage(this.navController, request).catch(console.error);
         });
     }
 }

@@ -141,17 +141,6 @@ export class AppComponent {
     }
 
     /**
-     * Handles our state selection
-     * @param event
-     */
-    selectState(event) {
-        const state = event.detail.value as State;
-        this.stateManagerService.setCurrentState(state);
-        this.currentRequestService.navigateToCurrentPage(this.navCtl, state);
-        this.menuCtl.close('side-menu').catch(console.error);
-    }
-
-    /**
      * Whether or not the user is logged in
      * This is used for component binding
      */

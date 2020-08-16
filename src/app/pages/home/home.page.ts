@@ -24,11 +24,6 @@ export class HomePage extends CanBeHomePage implements OnInit {
     me: User = null;
 
     /**
-     * The current state the application is in
-     */
-    currentState: State = null;
-
-    /**
      * Default Constructor
      * @param stateManager
      * @param platform
@@ -53,56 +48,18 @@ export class HomePage extends CanBeHomePage implements OnInit {
      */
     ngOnInit(): void {
         super.ngOnInit();
-        this.platform.ready().then(() => {
-            this.loadMe();
-            this.loadInitialState();
-        });
+        this.platform.ready().then(() => this.loadInitialState());
     }
 
     /**
      * Loads the logged in user object
      */
-    loadMe() {
+    loadInitialState() {
         this.userService.getMe().then(me => {
             this.me = me;
-            this.finalizeLoad();
-        });
-    }
-
-    /**
-     * deterines our initial states properly
-     */
-    loadInitialState() {
-        this.storageProvider.loadLoggedInUserId().then(userId => {
             this.storageProvider.loadCurrentActiveRequest().then(request => {
-                this.currentState = request.completed_by_id == userId ?
-                    'deliver' : 'request';
-                this.storageProvider.saveCurrentState(this.currentState).catch(console.error);
-                this.finalizeLoad();
-            }).catch(e => {
-                this.loadDefaultState();
+                this.stateManager.navigateToCurrentPage(this.navController, request).catch(console.error);
             });
-        }).catch(e => {
-            this.loadDefaultState();
         });
-    }
-
-    /**
-     * Loads the default state
-     */
-    loadDefaultState() {
-        this.stateManager.getCurrentState().then(state => {
-            this.currentState = state;
-            this.finalizeLoad();
-        });
-    }
-
-    /**
-     * Finalizes the load, and checks for all needed data to be set
-     */
-    finalizeLoad() {
-        if (this.me && this.currentState) {
-            this.currentRequestService.navigateToCurrentPage(this.navController, this.currentState);
-        }
     }
 }

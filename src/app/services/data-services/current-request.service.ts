@@ -3,8 +3,6 @@ import {RequestsProvider} from '../../providers/requests/requests';
 import {Request} from '../../models/request/request';
 import {Observable, PartialObserver, Subscriber} from 'rxjs';
 import {StorageProvider} from '../../providers/storage/storage';
-import {NavController} from '@ionic/angular';
-import {State} from '../state-manager';
 
 @Injectable({
     providedIn: 'root'
@@ -145,36 +143,5 @@ export class CurrentRequestService {
             this.setCurrentRequest(refreshedRequest);
             return Promise.resolve(refreshedRequest);
         });
-    }
-
-    /**
-     * Helper function to take us to the state root
-     * @param navController
-     * @param state
-     */
-    navigateToCurrentPage(navController: NavController, state: State) {
-        this.getCurrentRequest().then(async request => {
-            const userId = await this.storageProvider.loadLoggedInUserId();
-            if (userId == request.completed_by_id) {
-                navController.navigateRoot('/active-delivery').catch(console.error);
-            } else if (userId == request.requested_by_id) {
-                const route = request.completed_by_id == null ? '/pending-request' : '/request-accepted';
-                navController.navigateRoot(route).catch(console.error);
-            } else {
-                this.navigateToDefaultState(navController, state);
-            }
-        }).catch(error => {
-            this.navigateToDefaultState(navController, state);
-        });
-    }
-
-    /**
-     *
-     * @param navController
-     * @param state
-     */
-    navigateToDefaultState(navController: NavController, state: State) {
-        const route = state == 'deliver' ? '/browsing-deliveries' : '/requesting-deliveries';
-        navController.navigateRoot(route).catch(console.error);
     }
 }
