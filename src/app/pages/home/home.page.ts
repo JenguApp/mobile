@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {State, StateManagerService} from '../../services/state-manager';
+import {StateManagerService} from '../../services/state-manager';
 import {NavController, Platform} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {User} from '../../models/user/user';

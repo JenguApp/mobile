@@ -5,7 +5,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {StorageProvider} from './providers/storage/storage';
 import {environment} from '../environments/environment';
 import {AuthManagerService} from './services/auth-manager/auth-manager.service';
-import {State, StateManagerService} from './services/state-manager';
 import {Router, RouterOutlet} from '@angular/router';
 import {CurrentRequestService} from './services/data-services/current-request.service';
 import {UserService} from './services/user.service';
@@ -34,11 +33,6 @@ export class AppComponent {
      * The logged in user
      */
     me: User;
-
-    /**
-     * The current state the app is in
-     */
-    currentState: State = 'request';
 
     /**
      * Whether or not there currently is pending request
@@ -73,7 +67,6 @@ export class AppComponent {
         private userService: UserService,
         private organizationService: OrganizationService,
         private router: Router,
-        private stateManagerService: StateManagerService,
         private currentRequestService: CurrentRequestService,
     ) {
         this.initializeApp();
@@ -87,9 +80,6 @@ export class AppComponent {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
 
-            this.stateManagerService.getCurrentState().then(state => {
-                this.currentState = state;
-            });
             this.authManagerService.getLogoutObservable().subscribe(() => this.handleLogout());
             this.userService.getMeObserver().subscribe({next: user => {
                 this.me = user;

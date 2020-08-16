@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LocationBrowseMapComponent } from './location-select-map.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {GoogleMaps, Marker} from '@ionic-native/google-maps';
+import {LocationBrowseMapComponent} from './location-browse-map.component';
+import {RequestsProvider} from '../../../providers/requests/requests';
+import RequestsProviderMock from '../../../providers/requests/requests.mock';
 
-describe('LocationSelectMapComponent', () => {
+describe('LocationBrowseMapComponent', () => {
     let component: LocationBrowseMapComponent;
     let fixture: ComponentFixture<LocationBrowseMapComponent>;
     let navController;
@@ -33,6 +35,7 @@ describe('LocationSelectMapComponent', () => {
             providers: [
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
+                {provide: RequestsProvider, useValue: new RequestsProviderMock()},
             ],
             declarations: [
                 LocationBrowseMapComponent,

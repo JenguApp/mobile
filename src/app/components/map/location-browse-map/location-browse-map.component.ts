@@ -3,7 +3,7 @@ import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 
 @Component({
-    selector: 'app-location-select-map',
+    selector: 'app-location-browse-map',
     templateUrl: '../map.component.html',
     styleUrls: ['../map.component.scss']
 })

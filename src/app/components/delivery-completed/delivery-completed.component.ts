@@ -3,7 +3,6 @@ import {Request} from '../../models/request/request';
 import {AlertController, NavController, ToastController} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
-import {State, StateManagerService} from '../../services/state-manager';
 
 @Component({
     selector: 'app-delivery-completed',
@@ -23,12 +22,6 @@ export class DeliveryCompletedComponent {
      */
     @Input()
     request: Request;
-
-    /**
-     * The state to return the user to after they have gone back to the main page
-     */
-    @Input()
-    state: State;
 
     /**
      * Default Constructor
