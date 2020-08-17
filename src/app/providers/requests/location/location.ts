@@ -34,9 +34,9 @@ export default class LocationRequests
         return this.requestHandler.get('locations', true, true, [
             'requestedItems',
         ], {}, {}, {}, 10, page, {
-            latitude,
-            longitude,
-            radius
+            latitude: latitude,
+            longitude: longitude,
+            radius: radius,
         }).then(data => {
             return Promise.resolve(new Page(data, Location));
         });

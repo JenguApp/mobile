@@ -6,8 +6,8 @@ import {GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsEvent} from '@ionic-n
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
-
+export class MapComponent implements OnInit
+{
     /**
      * The passed in latitude
      */
@@ -23,7 +23,7 @@ export class MapComponent implements OnInit {
     /**
      * The google map
      */
-    map: GoogleMap;
+    map: GoogleMap = null;
 
     /**
      * Most maps are movable, but some components may override this to display a static map
@@ -33,36 +33,56 @@ export class MapComponent implements OnInit {
     /**
      * Gets everything set
      */
-    ngOnInit() {
+    ngOnInit()
+    {
+        this.initMap();
+    }
 
-        const mapOptions: GoogleMapOptions = {
-            camera: {
-                target: {
-                    lat: this.startingLatitude,
-                    lng: this.startingLongitude,
-                },
-                zoom: 18,
-                tilt: 30
-            }
-        };
+    /**
+     * Inits the map properly if it does not exist
+     */
+    initMap()
+    {
+        if (this.map == null) {
 
-        if (!this.movable) {
-            mapOptions.gestures = {
-                scroll: false,
-                tilt: false,
-                zoom: false,
-                rotate: false,
+            const mapOptions: GoogleMapOptions = {
+                camera: {
+                    target: {
+                        lat: this.startingLatitude,
+                        lng: this.startingLongitude,
+                    },
+                    zoom: 18,
+                    tilt: 30
+                }
             };
-        }
 
-        this.map = GoogleMaps.create('map_canvas', mapOptions);
-        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-            this.afterMapReady();
-        });
+            if (!this.movable) {
+                mapOptions.gestures = {
+                    scroll: false,
+                    tilt: false,
+                    zoom: false,
+                    rotate: false,
+                };
+            }
+
+            this.map = GoogleMaps.create('map_canvas', mapOptions);
+            this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+                this.afterMapReady();
+            });
+        }
     }
 
     /**
      * Allows child classes to setup the map properly after this has been initialized
      */
     afterMapReady() {}
+
+    /**
+     * Removes our map for us
+     */
+    destroyMap(): void
+    {
+        this.map.remove().catch(console.error);
+        this.map = null;
+    }
 }

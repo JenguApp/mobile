@@ -4,7 +4,7 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {IonTabs, NavController} from '@ionic/angular';
+import {IonTabs, NavController, ViewDidEnter} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseDeliveringPage} from '../base-delivering.page';
@@ -15,7 +15,7 @@ import {StateManagerService} from '../../services/state-manager';
     templateUrl: './browsing-deliveries.page.html',
     styleUrls: ['./browsing-deliveries.page.scss']
 })
-export class BrowsingDeliveriesPage extends BaseDeliveringPage {
+export class BrowsingDeliveriesPage extends BaseDeliveringPage implements ViewDidEnter {
 
     /**
      * The currently logged in user
@@ -84,5 +84,10 @@ export class BrowsingDeliveriesPage extends BaseDeliveringPage {
     requestUpdated()
     {
         this.stateManagerService.navigateToCurrentPage(this.navController, this.currentRequest).catch(console.error);
+    }
+
+    ionViewDidEnter(): void
+    {
+        console.log('ionViewDidEnter');
     }
 }
