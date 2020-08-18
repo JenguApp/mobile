@@ -4,34 +4,24 @@ import {LocationManagerService} from '../../services/location-manager/location-m
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {IonTabs, NavController, ViewDidEnter} from '@ionic/angular';
+import {NavController, ViewDidEnter, ViewWillLeave} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseDeliveringPage} from '../base-delivering.page';
 import {StateManagerService} from '../../services/state-manager';
+import {DeliveryMapComponent} from '../../components/map/delivery-map/delivery-map.component';
 
 @Component({
     selector: 'app-browsing-deliveries',
     templateUrl: './browsing-deliveries.page.html',
     styleUrls: ['./browsing-deliveries.page.scss']
 })
-export class BrowsingDeliveriesPage extends BaseDeliveringPage implements ViewDidEnter {
+export class BrowsingDeliveriesPage extends BaseDeliveringPage implements OnInit {
 
     /**
      * The currently logged in user
      */
     me: User;
-
-    /**
-     * The tabs controller
-     */
-    @ViewChild('tabs', {static: false})
-    tabs: IonTabs;
-
-    /**
-     * Whether or not the users current request has loaded
-     */
-    currentRequestDataLoaded = false;
 
     /**
      * The current coordinates
@@ -84,10 +74,5 @@ export class BrowsingDeliveriesPage extends BaseDeliveringPage implements ViewDi
     requestUpdated()
     {
         this.stateManagerService.navigateToCurrentPage(this.navController, this.currentRequest).catch(console.error);
-    }
-
-    ionViewDidEnter(): void
-    {
-        console.log('ionViewDidEnter');
     }
 }

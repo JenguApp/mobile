@@ -15,6 +15,11 @@ export class LocationBrowseMapComponent extends MapComponent {
     markersOnMap = [];
 
     /**
+     * The overriding map id
+     */
+    id = 'location_browse_map';
+
+    /**
      * Default Constructor
      * @param requests
      */

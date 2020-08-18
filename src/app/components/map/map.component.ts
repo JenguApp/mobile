@@ -21,6 +21,11 @@ export class MapComponent implements OnInit
     startingLongitude: number;
 
     /**
+     * The id that a child class can override to allow for multiple maps per page
+     */
+    id = 'map_canvas';
+
+    /**
      * The google map
      */
     map: GoogleMap = null;
@@ -65,7 +70,7 @@ export class MapComponent implements OnInit
                 };
             }
 
-            this.map = GoogleMaps.create('map_canvas', mapOptions);
+            this.map = GoogleMaps.create(this.id, mapOptions);
             this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
                 this.afterMapReady();
             });
@@ -76,13 +81,4 @@ export class MapComponent implements OnInit
      * Allows child classes to setup the map properly after this has been initialized
      */
     afterMapReady() {}
-
-    /**
-     * Removes our map for us
-     */
-    destroyMap(): void
-    {
-        this.map.remove().catch(console.error);
-        this.map = null;
-    }
 }

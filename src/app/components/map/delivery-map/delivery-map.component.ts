@@ -15,6 +15,11 @@ import {StateManagerService} from '../../../services/state-manager';
 export class DeliveryMapComponent extends MapComponent {
 
     /**
+     * The overriding id
+     */
+    id = 'delivery_map';
+
+    /**
      * The request the user is currently looking at
      */
     request: Request = null;
