@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StateManagerService} from '../../services/state-manager';
-import {NavController, Platform} from '@ionic/angular';
+import {IonTabs, NavController, Platform} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
@@ -17,6 +17,12 @@ import CanBeHomePage from '../can-be-home.page';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage extends CanBeHomePage implements OnInit {
+
+    /**
+     * The main tabs for the page
+     */
+    @ViewChild('tabs', {static: false})
+    tabs: IonTabs;
 
     /**
      * The Logged in user
@@ -39,14 +45,16 @@ export class HomePage extends CanBeHomePage implements OnInit {
                 private requests: RequestsProvider,
                 private navController: NavController,
                 private currentRequestService: CurrentRequestService,
-                private userService: UserService) {
+                private userService: UserService)
+    {
         super(platform, storageProvider);
     }
 
     /**
      * loads the current state
      */
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         super.ngOnInit();
         this.platform.ready().then(() => this.loadInitialState());
     }
@@ -54,12 +62,30 @@ export class HomePage extends CanBeHomePage implements OnInit {
     /**
      * Loads the logged in user object
      */
-    loadInitialState() {
+    loadInitialState()
+    {
         this.userService.getMe().then(me => {
             this.me = me;
             this.storageProvider.loadCurrentActiveRequest().then(request => {
                 this.stateManager.navigateToCurrentPage(this.navController, request).catch(console.error);
             });
+            this.tabs.ionTabsDidChange.subscribe({
+                next: tab => {
+                    this.storageProvider.saveDefaultHomePageTab(tab.tab).catch(console.error);
+                }
+            });
+            this.storageProvider.loadDefaultHomePageTab()
+                .then(this.goToTab.bind(this))
+                .catch(() => this.goToTab('locations-map'));
         });
+    }
+
+    /**
+     * Takes the user to the passed in tab
+     * @param tab
+     */
+    goToTab(tab: string)
+    {
+        this.tabs.select(tab).catch(console.error);
     }
 }
