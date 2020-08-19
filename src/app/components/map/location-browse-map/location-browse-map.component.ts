@@ -31,8 +31,15 @@ export class LocationBrowseMapComponent extends MapComponent {
     /**
      * Allows child classes to setup the map properly after this has been initialized
      */
-    afterMapReady() {
-        this.requests.locationRequests.queryLocations(this.startingLatitude, this.startingLongitude, 50).then(page => {
+    afterMapReady()
+    {
+        this.loadLocations();
+    }
+
+    loadLocations()
+    {
+        const latLng = this.map.getCameraTarget();
+        this.requests.locationRequests.queryLocations(latLng.lat, latLng.lng, 50).then(page => {
             page.data.forEach(location => {
 
                 if (this.markersOnMap[location.id] == null) {

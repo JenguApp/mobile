@@ -31,12 +31,12 @@ export default class LocationRequests
      */
     async queryLocations(latitude: number, longitude: number, radius: number, page: number = 1): Promise<Page<Location>>
     {
-        return this.requestHandler.get('locations', true, true, [
+        return this.requestHandler.get('locations', true, false, [
             'requestedItems',
         ], {}, {}, {}, 10, page, {
-            latitude: latitude,
-            longitude: longitude,
-            radius: radius,
+            latitude: latitude.toString(),
+            longitude: longitude.toString(),
+            radius: radius.toString(),
         }).then(data => {
             return Promise.resolve(new Page(data, Location));
         });
