@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
+import {GoogleMapsEvent} from '@ionic-native/google-maps';
 
 @Component({
     selector: 'app-location-browse-map',
@@ -33,9 +34,15 @@ export class LocationBrowseMapComponent extends MapComponent {
      */
     afterMapReady()
     {
+        this.map.addEventListener(GoogleMapsEvent.MAP_DRAG_END).subscribe({
+            next: () => this.loadLocations()
+        });
         this.loadLocations();
     }
 
+    /**
+     * Loads locations based on the current map position
+     */
     loadLocations()
     {
         const latLng = this.map.getCameraTarget();
