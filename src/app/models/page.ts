@@ -1,7 +1,8 @@
 import {BaseModel} from './base-model';
 import {Relation} from './relation';
 
-export class Page<Model> extends BaseModel{
+export class Page<Model> extends BaseModel
+{
 
     /**
      * The total amount of data
@@ -32,5 +33,23 @@ export class Page<Model> extends BaseModel{
         super(rawData, {
             data: new Relation('array', modelConstructor),
         });
+    }
+
+    /**
+     * Merges all of the data together
+     * @param existingEntries
+     */
+    mergeData(existingEntries: BaseModel[]): Model[]
+    {
+        const data = (this.data as any[]) as BaseModel[];
+        data.forEach(entry => {
+            const index = existingEntries.findIndex(i => i.id === entry.id);
+            if (index !== -1) {
+                existingEntries[index] = entry;
+            } else {
+                existingEntries.push(entry);
+            }
+        });
+        return (existingEntries as any[]) as Model[];
     }
 }

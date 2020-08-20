@@ -27,13 +27,29 @@ export class LocationAvailableItemsComponent implements OnChanges
     constructor(private requests: RequestsProvider)
     {}
 
+    /**
+     * Loads our requested items data when the location id changes
+     * @param changes
+     */
     ngOnChanges(changes: SimpleChanges): void
     {
         if (changes['locationId'] && changes['locationId'].previousValue !== changes['locationId'].currentValue) {
             this.requestedItems = [];
-            this.requests.locationRequestedItems.loadRequestedItems(changes['locationId'].currentValue).then(data => {
-                this.requestedItems = data.data;
-            });
+            this.loadPage(1);
         }
+    }
+
+    /**
+     * Loads a page of data
+     * @param pageNumber
+     */
+    loadPage(pageNumber: number): void
+    {
+        this.requests.locationRequestedItems.loadRequestedItems(this.locationId, pageNumber).then(page => {
+            this.requestedItems = page.mergeData(this.requestedItems);
+            if (page.last_page > page.current_page) {
+                this.loadPage(pageNumber + 1);
+            }
+        });
     }
 }
