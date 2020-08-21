@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvailableRequestInfoWindowComponent } from './available-request-info-window.component';
+import { MarkerDetailsWindowComponent } from './available-request-info-window.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 
 describe('AvailableRequestInfoWindowComponent', () => {
-    let component: AvailableRequestInfoWindowComponent;
-    let fixture: ComponentFixture<AvailableRequestInfoWindowComponent>;
+    let component: MarkerDetailsWindowComponent;
+    let fixture: ComponentFixture<MarkerDetailsWindowComponent>;
     let navController;
     let alertController;
 
@@ -23,14 +23,14 @@ describe('AvailableRequestInfoWindowComponent', () => {
                 {provide: NavController, useValue: navController},
             ],
             declarations: [
-                AvailableRequestInfoWindowComponent,
+                MarkerDetailsWindowComponent,
             ]
         })
         .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AvailableRequestInfoWindowComponent);
+        fixture = TestBed.createComponent(MarkerDetailsWindowComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

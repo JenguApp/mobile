@@ -1,0 +1,6 @@
+<div class="map" id="{{id}}"></div>
+<app-marker-details-window *ngIf="location" (close)="clearLocation()" >
+    <h3>{{location.name}} is here to help!</h3>
+    <app-location-available-items [locationId]="location.id" compact="true"></app-location-available-items>
+    <ion-button (click)="goToLocation()">More Info</ion-button>
+</app-marker-details-window>

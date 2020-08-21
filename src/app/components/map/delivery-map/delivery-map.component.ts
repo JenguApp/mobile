@@ -136,9 +136,9 @@ export class DeliveryMapComponent extends MapComponent {
 
     /**
      * The callback for when the
-     * @param request
      */
-    acceptRequest(request: Request) {
+    acceptRequest() {
+        const request = this.request;
         this.request = null;
         this.requests.deliveryRequests.acceptDeliveryRequest(request, this.handleExpiredRequest.bind(this)).then((request) => {
             this.currentRequestService.setCurrentRequest(request);

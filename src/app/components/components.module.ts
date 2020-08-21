@@ -21,6 +21,7 @@ import {RequestedItemsEditableListComponent} from './requested-items-editable-li
 import {RequestedItemEditorComponent} from './requested-item-editor/requested-item-editor.component';
 import {LocationBrowseMapComponent} from './map/location-browse-map/location-browse-map.component';
 import {LocationAvailableItemsComponent} from './location-available-items/location-available-items.component';
+import {MarkerDetailsWindowComponent} from './marker-details-window/marker-details-window.component';
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ import {LocationAvailableItemsComponent} from './location-available-items/locati
         RequestFormComponent,
         RequestedItemsEditableListComponent,
         RequestedItemEditorComponent,
+        MarkerDetailsWindowComponent,
     ],
     exports: [
         ArticleEditorComponent,

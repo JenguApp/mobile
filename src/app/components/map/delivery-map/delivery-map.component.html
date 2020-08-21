@@ -1,2 +1,5 @@
 <div class="map" id="delivery_map"></div>
-<app-available-request-info-window *ngIf="request" [request]="request" (close)="clearRequest()" (accepted)="acceptRequest($event)"></app-available-request-info-window>
+<app-marker-details-window *ngIf="request" (close)="clearRequest()" >
+    <h3>{{request?.requested_by.name}} Needs Some Help!</h3>
+    <ion-button (click)="acceptRequest()">Accept</ion-button>
+</app-marker-details-window>

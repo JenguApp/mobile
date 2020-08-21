@@ -16,6 +16,12 @@ export class LocationAvailableItemsComponent implements OnChanges
     locationId: number;
 
     /**
+     * Whether or not we are displaying this component in compact mode
+     */
+    @Input()
+    compact = false;
+
+    /**
      * All items that are available
      */
     requestedItems: RequestedItem[];
