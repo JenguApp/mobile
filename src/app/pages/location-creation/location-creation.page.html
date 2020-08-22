@@ -53,9 +53,14 @@
             <ion-input type="text" ngDefaultControl formControlName="region" [formControl]="form.controls.region" [value]="location ? location.region : ''"></ion-input>
         </ion-item>
 
+        <ion-item lines="none">
+            <ion-label>Accept Deliveries?</ion-label>
+            <ion-toggle slot="end" ngDefaultControl formControlName="delivery_available" [formControl]="form.controls.delivery_available"></ion-toggle>
+        </ion-item>
         <ion-item>
-            <ion-label position="stacked">Accept Deliveries?</ion-label>
-            <ion-toggle type="text" ngDefaultControl formControlName="delivery_available" [formControl]="form.controls.delivery_available" [checked]="location ? location.delivery_available : false"></ion-toggle>
+            <small>
+                Turn the Accept Deliveries option on if you will be sending people out to deliver to individuals, otherwise people will only be able to receive directions to your location.
+            </small>
         </ion-item>
 
         <div class="submit-wrapper">

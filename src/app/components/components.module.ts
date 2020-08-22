@@ -11,7 +11,6 @@ import {RequestFormComponent} from './request-form/request-form.component';
 import {DeliveryMapComponent} from './map/delivery-map/delivery-map.component';
 import {LocationSelectMapComponent} from './map/location-select-map/location-select-map.component';
 import {LocationReviewMapComponent} from './map/location-review-map/location-review-map.component';
-import {AvailableRequestInfoWindowComponent} from './available-request-info-window/available-request-info-window.component';
 import {DeliveryCompletedComponent} from './delivery-completed/delivery-completed.component';
 import {MapComponent} from './map/map.component';
 import {OrganizationUsersManagementComponent} from './organization-users-management/organization-users-management.component';
@@ -32,7 +31,6 @@ import {MarkerDetailsWindowComponent} from './marker-details-window/marker-detai
     declarations: [
         ArticleEditorComponent,
         ArticleViewerComponent,
-        AvailableRequestInfoWindowComponent,
         CountrySelectComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
@@ -54,7 +52,6 @@ import {MarkerDetailsWindowComponent} from './marker-details-window/marker-detai
     exports: [
         ArticleEditorComponent,
         ArticleViewerComponent,
-        AvailableRequestInfoWindowComponent,
         CountrySelectComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,

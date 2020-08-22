@@ -91,6 +91,7 @@ export class LocationCreationPage extends BasePage implements OnInit{
                 this.form.controls['city'].setValue(this.location.city);
                 this.form.controls['postal_code'].setValue(this.location.postal_code);
                 this.form.controls['region'].setValue(this.location.region);
+                this.form.controls['delivery_available'].setValue(this.location.delivery_available);
             });
         }
 
@@ -108,6 +109,7 @@ export class LocationCreationPage extends BasePage implements OnInit{
             ])],
             postal_code: ['', Validators.compose([])],
             region: ['', Validators.compose([])],
+            delivery_available: ['', Validators.compose([])],
         });
 
         this.userService.getMe().then(me => {
@@ -133,6 +135,7 @@ export class LocationCreationPage extends BasePage implements OnInit{
                 postal_code: this.form.controls['postal_code'].value,
                 region: this.form.controls['region'].value,
                 country: this.countrySelectComponent.value,
+                delivery_available: this.form.controls['delivery_available'].value
             };
 
             const request = this.location ?
