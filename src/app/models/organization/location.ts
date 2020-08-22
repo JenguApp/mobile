@@ -49,6 +49,11 @@ export class Location extends BaseModel {
     country: string;
 
     /**
+     * Whether or not there are deliveries available at this location
+     */
+    delivery_available: boolean;
+
+    /**
      * The latitude for this location
      */
     latitude: number;

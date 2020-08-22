@@ -53,6 +53,11 @@
             <ion-input type="text" ngDefaultControl formControlName="region" [formControl]="form.controls.region" [value]="location ? location.region : ''"></ion-input>
         </ion-item>
 
+        <ion-item>
+            <ion-label position="stacked">Accept Deliveries?</ion-label>
+            <ion-toggle type="text" ngDefaultControl formControlName="delivery_available" [formControl]="form.controls.delivery_available" [checked]="location ? location.delivery_available : false"></ion-toggle>
+        </ion-item>
+
         <div class="submit-wrapper">
             <ion-button large (click)="submit()">{{location ? 'Save' : 'Create'}}</ion-button>
         </div>
