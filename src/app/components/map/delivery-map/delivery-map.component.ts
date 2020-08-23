@@ -131,7 +131,7 @@ export class DeliveryMapComponent extends MapComponent {
             duration: 2500,
         }).then(toast => {
             toast.present().catch(console.error);
-        })
+        });
     }
 
     /**

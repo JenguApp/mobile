@@ -72,7 +72,7 @@ export class LocationAvailableItemsComponent implements OnChanges
      */
     loadPage(pageNumber: number): void
     {
-        this.requests.locationRequestedItems.loadRequestedItems(this.locationId, pageNumber).then(page => {
+        this.requests.locationRequestedItems.loadRequestedItems(this.locationId, pageNumber, false).then(page => {
             this.requestedItems = this.compact ? page.data.slice(0, 3) : page.mergeData(this.requestedItems);
             if (page.last_page > page.current_page && !this.compact) {
                 this.loadPage(pageNumber + 1);

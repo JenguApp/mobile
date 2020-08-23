@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {GoogleMapsEvent} from '@ionic-native/google-maps';
@@ -33,10 +33,12 @@ export class LocationBrowseMapComponent extends MapComponent {
      * @param requests
      * @param navController
      * @param locationService
+     * @param changeDetection
      */
     constructor(private requests: RequestsProvider,
                 private navController: NavController,
-                private locationService: LocationService)
+                private locationService: LocationService,
+                private changeDetection: ChangeDetectorRef)
     {
         super();
     }
@@ -72,8 +74,10 @@ export class LocationBrowseMapComponent extends MapComponent {
                             lng: location.longitude,
                         },
                     });
-                    this.markersOnMap[location.id].on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                        console.log('click');
                         this.location = location;
+                        this.changeDetection.detectChanges();
                     });
 
                     this.markersOnMap[location.id] = marker;
@@ -96,6 +100,6 @@ export class LocationBrowseMapComponent extends MapComponent {
     goToLocation()
     {
         this.locationService.cacheLocation(this.location);
-        this.navController.navigateForward('locations/' + this.location.id).catch(console.error);
+        this.navController.navigateForward('location/' + this.location.id).catch(console.error);
     }
 }

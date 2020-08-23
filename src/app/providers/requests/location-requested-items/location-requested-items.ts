@@ -20,9 +20,10 @@ export default class LocationRequestedItemsRequests {
      *
      * @param locationId
      * @param pageNumber
+     * @param showLoading
      */
-    async loadRequestedItems(locationId: any, pageNumber = 1): Promise<Page<RequestedItem>> {
-        return this.requestHandler.get('locations/' + locationId + '/requested-items', true, true, [], {}, null, null, null, pageNumber).then(data => {
+    async loadRequestedItems(locationId: any, pageNumber = 1, showLoading = false): Promise<Page<RequestedItem>> {
+        return this.requestHandler.get('locations/' + locationId + '/requested-items', true, showLoading, [], {}, null, null, null, pageNumber).then(data => {
             return Promise.resolve(new Page(data, RequestedItem));
         });
     }
