@@ -6,6 +6,8 @@ import {GoogleMaps, Marker} from '@ionic-native/google-maps';
 import {LocationBrowseMapComponent} from './location-browse-map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
+import {LocationAvailableItemsComponent} from '../../location-available-items/location-available-items.component';
+import {MarkerDetailsWindowComponent} from '../../marker-details-window/marker-details-window.component';
 
 describe('LocationBrowseMapComponent', () => {
     let component: LocationBrowseMapComponent;
@@ -38,6 +40,8 @@ describe('LocationBrowseMapComponent', () => {
                 {provide: RequestsProvider, useValue: new RequestsProviderMock()},
             ],
             declarations: [
+                LocationAvailableItemsComponent,
+                MarkerDetailsWindowComponent,
                 LocationBrowseMapComponent,
             ]
         })

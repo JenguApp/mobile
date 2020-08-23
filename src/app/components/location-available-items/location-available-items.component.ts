@@ -22,6 +22,12 @@ export class LocationAvailableItemsComponent implements OnChanges
     compact = false;
 
     /**
+     * Whether or not the delivery is available
+     */
+    @Input()
+    deliveryAvailable = false;
+
+    /**
      * All items that are available
      */
     requestedItems: RequestedItem[];
@@ -46,14 +52,23 @@ export class LocationAvailableItemsComponent implements OnChanges
     }
 
     /**
+     * Sets the selected quantity for the requested item
+     * @param requestedItem
+     * @param event
+     */
+    setRequestedItemQuantity(requestedItem: RequestedItem, event)
+    {
+    }
+
+    /**
      * Loads a page of data
      * @param pageNumber
      */
     loadPage(pageNumber: number): void
     {
         this.requests.locationRequestedItems.loadRequestedItems(this.locationId, pageNumber).then(page => {
-            this.requestedItems = page.mergeData(this.requestedItems);
-            if (page.last_page > page.current_page) {
+            this.requestedItems = this.compact ? page.data.slice(0, 3) : page.mergeData(this.requestedItems);
+            if (page.last_page > page.current_page && !this.compact) {
                 this.loadPage(pageNumber + 1);
             }
         });

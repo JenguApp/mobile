@@ -4,13 +4,13 @@ import { DeliveryMapComponent } from './delivery-map.component';
 import { CommonModule } from "@angular/common";
 import {AlertController, IonicModule, NavController, ToastController} from '@ionic/angular';
 import {GoogleMaps, VisibleRegion} from '@ionic-native/google-maps';
-import {AvailableRequestInfoWindowComponent} from '../../available-request-info-window/available-request-info-window.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {Observable} from 'rxjs';
 import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../../services/data-services/current-request.service';
+import {MarkerDetailsWindowComponent} from '../../marker-details-window/marker-details-window.component';
 
 describe('DeliveryMapComponent', () => {
     let component: DeliveryMapComponent;
@@ -60,7 +60,7 @@ describe('DeliveryMapComponent', () => {
                 { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
-                AvailableRequestInfoWindowComponent,
+                MarkerDetailsWindowComponent,
                 DeliveryMapComponent,
             ]
         })

@@ -22,12 +22,12 @@ export class RequestedItem extends BaseModel {
     /**
      * The available quantity for the requested item
      */
-    quantity: number;
+    quantity?: number;
 
     /**
      * The max amount available per request
      */
-    max_quantity_per_request: number;
+    max_quantity_per_request?: number;
 
     /**
      * An asset that was potentially attached
@@ -55,5 +55,22 @@ export class RequestedItem extends BaseModel {
             this.asset = asset;
             return Promise.resolve();
         });
+    }
+
+    /**
+     * Returns the maximum quantity the user can request if there is one
+     */
+    getMaximumPossibleQuantity(): number|null
+    {
+        if (this.max_quantity_per_request) {
+            if (this.quantity) {
+                return this.max_quantity_per_request > this.quantity ? this.quantity : this.max_quantity_per_request;
+            }
+            return this.max_quantity_per_request;
+        } else if (this.quantity) {
+            return this.quantity;
+        }
+
+        return null;
     }
 }

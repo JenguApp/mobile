@@ -5,10 +5,10 @@ import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
-import {AvailableRequestInfoWindowComponent} from '../available-request-info-window/available-request-info-window.component';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {MarkerDetailsWindowComponent} from '../marker-details-window/marker-details-window.component';
 
 describe('DeliveryCompletedComponent', () => {
     let component: DeliveryCompletedComponent;
@@ -34,7 +34,7 @@ describe('DeliveryCompletedComponent', () => {
                 { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
-                AvailableRequestInfoWindowComponent,
+                MarkerDetailsWindowComponent,
                 DeliveryCompletedComponent,
             ]
         })

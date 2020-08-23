@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MarkerDetailsWindowComponent } from './available-request-info-window.component';
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
+import {MarkerDetailsWindowComponent} from './marker-details-window.component';
 
-describe('AvailableRequestInfoWindowComponent', () => {
+describe('MarkerDetailsWindowComponent', () => {
     let component: MarkerDetailsWindowComponent;
     let fixture: ComponentFixture<MarkerDetailsWindowComponent>;
     let navController;
