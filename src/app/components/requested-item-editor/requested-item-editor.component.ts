@@ -212,6 +212,10 @@ export class RequestedItemEditorComponent implements OnChanges {
      */
     clear() {
         this.nameInput.value = '';
+        if (this.showQuantity) {
+            this.quantityInput.value = '';
+            this.maxQuantityPerRequestInput.value = '';
+        }
         this.localItem = new RequestedItem({});
     }
 }
