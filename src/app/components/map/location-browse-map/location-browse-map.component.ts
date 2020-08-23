@@ -3,6 +3,8 @@ import {MapComponent} from '../map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {GoogleMapsEvent} from '@ionic-native/google-maps';
 import {Location} from '../../../models/organization/location';
+import {NavController} from '@ionic/angular';
+import {LocationService} from '../../../services/data-services/location.service';
 
 @Component({
     selector: 'app-location-browse-map',
@@ -29,8 +31,12 @@ export class LocationBrowseMapComponent extends MapComponent {
     /**
      * Default Constructor
      * @param requests
+     * @param navController
+     * @param locationService
      */
-    constructor(private requests: RequestsProvider)
+    constructor(private requests: RequestsProvider,
+                private navController: NavController,
+                private locationService: LocationService)
     {
         super();
     }
@@ -85,10 +91,11 @@ export class LocationBrowseMapComponent extends MapComponent {
     }
 
     /**
-     * 
+     * Goes te the location page
      */
     goToLocation()
     {
-        // TODO go to the location page
+        this.locationService.cacheLocation(this.location);
+        this.navController.navigateForward('locations/' + this.location.id).catch(console.error);
     }
 }

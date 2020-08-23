@@ -65,12 +65,16 @@ const routes: Routes = [
         loadChildren: './pages/location-selection/location-selection.module#LocationSelectionPageModule'
     },
     {
-        path: 'organization-location-creation/:organization_id',
-        loadChildren: './pages/location-creation/location-creation.module#LocationCreationPageModule'
+        path: 'location/:location_id',
+        loadChildren: './pages/location/location.module#LocationPageModule'
     },
     {
         path: 'location-dashboard/:location_id',
         loadChildren: './pages/location-dashboard/location-dashboard.module#LocationDashboardPageModule'
+    },
+    {
+        path: 'organization-location-creation/:organization_id',
+        loadChildren: './pages/location-creation/location-creation.module#LocationCreationPageModule'
     },
     {
         path: 'pending-request',

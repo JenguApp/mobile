@@ -17,7 +17,7 @@ export class RequestedItem extends BaseModel {
     /**
      * The name the user entered for the line item
      */
-    name: string;
+    name?: string;
 
     /**
      * The available quantity for the requested item
@@ -28,6 +28,11 @@ export class RequestedItem extends BaseModel {
      * The max amount available per request
      */
     max_quantity_per_request?: number;
+
+    /**
+     * The id of the requested item that this is related to
+     */
+    parent_requested_item_id?: number;
 
     /**
      * An asset that was potentially attached

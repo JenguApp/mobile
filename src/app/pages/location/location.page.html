@@ -1,0 +1,11 @@
+<app-logged-in-header></app-logged-in-header>
+
+<ion-content *ngIf="location">
+    <h2>{{location.name}}</h2>
+    <app-location-available-items #availableItemsComponent [locationId]="location.id" [deliveryAvailable]="location.delivery_available">
+    </app-location-available-items>
+    <div class="actions">
+        <ion-button (click)="getDirections()">Get Direction</ion-button>
+        <ion-button *ngIf="location.delivery_available" (click)="requestDelivery(availableItemsComponent)">Request Delivery</ion-button>
+    </div>
+</ion-content>

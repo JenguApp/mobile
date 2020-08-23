@@ -33,6 +33,11 @@ export class LocationAvailableItemsComponent implements OnChanges
     requestedItems: RequestedItem[];
 
     /**
+     * All quantities the user has entered with the requested item id used as the key
+     */
+    enteredQuantities: any[] = [];
+
+    /**
      * Default Constructor
      * @param requests
      */
@@ -58,6 +63,7 @@ export class LocationAvailableItemsComponent implements OnChanges
      */
     setRequestedItemQuantity(requestedItem: RequestedItem, event)
     {
+        this.enteredQuantities[requestedItem.id] = event.nativeElement.value;
     }
 
     /**
