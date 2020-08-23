@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {IonTabs, Platform} from '@ionic/angular';
-import {StorageProvider} from '../../providers/storage/storage';
+import {IonTextarea, NavController, Platform} from '@ionic/angular';
 import {BasePage} from '../base.page';
 import {LocationService} from '../../services/data-services/location.service';
 import {Location} from '../../models/organization/location';
 import {LocationAvailableItemsComponent} from '../../components/location-available-items/location-available-items.component';
-import {RequestsProvider} from '../../providers/requests/requests';
 import {RequestCreationService} from '../../services/data-services/request-creation.service';
 import {RequestedItem} from '../../models/request/requested-item';
+import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 
 @Component({
     selector: 'app-location',
@@ -17,6 +16,18 @@ import {RequestedItem} from '../../models/request/requested-item';
 })
 export class LocationPage extends BasePage implements OnInit
 {
+    /**
+     * The input that holds the user entered description of the request
+     */
+    @ViewChild('descriptionTextArea', {static: false})
+    descriptionTextArea: IonTextarea;
+
+    /**
+     * The component that allows the user to select what items they want delivered
+     */
+    @ViewChild('availableItemsComponent', {static: false})
+    availableItemsComponent: LocationAvailableItemsComponent;
+
     /**
      * The location we are viewing the details of
      */
@@ -27,14 +38,16 @@ export class LocationPage extends BasePage implements OnInit
      * @param platform
      * @param route
      * @param locationService
-     * @param requests
+     * @param navController
      * @param requestCreationService
+     * @param launchNavigator
      */
     constructor(private platform: Platform,
                 private route: ActivatedRoute,
                 private locationService: LocationService,
-                private requests: RequestsProvider,
-                private requestCreationService: RequestCreationService)
+                private navController: NavController,
+                private requestCreationService: RequestCreationService,
+                private launchNavigator: LaunchNavigator)
     {
         super();
     }
@@ -57,15 +70,19 @@ export class LocationPage extends BasePage implements OnInit
      */
     getDirections(): void
     {
+        this.launchNavigator.navigate([this.location.latitude, this.location.longitude]).then(
+            success => console.log('Launched navigator'),
+            error => console.log('Error launching navigator', error)
+        );
     }
 
     /**
      * Posts the request to the server
-     * @param availableItemsComponent
      */
-    requestDelivery(availableItemsComponent: LocationAvailableItemsComponent): void
+    requestDelivery(): void
     {
-        const requestedItems = availableItemsComponent.enteredQuantities
+        const description = this.descriptionTextArea.value;
+        const requestedItems = this.availableItemsComponent.enteredQuantities
             .filter(quantity => quantity > 0)
             .map((quantity, requestedItemId) => {
                 return new RequestedItem({
@@ -76,6 +93,7 @@ export class LocationPage extends BasePage implements OnInit
             }
         );
 
-        this.requestCreationService.storeInitialInformation('', requestedItems);
+        this.requestCreationService.storeInitialInformation(description, requestedItems);
+        this.navController.navigateForward('location-selection').catch(console.error);
     }
 }
