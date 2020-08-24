@@ -85,16 +85,14 @@ export class LocationPage extends BasePage implements OnInit
     {
         const description = this.descriptionTextArea.value;
         const requestedItems = this.availableItemsComponent.enteredQuantities
-            .filter(quantity => quantity > 0)
-            .map((quantity, requestedItemId) => {
-                return new RequestedItem({
-                    location_id: this.location.id,
-                    quantity: quantity,
-                    parent_requested_item_id: requestedItemId,
-                    parentRequestedItem: this.availableItemsComponent.requestedItems.find(i => i.id == requestedItemId),
-                });
+            .filter(data => data.quantity > 0)
+            .map((data) => {
+                data.location_id = this.location.id;
+                return new RequestedItem(data);
             }
         );
+
+        console.log('requestedItems', requestedItems);
 
         if (requestedItems.length === 0) {
             this.toastController.create({

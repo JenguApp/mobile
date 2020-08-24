@@ -28,6 +28,12 @@ export class RequestedItemEditorComponent implements OnChanges {
     requestedItem: RequestedItem = null;
 
     /**
+     * Whether or not this is for reviewing an item related to a location
+     */
+    @Input()
+    isLocationRequestReview = false;
+
+    /**
      * The currently logged in user
      */
     @Input()

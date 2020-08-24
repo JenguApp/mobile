@@ -6,7 +6,12 @@ import {MapComponent} from '../map.component';
     templateUrl: '../map.component.html',
     styleUrls: ['../map.component.scss']
 })
-export class LocationReviewMapComponent extends MapComponent {
+export class LocationReviewMapComponent extends MapComponent
+{
+    /**
+     * Overrides the id to avoid clashing bugs
+     */
+    id = 'location_review';
 
     /**
      * The map cannot be moved while in this view

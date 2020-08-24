@@ -8,18 +8,16 @@
   </div>
   <div>
     <ion-item class="input-wrapper">
-      <ion-input #name placeholder="Item Name" [value]="requestedItem?.name"></ion-input>
+      <ion-input #name placeholder="Item Name" [value]="requestedItem?.name" [disabled]="isLocationRequestReview"></ion-input>
     </ion-item>
-    <div *ngIf="showQuantity">
-      <ion-item class="input-wrapper">
-        <ion-label position="start">Available Quantity:<br/><small><i>(optional)</i></small></ion-label>
-        <ion-input #quantity [value]="requestedItem?.quantity"></ion-input>
-      </ion-item>
-      <ion-item class="input-wrapper">
-        <ion-label position="start">Max Per Request:<br/><small><i>(optional)</i></small></ion-label>
-        <ion-input #maxQuantityPerRequest [value]="requestedItem?.max_quantity_per_request"></ion-input>
-      </ion-item>
-    </div>
+    <ion-item *ngIf="showQuantity || isLocationRequestReview" class="input-wrapper">
+      <ion-label position="start">Available Quantity:<br/><small><i>(optional)</i></small></ion-label>
+      <ion-input #quantity [disabled]="isLocationRequestReview" [value]="requestedItem?.quantity"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="showQuantity" class="input-wrapper">
+      <ion-label position="start">Max Per Request:<br/><small><i>(optional)</i></small></ion-label>
+      <ion-input #maxQuantityPerRequest [value]="requestedItem?.max_quantity_per_request"></ion-input>
+    </ion-item>
   </div>
 
   <ion-button slot="end" *ngIf="requestedItem && !showQuantity" (click)="remove()">-</ion-button>
