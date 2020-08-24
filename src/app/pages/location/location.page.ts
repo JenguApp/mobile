@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {IonTextarea, NavController, Platform} from '@ionic/angular';
+import {IonTextarea, NavController, Platform, ToastController} from '@ionic/angular';
 import {BasePage} from '../base.page';
 import {LocationService} from '../../services/data-services/location.service';
 import {Location} from '../../models/organization/location';
@@ -41,13 +41,15 @@ export class LocationPage extends BasePage implements OnInit
      * @param navController
      * @param requestCreationService
      * @param launchNavigator
+     * @param toastController
      */
     constructor(private platform: Platform,
                 private route: ActivatedRoute,
                 private locationService: LocationService,
                 private navController: NavController,
                 private requestCreationService: RequestCreationService,
-                private launchNavigator: LaunchNavigator)
+                private launchNavigator: LaunchNavigator,
+                private toastController: ToastController)
     {
         super();
     }
@@ -93,7 +95,16 @@ export class LocationPage extends BasePage implements OnInit
             }
         );
 
-        this.requestCreationService.storeInitialInformation(description, requestedItems);
-        this.navController.navigateForward('location-selection').catch(console.error);
+        if (requestedItems.length === 0) {
+            this.toastController.create({
+                message: 'Please enter the item quantities that you need.',
+                duration: 2000,
+            }).then(toast => {
+                toast.present();
+            });
+        } else {
+            this.requestCreationService.storeInitialInformation(description, requestedItems);
+            this.navController.navigateForward('location-selection').catch(console.error);
+        }
     }
 }

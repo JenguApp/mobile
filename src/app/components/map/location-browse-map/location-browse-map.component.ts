@@ -75,7 +75,6 @@ export class LocationBrowseMapComponent extends MapComponent {
                         },
                     });
                     marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                        console.log('click');
                         this.location = location;
                         this.changeDetection.detectChanges();
                     });

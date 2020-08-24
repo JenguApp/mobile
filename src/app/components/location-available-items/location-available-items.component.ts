@@ -63,7 +63,7 @@ export class LocationAvailableItemsComponent implements OnChanges
      */
     setRequestedItemQuantity(requestedItem: RequestedItem, event)
     {
-        this.enteredQuantities[requestedItem.id] = event.nativeElement.value;
+        this.enteredQuantities[requestedItem.id] = event.detail.value - 0;
     }
 
     /**
