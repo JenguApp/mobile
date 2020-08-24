@@ -91,6 +91,7 @@ export class LocationPage extends BasePage implements OnInit
                     location_id: this.location.id,
                     quantity: quantity,
                     parent_requested_item_id: requestedItemId,
+                    parentRequestedItem: this.availableItemsComponent.requestedItems.find(i => i.id == requestedItemId),
                 });
             }
         );

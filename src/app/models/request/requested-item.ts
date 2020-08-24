@@ -40,6 +40,11 @@ export class RequestedItem extends BaseModel {
     asset: Asset;
 
     /**
+     * The potential parent requested item if set
+     */
+    parentRequestedItem?: RequestedItem;
+
+    /**
      * Default Constructor
      * @param data
      */
