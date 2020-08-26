@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {RequestedItem} from '../../models/request/requested-item';
 
@@ -68,7 +68,6 @@ export class LocationAvailableItemsComponent implements OnChanges
             parent_requested_item: requestedItem.id,
             quantity: event.detail.value - 0
         };
-        console.log('enteredQuantities', this.enteredQuantities);
     }
 
     /**

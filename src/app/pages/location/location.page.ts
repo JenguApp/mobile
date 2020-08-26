@@ -5,7 +5,7 @@ import {BasePage} from '../base.page';
 import {LocationService} from '../../services/data-services/location.service';
 import {Location} from '../../models/organization/location';
 import {LocationAvailableItemsComponent} from '../../components/location-available-items/location-available-items.component';
-import {RequestCreationService} from '../../services/data-services/request-creation.service';
+import {Mode, RequestCreationService} from '../../services/data-services/request-creation.service';
 import {RequestedItem} from '../../models/request/requested-item';
 import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 
@@ -102,7 +102,7 @@ export class LocationPage extends BasePage implements OnInit
                 toast.present();
             });
         } else {
-            this.requestCreationService.storeInitialInformation(description, requestedItems);
+            this.requestCreationService.storeInitialInformation(Mode.LOCATION, description, requestedItems);
             this.navController.navigateForward('location-selection').catch(console.error);
         }
     }

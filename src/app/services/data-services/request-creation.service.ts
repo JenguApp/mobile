@@ -1,10 +1,20 @@
 import {RequestedItem} from '../../models/request/requested-item';
 import {Injectable} from '@angular/core';
 
+export enum Mode {
+    UNSET,
+    PUBLIC,
+    LOCATION,
+}
 @Injectable({
     providedIn: 'root'
 })
-export class RequestCreationService {
+export class RequestCreationService
+{
+    /**
+     * The request mode
+     */
+    mode: Mode = Mode.UNSET;
 
     /**
      * The description the user put in on the first page
@@ -28,10 +38,13 @@ export class RequestCreationService {
 
     /**
      * Stores all initial information that we need
+     * @param mode
      * @param description
      * @param lineItems
      */
-    storeInitialInformation(description: string, lineItems: RequestedItem[]) {
+    storeInitialInformation(mode: Mode, description: string, lineItems: RequestedItem[])
+    {
+        this.mode = mode;
         this.description = description;
         this.lineItems = lineItems;
     }
@@ -41,7 +54,8 @@ export class RequestCreationService {
      * @param latitude
      * @param longitude
      */
-    storeLocationInformation(latitude: number, longitude: number) {
+    storeLocationInformation(latitude: number, longitude: number)
+    {
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -49,35 +63,41 @@ export class RequestCreationService {
     /**
      * Returns the description we currently have
      */
-    getDescription(): string {
+    getDescription(): string
+    {
         return this.description;
     }
 
     /**
      * Returns all line items we are storing
      */
-    getLineItems(): RequestedItem[] {
+    getLineItems(): RequestedItem[]
+    {
         return this.lineItems;
     }
 
     /**
      * Gets the latitude the user selected
      */
-    getLatitude(): number {
+    getLatitude(): number
+    {
         return this.latitude;
     }
 
     /**
      * Gets the longitude the user selected
      */
-    getLongitude(): number {
+    getLongitude(): number
+    {
         return this.longitude;
     }
 
     /**
      * Clears all pending data
      */
-    clear() {
+    clear()
+    {
+        this.mode = Mode.UNSET;
         this.description = '';
         this.lineItems = [];
         this.latitude = null;

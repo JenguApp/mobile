@@ -1,14 +1,8 @@
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    ViewChild,
-} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild,} from '@angular/core';
 import {RequestedItem} from '../../models/request/requested-item';
 import {User} from '../../models/user/user';
 import {IonTextarea, NavController} from '@ionic/angular';
-import {RequestCreationService} from '../../services/data-services/request-creation.service';
+import {Mode, RequestCreationService} from '../../services/data-services/request-creation.service';
 import {RequestedItemsEditableListComponent} from '../requested-items-editable-list/requested-items-editable-list.component';
 
 @Component({
@@ -71,7 +65,7 @@ export class RequestFormComponent implements AfterViewInit {
      */
     storeForm() {
         const requestedItems = this.requestedItemsEditor.getCurrentRequestedItems();
-        this.requestCreationService.storeInitialInformation(this.descriptionTextArea.value, requestedItems);
+        this.requestCreationService.storeInitialInformation(Mode.PUBLIC, this.descriptionTextArea.value, requestedItems);
     }
 
     /**
