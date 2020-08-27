@@ -1,6 +1,7 @@
 <form class="ion-padding">
   <ion-label>Message</ion-label>
   <ion-textarea #description placeholder="Add a small greeting here" auto-grow="true"></ion-textarea>
-  <app-requested-items-editable-list [requestedItems]="requestedItems" [entity]="user" [changeDetection]="changeDetection" #requestedItemsEditor></app-requested-items-editable-list>
+  <app-requested-items-editable-list *ngIf="isPublicRequest()" [requestedItems]="requestedItems" [entity]="user" [changeDetection]="changeDetection" #requestedItemsEditor></app-requested-items-editable-list>
+  <app-location-available-items *ngIf="isLocationRequest()" ></app-location-available-items>
   <ion-button (click)="submit()" *ngIf="!reviewForm">Post Request</ion-button>
 </form>

@@ -10,8 +10,8 @@ import {RequestedItemsEditableListComponent} from '../requested-items-editable-l
     templateUrl: './request-form.component.html',
     styleUrls: ['./request-form.component.scss']
 })
-export class RequestFormComponent implements AfterViewInit {
-
+export class RequestFormComponent implements AfterViewInit
+{
     /**
      * The currently logged in user
      */
@@ -49,21 +49,39 @@ export class RequestFormComponent implements AfterViewInit {
      */
     constructor(private requestCreationService: RequestCreationService,
                 public changeDetection: ChangeDetectorRef,
-                private navController: NavController) {
-    }
+                private navController: NavController)
+    {}
 
     /**
      * Inits the form properly
      */
-    ngAfterViewInit(): void {
+    ngAfterViewInit(): void
+    {
         this.descriptionTextArea.value = this.requestCreationService.getDescription();
         this.requestedItems = this.requestCreationService.getLineItems();
     }
 
     /**
+     * Gets the mode the request form is in
+     */
+    isPublicRequest(): boolean
+    {
+        return this.requestCreationService.getMode() == Mode.PUBLIC;
+    }
+
+    /**
+     * Gets the mode the request form is in
+     */
+    isLocationRequest(): boolean
+    {
+        return this.requestCreationService.getMode() == Mode.LOCATION;
+    }
+
+    /**
      * Stores the information into the form
      */
-    storeForm() {
+    storeForm()
+    {
         const requestedItems = this.requestedItemsEditor.getCurrentRequestedItems();
         this.requestCreationService.storeInitialInformation(Mode.PUBLIC, this.descriptionTextArea.value, requestedItems);
     }
@@ -71,7 +89,8 @@ export class RequestFormComponent implements AfterViewInit {
     /**
      * Submits the form and takes us to the next step
      */
-    submit() {
+    submit()
+    {
         this.storeForm();
         this.navController.navigateForward('location-selection').catch(console.error);
     }

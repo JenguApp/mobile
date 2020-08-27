@@ -92,8 +92,6 @@ export class LocationPage extends BasePage implements OnInit
             }
         );
 
-        console.log('requestedItems', requestedItems);
-
         if (requestedItems.length === 0) {
             this.toastController.create({
                 message: 'Please enter the item quantities that you need.',

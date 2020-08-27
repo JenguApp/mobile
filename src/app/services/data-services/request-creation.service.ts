@@ -1,5 +1,6 @@
 import {RequestedItem} from '../../models/request/requested-item';
 import {Injectable} from '@angular/core';
+import {Location} from '../../models/organization/location';
 
 export enum Mode {
     UNSET,
@@ -20,6 +21,11 @@ export class RequestCreationService
      * The description the user put in on the first page
      */
     description: string = '';
+
+    /**
+     * Gets the location that the request is going to be linked to
+     */
+    location?: Location = null;
 
     /**
      * All line items the user entered
@@ -50,6 +56,15 @@ export class RequestCreationService
     }
 
     /**
+     * Sets the location model in the request
+     * @param location
+     */
+    setLocationModel(location: Location)
+    {
+        this.location = location;
+    }
+
+    /**
      * Stores all information related to the location of the request
      * @param latitude
      * @param longitude
@@ -61,11 +76,27 @@ export class RequestCreationService
     }
 
     /**
+     * Gets the mode the app is currently in
+     */
+    getMode(): Mode
+    {
+        return this.mode;
+    }
+
+    /**
      * Returns the description we currently have
      */
     getDescription(): string
     {
         return this.description;
+    }
+
+    /**
+     * Gets the location the request is for
+     */
+    getLocation(): Location|null
+    {
+        return this.location;
     }
 
     /**
@@ -99,6 +130,7 @@ export class RequestCreationService
     {
         this.mode = Mode.UNSET;
         this.description = '';
+        this.location = null;
         this.lineItems = [];
         this.latitude = null;
         this.longitude = null;
