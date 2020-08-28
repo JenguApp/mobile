@@ -3,6 +3,7 @@ import {Location} from '../../models/organization/location';
 import {Observable, Subscriber} from 'rxjs';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {StorageProvider} from '../../providers/storage/storage';
+import {RequestedItem} from '../../models/request/requested-item';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,11 @@ export class LocationService {
      * All loaded locations in the system
      */
     loadedLocations: any = {};
+
+    /**
+     * All requested item arrays that we have loaded into memory indexed by the location id
+     */
+    loadedLocationRequestedItems: RequestedItem[][] = [];
 
     /**
      * The logout observer
@@ -62,6 +68,20 @@ export class LocationService {
             this.requests.locationRequests.loadLocation(id).then(location => {
                 this.loadedLocations[id] = location;
                 return Promise.resolve(location);
+            });
+    }
+
+    /**
+     * Gets the first 100 requested items for a location
+     * TODO before production make sure to add pagination
+     * @param id
+     */
+    getLocationRequestedItems(id: number): Promise<RequestedItem[]>
+    {
+        return this.loadedLocationRequestedItems[id] ? Promise.resolve(this.loadedLocationRequestedItems[id])
+            : this.requests.locationRequestedItems.loadRequestedItems(id).then(page => {
+                this.loadedLocationRequestedItems[id] = page.data;
+                return Promise.resolve(page.data);
             });
     }
 }
