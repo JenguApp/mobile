@@ -100,6 +100,7 @@ export class LocationPage extends BasePage implements OnInit
                 toast.present();
             });
         } else {
+            this.requestCreationService.setLocationModel(this.location);
             this.requestCreationService.storeInitialInformation(Mode.LOCATION, description, requestedItems);
             this.navController.navigateForward('location-selection').catch(console.error);
         }
