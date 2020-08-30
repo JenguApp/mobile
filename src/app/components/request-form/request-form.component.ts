@@ -5,6 +5,7 @@ import {IonTextarea, NavController} from '@ionic/angular';
 import {Mode, RequestCreationService} from '../../services/data-services/request-creation.service';
 import {RequestedItemsEditableListComponent} from '../requested-items-editable-list/requested-items-editable-list.component';
 import {Location} from '../../models/organization/location';
+import {LocationAvailableItemsComponent} from '../location-available-items/location-available-items.component';
 
 @Component({
     selector: 'app-request-form',
@@ -38,6 +39,12 @@ export class RequestFormComponent implements AfterViewInit
     requestedItemsEditor: RequestedItemsEditableListComponent;
 
     /**
+     * The location available items editor
+     */
+    @ViewChild('locationAvailableItemsEditor', {static: false})
+    locationAvailableItemsEditor: LocationAvailableItemsComponent;
+
+    /**
      * All requested items the user has entered so far
      */
     @Input()
@@ -64,11 +71,19 @@ export class RequestFormComponent implements AfterViewInit
     }
 
     /**
+     * Gets the mode of the form
+     */
+    getMode(): Mode
+    {
+        return this.requestCreationService.getMode() ? this.requestCreationService.getMode() : Mode.PUBLIC;
+    }
+
+    /**
      * Gets the mode the request form is in
      */
     isPublicRequest(): boolean
     {
-        return this.requestCreationService.getMode() == Mode.PUBLIC;
+        return this.getMode() === Mode.PUBLIC;
     }
 
     /**
@@ -76,7 +91,7 @@ export class RequestFormComponent implements AfterViewInit
      */
     isLocationRequest(): boolean
     {
-        return this.requestCreationService.getMode() == Mode.LOCATION;
+        return this.getMode() === Mode.LOCATION;
     }
 
     /**
@@ -92,8 +107,8 @@ export class RequestFormComponent implements AfterViewInit
      */
     storeForm()
     {
-        const requestedItems = this.requestedItemsEditor.getCurrentRequestedItems();
-        this.requestCreationService.storeInitialInformation(Mode.PUBLIC, this.descriptionTextArea.value, requestedItems);
+        const requestedItems = this.isPublicRequest() ? this.requestedItemsEditor.getCurrentRequestedItems() : this.locationAvailableItemsEditor.enteredQuantities;
+        this.requestCreationService.storeInitialInformation(this.getMode(), this.descriptionTextArea.value, requestedItems);
     }
 
     /**
