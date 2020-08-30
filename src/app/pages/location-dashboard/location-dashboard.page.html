@@ -2,6 +2,10 @@
 
 <ion-tabs #tabs>
     <ion-tab-bar slot="bottom" *ngIf="locationId">
+        <ion-tab-button tab="location-pending-requests/{{locationId}}">
+            <ion-icon name="mail-unread-outline"></ion-icon>
+            <ion-label>Pending Deliveries</ion-label>
+        </ion-tab-button>
         <ion-tab-button tab="location-requested-items/{{locationId}}">
             <ion-icon name="location-outline"></ion-icon>
             <ion-label>Available Items</ion-label>

@@ -14,6 +14,15 @@ const routes: Routes = [
     component: LocationDashboardPage,
     children: [
       {
+        path: 'location-pending-requests/:location_id',
+        children: [
+          {
+            path: '',
+            loadChildren: './location-pending-requests/location-pending-requests.module#LocationPendingRequestsPageModule'
+          }
+        ]
+      },
+      {
         path: 'location-requested-items/:location_id',
         children: [
           {
