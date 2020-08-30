@@ -23,7 +23,7 @@ export default class LocationRequestedItemsRequests {
      * @param showLoading
      */
     async loadRequestedItems(locationId: any, pageNumber = 1, showLoading = false): Promise<Page<RequestedItem>> {
-        return this.requestHandler.get('locations/' + locationId + '/requested-items', true, showLoading, [], {}, null, null, 100, pageNumber).then(data => {
+        return this.requestHandler.get('locations/' + locationId + '/requested-items', true, showLoading, ['asset'], {}, null, null, 100, pageNumber).then(data => {
             return Promise.resolve(new Page(data, RequestedItem));
         });
     }
@@ -49,7 +49,7 @@ export default class LocationRequestedItemsRequests {
      */
     async updatedRequestedItem(requestedItem: RequestedItem, requestedItemData: any): Promise<RequestedItem> {
 
-        return this.requestHandler.patch('locations/' + requestedItem.location_id + '/requested-items', true, true, requestedItemData)
+        return this.requestHandler.patch('locations/' + requestedItem.location_id + '/requested-items/' + requestedItem.id, true, true, requestedItemData)
             .then(data => {
                 return Promise.resolve(new RequestedItem(data));
             }

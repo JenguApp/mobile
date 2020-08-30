@@ -101,7 +101,10 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
                 return this.requests.locationRequestedItems.updatedRequestedItem(
                     existing,
                     this.getItemServerData(item)
-                );
+                ).then(updatedItem => {
+                    updatedItem.asset = item.asset;
+                    return Promise.resolve(updatedItem);
+                });
             } else {
                 return Promise.resolve(item);
             }
@@ -109,7 +112,10 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
             return this.requests.locationRequestedItems.createRequestedItem(
                 this.location.id,
                 this.getItemServerData(item)
-            );
+            ).then(newItem => {
+                newItem.asset = item.asset;
+                return Promise.resolve(newItem);
+            });
         }
     }
 

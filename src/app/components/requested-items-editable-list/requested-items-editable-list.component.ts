@@ -47,14 +47,6 @@ export class RequestedItemsEditableListComponent {
     showQuantity: boolean;
 
     /**
-     * Whether or not this list is from the location flow
-     */
-    isForLocation(): boolean
-    {
-        return this.requestedItems.find(i => i.location_id != null) != null;
-    }
-
-    /**
      * Removes an item from the list of requested items
      * @param removedItem
      */
