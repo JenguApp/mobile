@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {RequestedItem} from '../../models/request/requested-item';
+import {LocationService} from '../../services/data-services/location.service';
 
 @Component({
     selector: 'app-location-available-items',
@@ -39,9 +40,9 @@ export class LocationAvailableItemsComponent implements OnChanges
 
     /**
      * Default Constructor
-     * @param requests
+     * @param locationService
      */
-    constructor(private requests: RequestsProvider)
+    constructor(private locationService: LocationService)
     {}
 
     /**
@@ -76,11 +77,8 @@ export class LocationAvailableItemsComponent implements OnChanges
      */
     loadPage(pageNumber: number): void
     {
-        this.requests.locationRequestedItems.loadRequestedItems(this.locationId, pageNumber, false).then(page => {
-            this.requestedItems = this.compact ? page.data.slice(0, 3) : page.mergeData(this.requestedItems);
-            if (page.last_page > page.current_page && !this.compact) {
-                this.loadPage(pageNumber + 1);
-            }
+        this.locationService.getLocationRequestedItems(this.locationId).then(data => {
+            this.requestedItems = this.compact ? data.slice(0, 3) : data;
         });
     }
 }

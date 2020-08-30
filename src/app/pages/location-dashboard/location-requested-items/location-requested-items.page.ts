@@ -74,26 +74,8 @@ export class LocationRequestedItemsPage extends BasePage implements OnInit{
      * @param pageNumber
      */
     loadRequestedItemsPage(pageNumber) {
-        this.requests.locationRequestedItems.loadRequestedItems(this.location.id, pageNumber).then(page => {
-            this.mergeRequestedItems(page.data);
-            if (page.last_page > page.current_page) {
-                this.loadRequestedItemsPage(pageNumber + 1);
-            }
-        });
-    }
-
-    /**
-     * Merges the passed in locations into the local instance of locations
-     * @param requestedItems
-     */
-    mergeRequestedItems(requestedItems: RequestedItem[]) {
-        requestedItems.forEach(requestedItem => {
-            const index = this.requestedItems.findIndex(i => i.id === requestedItem.id);
-            if (index !== -1) {
-                this.requestedItems[index] = requestedItem;
-            } else {
-                this.requestedItems.push(requestedItem);
-            }
+        this.locationService.getLocationRequestedItems(this.location.id).then(data => {
+            this.requestedItems = data;
         });
     }
 

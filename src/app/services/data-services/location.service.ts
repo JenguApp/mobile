@@ -81,7 +81,7 @@ export class LocationService {
         return this.loadedLocationRequestedItems[id] ? Promise.resolve(this.loadedLocationRequestedItems[id])
             : this.requests.locationRequestedItems.loadRequestedItems(id).then(page => {
                 this.loadedLocationRequestedItems[id] = page.data;
-                return Promise.resolve(page.data);
+                return Promise.resolve(this.loadedLocationRequestedItems[id]);
             });
     }
 }
