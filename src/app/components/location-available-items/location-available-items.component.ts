@@ -2,6 +2,8 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {RequestedItem} from '../../models/request/requested-item';
 import {LocationService} from '../../services/data-services/location.service';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {RequestCreationService} from '../../services/data-services/request-creation.service';
 
 @Component({
     selector: 'app-location-available-items',
@@ -41,8 +43,10 @@ export class LocationAvailableItemsComponent implements OnChanges
     /**
      * Default Constructor
      * @param locationService
+     * @param requestCreationService
      */
-    constructor(private locationService: LocationService)
+    constructor(private locationService: LocationService,
+                private requestCreationService: RequestCreationService)
     {}
 
     /**
@@ -52,8 +56,14 @@ export class LocationAvailableItemsComponent implements OnChanges
     ngOnChanges(changes: SimpleChanges): void
     {
         if (changes['locationId'] && changes['locationId'].previousValue !== changes['locationId'].currentValue) {
-            this.requestedItems = [];
-            this.loadPage(1);
+            this.requestCreationService.getLineItems().forEach(item => {
+                this.enteredQuantities[item.parent_requested_item_id] = item;
+            });
+            console.log('getLineItems', this.requestCreationService.getLineItems());
+            console.log('enteredQuantitiesInit', this.enteredQuantities);
+            this.locationService.getLocationRequestedItems(this.locationId).then(data => {
+                this.requestedItems = this.compact ? data.slice(0, 3) : data;
+            });
         }
     }
 
@@ -66,19 +76,17 @@ export class LocationAvailableItemsComponent implements OnChanges
     {
         this.enteredQuantities[requestedItem.id] = {
             parentRequestedItem: requestedItem,
-            parent_requested_item: requestedItem.id,
+            parent_requested_item_id: requestedItem.id,
             quantity: event.detail.value - 0
         };
     }
 
     /**
-     * Loads a page of data
-     * @param pageNumber
+     * Gets the entered quantity for the passed in quantity
+     * @param requestedItem
      */
-    loadPage(pageNumber: number): void
+    getItemEnteredQuantity(requestedItem: RequestedItem)
     {
-        this.locationService.getLocationRequestedItems(this.locationId).then(data => {
-            this.requestedItems = this.compact ? data.slice(0, 3) : data;
-        });
+        return this.enteredQuantities[requestedItem.id] ? this.enteredQuantities[requestedItem.id].quantity : '';
     }
 }

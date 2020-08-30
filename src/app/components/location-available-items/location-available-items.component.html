@@ -2,6 +2,6 @@
     <ion-item *ngFor="let requestedItem of requestedItems">
         <img src="{{requestedItem.asset?.url}}" slot="start" class="icon"/>
         <ion-label>{{requestedItem.name}}:</ion-label>
-        <ion-input *ngIf="!compact && deliveryAvailable" [maxlength]="requestedItem.getMaximumPossibleQuantity()" (ionChange)="setRequestedItemQuantity(requestedItem, $event)" type="number"></ion-input>
+        <ion-input *ngIf="!compact && deliveryAvailable" [max]="requestedItem.getMaximumPossibleQuantity()" (ionChange)="setRequestedItemQuantity(requestedItem, $event)" [value]="getItemEnteredQuantity(requestedItem)" type="number"></ion-input>
     </ion-item>
 </ion-list>

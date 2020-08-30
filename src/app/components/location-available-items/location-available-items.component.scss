@@ -1,6 +1,10 @@
-ion-item {
-  --padding-start: 0;
-}
 ion-list {
   margin-bottom: 10px;
+  ion-item {
+    --padding-start: 0;
+    .icon {
+      max-width: 50px;
+      max-height: 50px;
+    }
+  }
 }

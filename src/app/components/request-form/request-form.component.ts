@@ -4,6 +4,7 @@ import {User} from '../../models/user/user';
 import {IonTextarea, NavController} from '@ionic/angular';
 import {Mode, RequestCreationService} from '../../services/data-services/request-creation.service';
 import {RequestedItemsEditableListComponent} from '../requested-items-editable-list/requested-items-editable-list.component';
+import {Location} from '../../models/organization/location';
 
 @Component({
     selector: 'app-request-form',
@@ -39,6 +40,7 @@ export class RequestFormComponent implements AfterViewInit
     /**
      * All requested items the user has entered so far
      */
+    @Input()
     requestedItems: RequestedItem[] = [];
 
     /**
@@ -75,6 +77,14 @@ export class RequestFormComponent implements AfterViewInit
     isLocationRequest(): boolean
     {
         return this.requestCreationService.getMode() == Mode.LOCATION;
+    }
+
+    /**
+     * Gets the location that the user is requesting for
+     */
+    getLocation(): Location
+    {
+        return this.requestCreationService.getLocation();
     }
 
     /**
