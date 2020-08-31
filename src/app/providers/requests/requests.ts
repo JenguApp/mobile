@@ -82,5 +82,6 @@ export class RequestsProvider
         this.deliveryRequests = new DeliveryRequests(requestHandler);
         this.locationRequestedItems = new LocationRequestedItemsRequests(this.requestHandler);
         this.locationRequests = new LocationRequests(this.requestHandler);
+        this.locationDeliveriesRequests = new LocationDeliveriesRequests(this.requestHandler);
     }
 }

@@ -6,7 +6,7 @@ import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {RequestsProvider} from '../../providers/requests/requests';
 import RequestsProviderMock from '../../providers/requests/requests.mock';
-import {NavController} from '@ionic/angular';
+import {IonicModule, NavController} from '@ionic/angular';
 import Spy = jasmine.Spy;
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 

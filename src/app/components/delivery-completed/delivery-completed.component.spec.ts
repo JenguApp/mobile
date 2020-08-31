@@ -8,7 +8,7 @@ import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
-import {MarkerDetailsWindowComponent} from '../marker-details-window/marker-details-window.component';
+import {OverlayWindowComponent} from '../overlay-window/overlay-window.component';
 
 describe('DeliveryCompletedComponent', () => {
     let component: DeliveryCompletedComponent;
@@ -34,7 +34,7 @@ describe('DeliveryCompletedComponent', () => {
                 { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
-                MarkerDetailsWindowComponent,
+                OverlayWindowComponent,
                 DeliveryCompletedComponent,
             ]
         })

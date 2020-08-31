@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
 import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {CurrentRequestService} from '../../../services/data-services/current-request.service';
-import {MarkerDetailsWindowComponent} from '../../marker-details-window/marker-details-window.component';
+import {OverlayWindowComponent} from '../../overlay-window/overlay-window.component';
 
 describe('DeliveryMapComponent', () => {
     let component: DeliveryMapComponent;
@@ -60,7 +60,7 @@ describe('DeliveryMapComponent', () => {
                 { provide: StorageProvider, useValue: storageProvider },
             ],
             declarations: [
-                MarkerDetailsWindowComponent,
+                OverlayWindowComponent,
                 DeliveryMapComponent,
             ]
         })

@@ -1,5 +1,5 @@
 <div class="map" id="delivery_map"></div>
-<app-marker-details-window *ngIf="request" (close)="clearRequest()" >
+<app-overlay-window *ngIf="request" (close)="clearRequest()" >
     <h3>{{request?.requested_by.name}} Needs Some Help!</h3>
     <ion-button (click)="acceptRequest()">Accept</ion-button>
-</app-marker-details-window>
+</app-overlay-window>

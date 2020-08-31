@@ -8,6 +8,7 @@ import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {LocationPage} from './location.page';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
+import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 
 describe('LocationPage', () => {
     let component: LocationPage;
@@ -32,6 +33,7 @@ describe('LocationPage', () => {
                 {provide: NavController, useValue: navController},
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 { provide: RequestsProvider, useValue: requestsProvider},
+                {provide: LaunchNavigator, useValue: new LaunchNavigator()},
             ],
             declarations: [
                 LocationPage,

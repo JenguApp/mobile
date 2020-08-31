@@ -9,6 +9,7 @@ import RequestsProviderMock from '../../providers/requests/requests.mock';
 import {navControllerStub} from '../../../../test-config/mocks-ionic';
 import {RequestedItemsEditableListComponent} from '../requested-items-editable-list/requested-items-editable-list.component';
 import {RequestedItemEditorComponent} from '../requested-item-editor/requested-item-editor.component';
+import {LocationAvailableItemsComponent} from '../location-available-items/location-available-items.component';
 
 describe('RequestFormComponent', () => {
     let component: RequestFormComponent;
@@ -31,6 +32,7 @@ describe('RequestFormComponent', () => {
                 { provide: RequestsProvider, useValue: requestsProvider},
             ],
             declarations: [
+                LocationAvailableItemsComponent,
                 RequestedItemEditorComponent,
                 RequestedItemsEditableListComponent,
                 RequestFormComponent,

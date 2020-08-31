@@ -7,7 +7,9 @@ import {LocationBrowseMapComponent} from './location-browse-map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {LocationAvailableItemsComponent} from '../../location-available-items/location-available-items.component';
-import {MarkerDetailsWindowComponent} from '../../marker-details-window/marker-details-window.component';
+import {OverlayWindowComponent} from '../../overlay-window/overlay-window.component';
+import {StorageProvider} from '../../../providers/storage/storage';
+import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 
 describe('LocationBrowseMapComponent', () => {
     let component: LocationBrowseMapComponent;
@@ -38,10 +40,11 @@ describe('LocationBrowseMapComponent', () => {
                 {provide: AlertController, useValue: alertController},
                 {provide: NavController, useValue: navController},
                 {provide: RequestsProvider, useValue: new RequestsProviderMock()},
+                { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
             ],
             declarations: [
                 LocationAvailableItemsComponent,
-                MarkerDetailsWindowComponent,
+                OverlayWindowComponent,
                 LocationBrowseMapComponent,
             ]
         })

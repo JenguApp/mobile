@@ -2,11 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
-import {MarkerDetailsWindowComponent} from './marker-details-window.component';
+import {OverlayWindowComponent} from './overlay-window.component';
 
-describe('MarkerDetailsWindowComponent', () => {
-    let component: MarkerDetailsWindowComponent;
-    let fixture: ComponentFixture<MarkerDetailsWindowComponent>;
+describe('OverlayWindowComponent', () => {
+    let component: OverlayWindowComponent;
+    let fixture: ComponentFixture<OverlayWindowComponent>;
     let navController;
     let alertController;
 
@@ -23,14 +23,14 @@ describe('MarkerDetailsWindowComponent', () => {
                 {provide: NavController, useValue: navController},
             ],
             declarations: [
-                MarkerDetailsWindowComponent,
+                OverlayWindowComponent,
             ]
         })
         .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MarkerDetailsWindowComponent);
+        fixture = TestBed.createComponent(OverlayWindowComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
