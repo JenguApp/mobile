@@ -5,8 +5,8 @@ import {RequestedItem} from './requested-item';
 import {User} from '../user/user';
 import {SafetyReport} from './safety-report';
 
-export class Request extends BaseModel {
-
+export class Request extends BaseModel
+{
     /**
      * The description the user entered for the request
      */
@@ -36,6 +36,11 @@ export class Request extends BaseModel {
      * The id of the user completing the request
      */
     requested_by_id: number;
+
+    /**
+     * The timestamp for when it was created
+     */
+    created_at: Date;
 
     /**
      * Any assets uploaded for this request
@@ -76,7 +81,8 @@ export class Request extends BaseModel {
      * Default Constructor
      * @param data
      */
-    constructor(data) {
+    constructor(data)
+    {
         super(data, {
             assets: new Relation('array', Asset),
             completed_by: new Relation('model', User),
@@ -84,8 +90,17 @@ export class Request extends BaseModel {
             requested_items: new Relation('array', RequestedItem),
             safety_report: new Relation('model', SafetyReport),
         }, [
+            'created_at',
             'canceled_at',
             'completed_at',
         ]);
+    }
+
+    /**
+     * Formats the created at time to be readable
+     */
+    formatCreatedAtDate(): string
+    {
+        return this.created_at.getHours() + ':' + this.created_at.getMinutes();
     }
 }

@@ -10,6 +10,8 @@ import {RequestedItem} from '../../../models/request/requested-item';
 import {
     RequestedItemsEditableListComponent
 } from '../../../components/requested-items-editable-list/requested-items-editable-list.component';
+import {Platform} from '@ionic/angular';
+import {Request} from '../../../models/request/request';
 
 @Component({
     selector: 'app-location-pending-requests',
@@ -24,24 +26,64 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     location: Location;
 
     /**
+     * All requests that are currently pending for delivery
+     */
+    pendingRequests: Request[] = [];
+
+    /**
+     * The current request that is in view
+     */
+    currentRequest: Request = null;
+
+    /**
      * Default Constructor
-     * @param locationService
+     * @param platform
      * @param route
      * @param requests
+     * @param locationService
      */
-    constructor(private route: ActivatedRoute,
+    constructor(private platform: Platform,
+                private route: ActivatedRoute,
                 private requests: RequestsProvider,
-                private locationService: LocationService) {
+                private locationService: LocationService)
+    {
         super();
     }
 
     /**
      * setups the initial location
      */
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         const locationId = parseInt(this.route.snapshot.paramMap.get('location_id'), 0);
-        this.locationService.getLocation(locationId).then(location => {
-            this.location = location;
+        this.platform.ready().then(() => {
+            this.locationService.getLocation(locationId).then(location => {
+                this.location = location;
+                this.loadPendingRequestsPage(1);
+            });
         });
+    }
+
+    /**
+     * loads a page of pending requests
+     * @param pageNumber
+     */
+    loadPendingRequestsPage(pageNumber: number)
+    {
+        this.requests.locationDeliveriesRequests.loadPendingRequests(this.location.id, pageNumber).then(page => {
+            this.pendingRequests = page.mergeData(this.pendingRequests);
+            if (page.current_page < page.last_page) {
+                this.loadPendingRequestsPage(pageNumber + 1);
+            }
+        });
+    }
+
+    /**
+     * Puts the passed in request into the viewer window
+     * @param request
+     */
+    viewRequestDetails(request: Request)
+    {
+        this.currentRequest = request;
     }
 }

@@ -9,13 +9,14 @@ import OrganizationRequests from './organization/organization';
 import EntityRequests from './entity/entity';
 import LocationRequestedItemsRequests from './location-requested-items/location-requested-items';
 import LocationRequests from './location/location';
+import LocationDeliveriesRequests from './location-deliveries/location-deliveries';
 
 /**
  * Provider for interacting with all app wide requests
  */
 @Injectable()
-export class RequestsProvider {
-
+export class RequestsProvider
+{
     /**
      * The auth requests available
      */
@@ -62,10 +63,16 @@ export class RequestsProvider {
     locationRequests: LocationRequests;
 
     /**
+     * The requests for location deliveries
+     */
+    locationDeliveriesRequests: LocationDeliveriesRequests;
+
+    /**
      * Default constructor
      * @param requestHandler
      */
-    constructor(private requestHandler: RequestHandlerProvider) {
+    constructor(private requestHandler: RequestHandlerProvider)
+    {
         this.auth = new Auth(requestHandler);
         this.subscriptions = new Subscriptions(this.requestHandler);
         this.social = new Social(this.requestHandler);
