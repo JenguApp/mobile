@@ -86,4 +86,21 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     {
         this.currentRequest = request;
     }
+
+    /**
+     * Removes the current request
+     */
+    clearCurrentRequest()
+    {
+        this.currentRequest = null;
+    }
+
+    /**
+     * Gets the requested item name
+     * @param requestedItem
+     */
+    getRequestedItemName(requestedItem: RequestedItem): string
+    {
+        return '';
+    }
 }

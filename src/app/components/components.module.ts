@@ -68,6 +68,7 @@ import {OverlayWindowComponent} from './overlay-window/overlay-window.component'
         RequestFormComponent,
         RequestedItemsEditableListComponent,
         RequestedItemEditorComponent,
+        OverlayWindowComponent,
     ],
 })
 export class ComponentsModule {}
