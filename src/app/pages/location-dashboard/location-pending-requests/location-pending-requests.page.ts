@@ -36,6 +36,11 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     currentRequest: Request = null;
 
     /**
+     * All requested items available at the location
+     */
+    locationRequestedItems: RequestedItem[] = [];
+
+    /**
      * Default Constructor
      * @param platform
      * @param route
@@ -59,7 +64,10 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
         this.platform.ready().then(() => {
             this.locationService.getLocation(locationId).then(location => {
                 this.location = location;
-                this.loadPendingRequestsPage(1);
+                this.locationService.getLocationRequestedItems(location.id).then(locationRequestedItems => {
+                    this.locationRequestedItems = locationRequestedItems;
+                    this.loadPendingRequestsPage(1);
+                });
             });
         });
     }
@@ -99,8 +107,9 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
      * Gets the requested item name
      * @param requestedItem
      */
-    getRequestedItemName(requestedItem: RequestedItem): string
+    getRequestedItemName(requestedItem: RequestedItem): string|null
     {
-        return '';
+        const locationRequestedItem = this.locationRequestedItems.find(i => i.id === requestedItem.parent_requested_item_id);
+        return locationRequestedItem ? locationRequestedItem.name : null;
     }
 }
