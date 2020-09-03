@@ -22,9 +22,7 @@ export default class LocationDeliveriesRequests
             'requestedBy',
             'requestedItems',
         ], null, {completed_by_id: 'null'}, {}, 20, pageNumber, {
-            order: {
-                created_at: 'ASC',
-            }
+            'order[requests.created_at]': 'ASC',
         }).then(response => {
             return Promise.resolve(new Page(response, Request));
         });
