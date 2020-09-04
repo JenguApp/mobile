@@ -66,7 +66,8 @@ export class RequestReviewPage implements OnInit {
             this.longitude,
             this.latitude,
             this.requestCreationService.getLineItems(),
-            []
+            [],
+            this.requestCreationService.getLocation(),
         ).then(request => {
             this.requestCreationService.clear();
             this.pendingRequestService.setCurrentRequest(request);

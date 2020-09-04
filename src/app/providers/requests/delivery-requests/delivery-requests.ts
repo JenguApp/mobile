@@ -6,6 +6,7 @@ import {Asset} from '../../../models/asset';
 import {RequestedItem} from '../../../models/request/requested-item';
 import {ToastController} from '@ionic/angular';
 import {SafetyReport} from '../../../models/request/safety-report';
+import {Location} from '../../../models/organization/location';
 
 /**
  * All requests needed for deliveries
@@ -28,8 +29,9 @@ export default class DeliveryRequests {
      * @param latitude
      * @param requestedItems
      * @param assets
+     * @param location
      */
-    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, requestedItems: RequestedItem[], assets: number[]): Promise<Request> {
+    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, requestedItems: RequestedItem[], assets: number[], location: Location = null): Promise<Request> {
         const data: any = {
             longitude: longitude,
             latitude: latitude,
@@ -53,8 +55,12 @@ export default class DeliveryRequests {
             data.drop_off_location = dropOffLocation;
         }
 
-        return this.requestHandler.post('requests', true, true, data).then(data => {
-            return Promise.resolve(new Request(data));
+        if (location) {
+            data.location_id = location.id;
+        }
+
+        return this.requestHandler.post('requests', true, true, data).then(result => {
+            return Promise.resolve(new Request(result));
         });
     }
 
