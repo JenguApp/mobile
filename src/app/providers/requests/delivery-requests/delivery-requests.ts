@@ -31,7 +31,8 @@ export default class DeliveryRequests {
      * @param assets
      * @param location
      */
-    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number, requestedItems: RequestedItem[], assets: number[], location: Location = null): Promise<Request> {
+    async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number,
+                                requestedItems: RequestedItem[], assets: number[], location: Location = null): Promise<Request> {
         const data: any = {
             longitude: longitude,
             latitude: latitude,
@@ -100,7 +101,8 @@ export default class DeliveryRequests {
      * @param user
      * @param request
      */
-    async cancelRequest(user: User, request: Request): Promise<Request> {
+    async cancelRequest(user: User, request: Request): Promise<Request>
+    {
         return this.requestHandler.patch('users/' + user.id + '/requests/' + request.id, true, true,{
             cancel: true,
         }).then(data => {
@@ -114,7 +116,8 @@ export default class DeliveryRequests {
      * @param request
      * @param expiredCallback
      */
-    async acceptDeliveryRequest(request: Request, expiredCallback: Function): Promise<Request> {
+    async acceptDeliveryRequest(request: Request, expiredCallback: Function): Promise<Request>
+    {
         return this.requestHandler.patch('requests/' + request.id, true, true, {
             accept: true,
         }, {
@@ -139,7 +142,8 @@ export default class DeliveryRequests {
      *
      * @param request
      */
-    async completeDeliveryRequest(request: Request): Promise<Request> {
+    async completeDeliveryRequest(request: Request): Promise<Request>
+    {
         return this.requestHandler.patch('requests/' + request.id, true, true, {
             completed: true,
         }).then(data => {
@@ -174,6 +178,6 @@ export default class DeliveryRequests {
             description: description,
         }).then(data => {
             return Promise.resolve(new SafetyReport(data));
-        })
+        });
     }
 }

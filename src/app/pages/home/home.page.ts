@@ -68,16 +68,33 @@ export class HomePage extends CanBeHomePage implements OnInit {
             this.me = me;
             this.storageProvider.loadCurrentActiveRequest().then(request => {
                 this.stateManager.navigateToCurrentPage(this.navController, request).catch(console.error);
+            }).catch(() => {
+                this.requests.deliveryRequests.loadMyRequests(me).then(requests => {
+                    const request = requests.data.length > 0 ? requests.data[0] : null;
+                    if (!request.completed_at) {
+                        this.currentRequestService.setCurrentRequest(request);
+                        this.stateManager.navigateToCurrentPage(this.navController, request).catch(console.error);
+                    } else {
+                        this.goToDefaultTab();
+                    }
+                });
             });
             this.tabs.ionTabsDidChange.subscribe({
                 next: tab => {
                     this.storageProvider.saveDefaultHomePageTab(tab.tab).catch(console.error);
                 }
             });
-            this.storageProvider.loadDefaultHomePageTab()
-                .then(this.goToTab.bind(this))
-                .catch(() => this.goToTab('locations-map'));
         });
+    }
+
+    /**
+     * Takes the user to the default tab
+     */
+    goToDefaultTab()
+    {
+        this.storageProvider.loadDefaultHomePageTab()
+            .then(tab => this.goToTab(tab))
+            .catch(() => this.goToTab('locations-map'));
     }
 
     /**
