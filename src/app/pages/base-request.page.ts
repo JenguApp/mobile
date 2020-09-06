@@ -2,7 +2,7 @@ import {BasePage} from './base.page';
 import {User} from '../models/user/user';
 import {Request} from '../models/request/request';
 import {RequestsProvider} from '../providers/requests/requests';
-import {NavController} from '@ionic/angular';
+import {NavController, ViewWillEnter} from '@ionic/angular';
 import {UserService} from '../services/user.service';
 import {CurrentRequestService} from '../services/data-services/current-request.service';
 import {Page} from '../models/page';
@@ -11,8 +11,8 @@ import {OnInit} from '@angular/core';
 /**
  * This class is used as our base class for all pages the interact with requests
  */
-export abstract class BaseRequestPage extends BasePage implements OnInit {
-
+export abstract class BaseRequestPage extends BasePage implements ViewWillEnter
+{
     /**
      * The Logged in user
      */
@@ -38,14 +38,16 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
     constructor(protected requests: RequestsProvider,
                 protected navController: NavController,
                 protected userService: UserService,
-                protected currentRequestService: CurrentRequestService) {
+                protected currentRequestService: CurrentRequestService)
+    {
         super();
     }
 
     /**
      * Loads information on the users current requests
      */
-    ngOnInit(): void {
+    ionViewWillEnter(): void
+    {
         this.userService.getMe().then(me => {
             this.me = me;
             this.currentRequestService.listenForCurrentRequestChanges({
@@ -74,7 +76,8 @@ export abstract class BaseRequestPage extends BasePage implements OnInit {
      * @param request
      * @param notify
      */
-    protected setRequest(request: Request, notify = false) {
+    protected setRequest(request: Request, notify = false)
+    {
         this.currentRequest = request;
         if (notify) {
             this.currentRequestService.notifyRequest(request);

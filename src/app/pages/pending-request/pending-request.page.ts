@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Request} from '../../models/request/request';
-import {NavController, ToastController} from '@ionic/angular';
+import {NavController, ToastController, ViewDidEnter, ViewWillLeave} from '@ionic/angular';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
@@ -12,8 +12,8 @@ import {StateManagerService} from '../../services/state-manager';
     templateUrl: './pending-request.page.html',
     styleUrls: ['./pending-request.page.scss']
 })
-export class PendingRequestPage extends BaseRequestingDeliveriesPage {
-
+export class PendingRequestPage extends BaseRequestingDeliveriesPage implements ViewDidEnter, ViewWillLeave
+{
     /**
      * The time for when the next refresh will be attempted for any pieces of data that may be refreshed
      */
@@ -30,6 +30,11 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
     loadingAnimating = false;
 
     /**
+     * Whether or not this page is currently the active page
+     */
+    pageActive = true;
+
+    /**
      * Default Constructor
      * @param requests
      * @param navController
@@ -43,19 +48,36 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
                 protected userService: UserService,
                 protected currentRequestService: CurrentRequestService,
                 protected stateManagerService: StateManagerService,
-                protected toastController: ToastController) {
+                protected toastController: ToastController)
+    {
         super(requests, navController, userService, currentRequestService);
+    }
+
+    /**
+     * sets the page to be active
+     */
+    ionViewDidEnter(): void
+    {
+        this.pageActive = true;
+    }
+
+    /**
+     * Removes the refresh timer in order to prevent us from running accidental updates on this page
+     */
+    ionViewWillLeave(): void
+    {
+        this.pageActive = false;
     }
 
     /**
      * sets up our request properly
      */
-    requestUpdated() {
-        if (this.currentRequest.requested_by_id != null) {
+    requestUpdated()
+    {
+        if (this.currentRequest.completed_by_id != null && this.pageActive) {
             this.userService.cacheUser(this.currentRequest.requested_by);
             this.stateManagerService.navigateToCurrentPage(this.navController, this.currentRequest).catch(console.error);
-        }
-        if (!this.currentRequest.completed_by_id) {
+        } else if (!this.currentRequest.completed_by_id) {
             this.setNextRefreshTime(10);
         }
     }
@@ -64,7 +86,8 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage {
      * Cancels the request the user created
      * @param request
      */
-    cancelRequest(request: Request) {
+    cancelRequest(request: Request)
+    {
         this.requests.deliveryRequests.cancelRequest(this.me, request).then(() => {
             this.toastController.create({
                 message: 'Your request has been cancelled!',
