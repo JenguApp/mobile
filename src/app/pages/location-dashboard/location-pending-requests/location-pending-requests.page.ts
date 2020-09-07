@@ -36,6 +36,11 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     currentRequest: Request = null;
 
     /**
+     * Whether or not the QR code is currently visible
+     */
+    qrCodeOpen = false;
+
+    /**
      * All requested items available at the location
      */
     locationRequestedItems: RequestedItem[] = [];
@@ -111,5 +116,13 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     {
         const locationRequestedItem = this.locationRequestedItems.find(i => i.id === requestedItem.parent_requested_item_id);
         return locationRequestedItem ? locationRequestedItem.name : null;
+    }
+
+    /**
+     * Opens the qr code
+     */
+    openQRCode()
+    {
+        this.qrCodeOpen = true;
     }
 }

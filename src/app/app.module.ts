@@ -22,6 +22,7 @@ import {ComponentsModule} from './components/components.module';
 import {GoogleMaps} from '@ionic-native/google-maps/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
+import {QRCodeModule} from 'angularx-qrcode';
 
 @NgModule({
     declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
+        QRCodeModule,
         AppRoutingModule,
         ComponentsModule
     ],

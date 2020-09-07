@@ -15,5 +15,12 @@
                 <ion-label *ngIf="getRequestedItemName(requestedItem)">{{getRequestedItemName(requestedItem)}} - {{requestedItem.quantity}}</ion-label>
             </ng-container>
         </ion-list>
+        <div class="submit-wrapper">
+            <ion-button (click)="openQRCode()">Assign Request</ion-button>
+        </div>
+    </app-overlay-window>
+
+    <app-overlay-window *ngIf="currentRequest && qrCodeOpen">
+        <qrcode [qrdata]="'' + currentRequest?.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
     </app-overlay-window>
 </ion-content>
