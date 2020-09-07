@@ -66,6 +66,7 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
                 this.location = location;
                 this.locationService.getLocationRequestedItems(location.id).then(locationRequestedItems => {
                     this.locationRequestedItems = locationRequestedItems;
+                    console.log('locationRequestedItems', this.locationRequestedItems);
                     this.loadPendingRequestsPage(1);
                 });
             });
@@ -80,6 +81,7 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     {
         this.requests.locationDeliveriesRequests.loadPendingRequests(this.location.id, pageNumber).then(page => {
             this.pendingRequests = page.mergeData(this.pendingRequests);
+            console.log('pendingRequests', this.pendingRequests);
             if (page.current_page < page.last_page) {
                 this.loadPendingRequestsPage(pageNumber + 1);
             }

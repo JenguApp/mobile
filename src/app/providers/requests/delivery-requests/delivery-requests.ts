@@ -41,6 +41,12 @@ export default class DeliveryRequests {
                 if (item.name && item.name.length) {
                     itemData.name = item.name;
                 }
+                if (item.parent_requested_item_id) {
+                    itemData.parent_requested_item_id = item.parent_requested_item_id;
+                }
+                if (item.quantity) {
+                    itemData.quantity = item.quantity;
+                }
                 if (item.asset && item.asset.id) {
                     itemData.asset_id = item.asset.id;
                 }

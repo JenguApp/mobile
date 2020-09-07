@@ -5,7 +5,6 @@ import {NavController} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {StateManagerService} from '../../services/state-manager';
-import {Request} from '../../models/request/request';
 
 @Component({
     selector: 'app-requesting-deliveries',

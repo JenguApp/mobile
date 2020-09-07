@@ -59,8 +59,6 @@ export class LocationAvailableItemsComponent implements OnChanges
             this.requestCreationService.getLineItems().forEach(item => {
                 this.enteredQuantities[item.parent_requested_item_id] = item;
             });
-            console.log('getLineItems', this.requestCreationService.getLineItems());
-            console.log('enteredQuantitiesInit', this.enteredQuantities);
             this.locationService.getLocationRequestedItems(this.locationId).then(data => {
                 this.requestedItems = this.compact ? data.slice(0, 3) : data;
             });

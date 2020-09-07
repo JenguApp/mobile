@@ -107,7 +107,8 @@ export class RequestFormComponent implements AfterViewInit
      */
     storeForm()
     {
-        const requestedItems = this.isPublicRequest() ? this.requestedItemsEditor.getCurrentRequestedItems() : this.locationAvailableItemsEditor.enteredQuantities;
+        const requestedItems = this.isPublicRequest() ?
+            this.requestedItemsEditor.getCurrentRequestedItems() : this.locationAvailableItemsEditor.enteredQuantities;
         this.requestCreationService.storeInitialInformation(this.getMode(), this.descriptionTextArea.value, requestedItems);
     }
 
