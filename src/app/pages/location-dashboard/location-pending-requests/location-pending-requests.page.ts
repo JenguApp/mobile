@@ -79,7 +79,6 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     loadPendingRequestsPage(pageNumber: number)
     {
         this.requests.locationDeliveriesRequests.loadPendingRequests(this.location.id, pageNumber).then(page => {
-            console.log('page', page);
             this.pendingRequests = page.mergeData(this.pendingRequests);
             if (page.current_page < page.last_page) {
                 this.loadPendingRequestsPage(pageNumber + 1);

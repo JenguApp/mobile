@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
     selector: 'app-overlay-window',
@@ -12,4 +12,10 @@ export class OverlayWindowComponent {
      */
     @Output()
     close: EventEmitter<any> = new EventEmitter<any>();
+
+    /**
+     * Whether or not this overlay should fill nearly the full area
+     */
+    @Input()
+    full = false;
 }

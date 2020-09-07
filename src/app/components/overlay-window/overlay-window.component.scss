@@ -25,4 +25,12 @@
       font-size: 16px;
     }
   }
+
+  &.full {
+    #info {
+      margin: 5%;
+      max-width: none;
+      height: 90%;
+    }
+  }
 }
