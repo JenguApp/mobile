@@ -1,15 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Geoposition} from '@ionic-native/geolocation/ngx';
 import {LocationManagerService} from '../../services/location-manager/location-manager';
 import {Request} from '../../models/request/request';
 import {User} from '../../models/user/user';
 import {RequestsProvider} from '../../providers/requests/requests';
-import {NavController, ViewDidEnter, ViewWillLeave} from '@ionic/angular';
+import {NavController} from '@ionic/angular';
 import {UserService} from '../../services/user.service';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {BaseDeliveringPage} from '../base-delivering.page';
 import {StateManagerService} from '../../services/state-manager';
-import {DeliveryMapComponent} from '../../components/map/delivery-map/delivery-map.component';
 
 @Component({
     selector: 'app-browsing-deliveries',
@@ -55,7 +54,6 @@ export class BrowsingDeliveriesPage extends BaseDeliveringPage implements OnInit
      * setups the initial location
      */
     ngOnInit(): void {
-        super.ngOnInit();
         this.locationManager.getPosition().then(position => {
             this.currentPosition = position;
         }).catch(error => {

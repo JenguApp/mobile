@@ -10,8 +10,8 @@ import {CurrentRequestService} from '../../services/data-services/current-reques
     templateUrl: './request-accepted.page.html',
     styleUrls: ['./request-accepted.page.scss']
 })
-export class RequestAcceptedPage extends BaseRequestingDeliveriesPage {
-
+export class RequestAcceptedPage extends BaseRequestingDeliveriesPage
+{
     /**
      * Default Constructor
      * @param requests
@@ -22,12 +22,17 @@ export class RequestAcceptedPage extends BaseRequestingDeliveriesPage {
     constructor(protected requests: RequestsProvider,
                 protected navController: NavController,
                 protected userService: UserService,
-                protected currentRequestService: CurrentRequestService) {
+                protected currentRequestService: CurrentRequestService)
+    {
         super(requests, navController, userService, currentRequestService);
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    /**
+     * Gets everything ready
+     */
+    ionViewWillEnter(): void
+    {
+        super.ionViewWillEnter();
         this.setRefreshTimer();
     }
 
@@ -45,14 +50,16 @@ export class RequestAcceptedPage extends BaseRequestingDeliveriesPage {
     /**
      * Awaits for the refresh
      */
-    setRefreshTimer() {
+    setRefreshTimer()
+    {
         this.currentRequestService.waitForRequestRefresh(60);
     }
 
     /**
      * Takes us home in this situation
      */
-    noActiveRequest() {
+    noActiveRequest()
+    {
         this.navController.navigateRoot('/home').catch(console.error);
     }
 }

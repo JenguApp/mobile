@@ -21,7 +21,7 @@ export default class LocationDeliveriesRequests
         return this.requestHandler.get('locations/' + locationId + '/requests', true, false, [
             'requestedBy',
             'requestedItems',
-        ], null, {completed_by_id: 'null'}, {}, 20, pageNumber, {
+        ], null, {completed_by_id: 'null', canceled_at: 'notnull'}, {}, 20, pageNumber, {
             'order[created_at]': 'ASC',
         }).then(response => {
             return Promise.resolve(new Page(response, Request));
