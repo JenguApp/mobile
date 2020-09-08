@@ -81,6 +81,10 @@ const routes: Routes = [
         loadChildren: './pages/pending-request/pending-request.module#PendingRequestPageModule'
     },
     {
+        path: 'qr-scanner',
+        loadChildren: './pages/qr-scanner/qr-scanner.module#QRScannerPageModule'
+    },
+    {
         path: 'request-review',
         loadChildren: './pages/request-review/request-review.module#RequestReviewPageModule'
     },

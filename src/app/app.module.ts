@@ -23,6 +23,7 @@ import {GoogleMaps} from '@ionic-native/google-maps/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 import {QRCodeModule} from 'angularx-qrcode';
+import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -50,6 +51,7 @@ import {QRCodeModule} from 'angularx-qrcode';
         GoogleMaps,
         Camera,
         LaunchNavigator,
+        QRScanner,
 
         // App providers
         RequestHandlerProvider,

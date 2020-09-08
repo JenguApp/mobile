@@ -22,6 +22,7 @@
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyCxfQrq48WEaOsKOu0TnZ5mH0_V9w1ay4o" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyCxfQrq48WEaOsKOu0TnZ5mH0_V9w1ay4o" />
     <preference name="WKWebViewOnly" value="true" />
+    <preference name="UseSwiftLanguageVersion" value="5" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
