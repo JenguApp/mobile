@@ -1,3 +1,7 @@
 ion-item {
   z-index: 0;
 }
+
+::ng-deep .qrcode {
+  text-align: center;
+}

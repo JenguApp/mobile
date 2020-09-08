@@ -121,8 +121,16 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     /**
      * Opens the qr code
      */
-    openQRCode()
+    openQRCode(qrCodeOpen = true)
     {
-        this.qrCodeOpen = true;
+        this.qrCodeOpen = qrCodeOpen;
+    }
+
+    /**
+     * Makes sure it was assigned, and then remove the request from the list
+     */
+    checkIfAssignedProperly()
+    {
+        // TODO update current request to make sure it was assigned, and then remove the request from the list
     }
 }

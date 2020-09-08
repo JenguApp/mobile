@@ -20,7 +20,15 @@
         </div>
     </app-overlay-window>
 
-    <app-overlay-window *ngIf="currentRequest && qrCodeOpen">
-        <qrcode [qrdata]="'' + currentRequest?.id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    <app-overlay-window *ngIf="currentRequest && qrCodeOpen" (close)="openQRCode(false)" [full]="true">
+        <h3>Assign Organization Member</h3>
+        <p>
+            Have the assigned member of your organization scan this QR code with their app.
+        </p>
+        <qrcode [width]="256" [qrdata]="'accept-request;' + currentRequest?.id" [errorCorrectionLevel]="'M'"></qrcode>
+        <div class="submit-wrapper">
+            <ion-button (click)="openQRCode(false)">Back</ion-button>
+            <ion-button (click)="checkIfAssignedProperly()">All Set</ion-button>
+        </div>
     </app-overlay-window>
 </ion-content>
