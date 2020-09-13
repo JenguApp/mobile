@@ -28,3 +28,13 @@ footer {
 .submit-wrapper {
   text-align: center;
 }
+body.qr-active {
+  app-root,
+  ion-app,
+  #background-content {
+    background: transparent !important;
+  };
+  app-qr-scanner ion-content {
+    visibility: hidden;
+  }
+}

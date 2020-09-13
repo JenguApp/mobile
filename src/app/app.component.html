@@ -17,6 +17,12 @@
             </ion-item>
             <!-- Add additional pages below -->
 
+            <ion-item (click)="goTo('qr-scanner')">
+              <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+              <ion-label>
+                Scan QR Code
+              </ion-label>
+            </ion-item>
             <!-- Stop custom pages here -->
             <ion-item (click)="goTo('profile-editor')">
               <ion-icon slot="start" name="person"></ion-icon>
