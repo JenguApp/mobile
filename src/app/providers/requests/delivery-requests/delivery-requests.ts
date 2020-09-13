@@ -119,24 +119,23 @@ export default class DeliveryRequests {
     /**
      * Allows the currently logged inu ser to accept the request
      *
-     * @param request
+     * @param requestId
      * @param expiredCallback
      */
-    async acceptDeliveryRequest(request: Request, expiredCallback: Function): Promise<Request>
+    async acceptDeliveryRequest(requestId: any, expiredCallback: Function): Promise<Request>
     {
-        return this.requestHandler.patch('requests/' + request.id, true, true, {
+        return this.requestHandler.patch('requests/' + requestId, true, true, {
             accept: true,
         }, {
             400: (error) => {
                 const parsedError = JSON.parse(error.error);
-                console.error('Validation Error', error, error.error, parsedError);
                 let message = 'An error has occurred! If this problem persists, please contact us.';
 
                 if (parsedError.errors && parsedError.errors.accept) {
                     message = parsedError.errors.accept.join(' ');
                 }
 
-                expiredCallback(request, message);
+                expiredCallback(requestId, message);
             }
         }).then(data => {
             return Promise.resolve(new Request(data));

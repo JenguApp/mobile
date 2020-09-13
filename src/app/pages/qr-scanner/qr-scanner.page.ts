@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Platform, ToastController, ViewWillEnter, ViewWillLeave} from '@ionic/angular';
+import {NavController, Platform, ToastController, ViewWillEnter, ViewWillLeave} from '@ionic/angular';
 import {User} from '../../models/user/user';
 import {UserService} from '../../services/user.service';
 import {BasePage} from '../base.page';
 import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 import {RequestsProvider} from '../../providers/requests/requests';
+import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {StateManagerService} from '../../services/state-manager';
 
 /**
  * Main home page of the app
@@ -24,12 +26,18 @@ export class QRScannerPage extends BasePage implements ViewWillEnter, ViewWillLe
      * @param userService
      * @param toastController
      * @param requests
+     * @param currentRequestService
+     * @param stateManagerService
+     * @param navController
      * @param qrScanner
      */
     constructor(private platform: Platform,
                 private userService: UserService,
                 private toastController: ToastController,
                 private requests: RequestsProvider,
+                private currentRequestService: CurrentRequestService,
+                private stateManagerService: StateManagerService,
+                private navController: NavController,
                 private qrScanner: QRScanner)
     {
         super();
@@ -75,7 +83,15 @@ export class QRScannerPage extends BasePage implements ViewWillEnter, ViewWillLe
         const parts = text.split(';');
         if (parts.length === 2) {
             if (parts[0] === 'accept-request') {
-                // this.requests.deliveryRequests.acceptDeliveryRequest(parts[1]);
+                this.requests.deliveryRequests.acceptDeliveryRequest(parts[1], (requestId, message) => {
+                    this.toastController.create({
+                        header: message,
+                        duration: 2000,
+                    }).then(toast => toast.present());
+                }).then(acceptedRequest => {
+                    this.currentRequestService.setCurrentRequest(acceptedRequest);
+                    this.stateManagerService.navigateToCurrentPage(this.navController, acceptedRequest).catch(console.error);
+                });
                 return;
             }
         }

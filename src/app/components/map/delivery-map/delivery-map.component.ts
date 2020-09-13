@@ -116,11 +116,11 @@ export class DeliveryMapComponent extends MapComponent {
 
     /**
      * Handles an expired request by removing it from the map and telling the user why it is expired
-     * @param request
+     * @param requestId
      * @param message
      */
-    handleExpiredRequest(request: Request, message: string) {
-        let marker = this.currentMarkers[request.id];
+    handleExpiredRequest(requestId: number, message: string) {
+        let marker = this.currentMarkers[requestId];
 
         if (marker) {
             marker.remove();
@@ -140,9 +140,9 @@ export class DeliveryMapComponent extends MapComponent {
     acceptRequest() {
         const request = this.request;
         this.request = null;
-        this.requests.deliveryRequests.acceptDeliveryRequest(request, this.handleExpiredRequest.bind(this)).then((request) => {
-            this.currentRequestService.setCurrentRequest(request);
-            this.stateManagerService.navigateToCurrentPage(this.navController, request).catch(console.error);
+        this.requests.deliveryRequests.acceptDeliveryRequest(request.id, this.handleExpiredRequest.bind(this)).then((acceptedRequest) => {
+            this.currentRequestService.setCurrentRequest(acceptedRequest);
+            this.stateManagerService.navigateToCurrentPage(this.navController, acceptedRequest).catch(console.error);
         });
     }
 }
