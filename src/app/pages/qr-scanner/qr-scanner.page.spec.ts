@@ -9,6 +9,7 @@ import {NavController} from '@ionic/angular';
 import Spy = jasmine.Spy;
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
 import {QRScannerPage} from './qr-scanner.page';
+import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 
 describe('QRScannerPage', () => {
     let component: QRScannerPage;
@@ -27,6 +28,7 @@ describe('QRScannerPage', () => {
                 { provide: CurrentRequestService, useValue: new CurrentRequestService(storageProvider, requestsProvider) },
                 { provide: StorageProvider, useValue: storageProvider },
                 { provide: NavController, useValue: navController},
+                { provide: QRScanner, useValue: new QRScanner() },
             ],
         })
         .compileComponents();

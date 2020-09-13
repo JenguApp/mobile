@@ -9,6 +9,7 @@ import RequestsProviderMock from '../../../providers/requests/requests.mock';
 import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {LocationPendingRequestsPage} from './location-pending-requests.page';
+import {QRCodeModule} from 'angularx-qrcode';
 
 describe('LocationPendingRequestsPage', () => {
     let component: LocationPendingRequestsPage;
@@ -29,6 +30,7 @@ describe('LocationPendingRequestsPage', () => {
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
+                QRCodeModule,
                 IonicModule.forRoot(),
             ],
             providers: [

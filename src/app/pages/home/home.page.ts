@@ -79,11 +79,13 @@ export class HomePage extends CanBeHomePage implements OnInit {
                     }
                 });
             });
-            this.tabs.ionTabsDidChange.subscribe({
-                next: tab => {
-                    this.storageProvider.saveDefaultHomePageTab(tab.tab).catch(console.error);
-                }
-            });
+            if (this.tabs && this.tabs.ionTabsDidChange) {
+                this.tabs.ionTabsDidChange.subscribe({
+                    next: tab => {
+                        this.storageProvider.saveDefaultHomePageTab(tab.tab).catch(console.error);
+                    }
+                });
+            }
         });
     }
 
