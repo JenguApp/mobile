@@ -1,0 +1,45 @@
+#camera-area {
+  position: relative;
+  #qr-square {
+    visibility: visible;
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    background: rgba(255, 255, 255, .2);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    ion-icon {
+      position: absolute;
+      color: var(--ion-color-dark);
+      font-size: 3em;
+
+      &.top {
+        top: 0;
+      }
+      &.left {
+        left: 0;
+      }
+      &.right {
+        right: 0;
+      }
+      &.bottom {
+        bottom: 0;
+      }
+      &.top.left {
+        transform: rotate(45deg);
+      }
+      &.top.right {
+        transform: rotate(135deg);
+      }
+      &.bottom.left {
+        transform: rotate(-45deg);
+      }
+      &.bottom.right {
+        transform: rotate(-135deg);
+      }
+    }
+  }
+}
