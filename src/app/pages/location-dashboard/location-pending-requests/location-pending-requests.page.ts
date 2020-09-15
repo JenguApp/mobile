@@ -41,6 +41,11 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     qrCodeOpen = false;
 
     /**
+     * Whether or not this is a horizontal tablet in order to determine if we should show both pieces of request information
+     */
+    horizontalTablet = false;
+
+    /**
      * All requested items available at the location
      */
     locationRequestedItems: RequestedItem[] = [];

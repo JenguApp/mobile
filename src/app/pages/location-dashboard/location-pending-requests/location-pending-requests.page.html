@@ -8,27 +8,29 @@
     </ion-list>
 
     <app-overlay-window *ngIf="currentRequest" (close)="clearCurrentRequest()" [full]="true">
-        <h3>{{currentRequest.requested_by.name}}</h3>
-        <h4>Requested at: {{currentRequest.formatCreatedAtDate()}}</h4>
-        <ion-list>
-            <ng-container *ngFor="let requestedItem of currentRequest.requested_items">
-                <ion-label *ngIf="getRequestedItemName(requestedItem)">{{getRequestedItemName(requestedItem)}} - {{requestedItem.quantity}}</ion-label>
-            </ng-container>
-        </ion-list>
-        <div class="submit-wrapper">
-            <ion-button (click)="openQRCode()">Assign Request</ion-button>
+        <div id="request-details-area" *ngIf="!qrCodeOpen || horizontalTablet">
+            <h3>{{currentRequest.requested_by.name}}</h3>
+            <h4>Requested at: {{currentRequest.formatCreatedAtDate()}}</h4>
+            <ion-list>
+                <ng-container *ngFor="let requestedItem of currentRequest.requested_items">
+                    <ion-label *ngIf="getRequestedItemName(requestedItem)">{{getRequestedItemName(requestedItem)}} - {{requestedItem.quantity}}</ion-label>
+                </ng-container>
+            </ion-list>
+            <div class="submit-wrapper" *ngIf="!horizontalTablet">
+                <ion-button (click)="openQRCode()">Assign Request</ion-button>
+            </div>
         </div>
-    </app-overlay-window>
 
-    <app-overlay-window *ngIf="currentRequest && qrCodeOpen" (close)="openQRCode(false)" [full]="true">
-        <h3>Assign Organization Member</h3>
-        <p>
-            Have the assigned member of your organization scan this QR code with their app.
-        </p>
-        <qrcode [width]="256" [qrdata]="'accept-request;' + currentRequest?.id" [errorCorrectionLevel]="'M'"></qrcode>
-        <div class="submit-wrapper">
-            <ion-button (click)="openQRCode(false)">Back</ion-button>
-            <ion-button (click)="checkIfAssignedProperly()">All Set</ion-button>
+        <div id="qr-area" *ngIf="qrCodeOpen">
+            <h3>Assign Organization Member</h3>
+            <p>
+                Have the assigned member of your organization scan this QR code with their app.
+            </p>
+            <qrcode [width]="256" [qrdata]="'accept-request;' + currentRequest?.id" [errorCorrectionLevel]="'M'"></qrcode>
+            <div class="submit-wrapper">
+                <ion-button *ngIf="!horizontalTablet" (click)="openQRCode(false)">Back</ion-button>
+                <ion-button (click)="checkIfAssignedProperly()">All Set</ion-button>
+            </div>
         </div>
     </app-overlay-window>
 </ion-content>

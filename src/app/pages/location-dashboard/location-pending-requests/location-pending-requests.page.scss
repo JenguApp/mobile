@@ -5,3 +5,8 @@ ion-item {
 ::ng-deep .qrcode {
   text-align: center;
 }
+
+app-overlay-window {
+  display: flex;
+  flex-direction: row;
+}
