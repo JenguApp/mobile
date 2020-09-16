@@ -1,17 +1,13 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BasePage} from '../../base.page';
 import {Location} from '../../../models/organization/location';
 import {LocationService} from '../../../services/data-services/location.service';
-import {Organization} from '../../../models/organization/organization';
-import {OrganizationService} from '../../../services/organization.service';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {RequestedItem} from '../../../models/request/requested-item';
-import {
-    RequestedItemsEditableListComponent
-} from '../../../components/requested-items-editable-list/requested-items-editable-list.component';
 import {Platform} from '@ionic/angular';
 import {Request} from '../../../models/request/request';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
 @Component({
     selector: 'app-location-pending-requests',
@@ -53,11 +49,13 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     /**
      * Default Constructor
      * @param platform
+     * @param screenOrientation
      * @param route
      * @param requests
      * @param locationService
      */
     constructor(private platform: Platform,
+                private screenOrientation: ScreenOrientation,
                 private route: ActivatedRoute,
                 private requests: RequestsProvider,
                 private locationService: LocationService)
@@ -79,7 +77,21 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
                     this.loadPendingRequestsPage(1);
                 });
             });
+            if (this.platform.is('tablet')) {
+                this.checkIfInLandscape();
+                this.screenOrientation.onChange().subscribe({
+                    next: () => this.checkIfInLandscape(),
+                });
+            }
         });
+    }
+
+    /**
+     * Checks if we are in table mode properly
+     */
+    checkIfInLandscape()
+    {
+        this.horizontalTablet = this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE;
     }
 
     /**

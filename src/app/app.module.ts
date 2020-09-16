@@ -24,6 +24,7 @@ import {Camera} from '@ionic-native/camera/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 import {QRCodeModule} from 'angularx-qrcode';
 import {QRScanner} from '@ionic-native/qr-scanner/ngx';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -52,6 +53,7 @@ import {QRScanner} from '@ionic-native/qr-scanner/ngx';
         Camera,
         LaunchNavigator,
         QRScanner,
+        ScreenOrientation,
 
         // App providers
         RequestHandlerProvider,
