@@ -5,7 +5,7 @@ import {Location} from '../../../models/organization/location';
 import {LocationService} from '../../../services/data-services/location.service';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import {RequestedItem} from '../../../models/request/requested-item';
-import {Platform} from '@ionic/angular';
+import {Platform, ToastController} from '@ionic/angular';
 import {Request} from '../../../models/request/request';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
@@ -52,12 +52,14 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
      * @param screenOrientation
      * @param route
      * @param requests
+     * @param toastController
      * @param locationService
      */
     constructor(private platform: Platform,
                 private screenOrientation: ScreenOrientation,
                 private route: ActivatedRoute,
                 private requests: RequestsProvider,
+                private toastController: ToastController,
                 private locationService: LocationService)
     {
         super();
@@ -127,6 +129,7 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
     clearCurrentRequest()
     {
         this.currentRequest = null;
+        this.qrCodeOpen = false;
     }
 
     /**
@@ -152,6 +155,18 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
      */
     checkIfAssignedProperly()
     {
-        // TODO update current request to make sure it was assigned, and then remove the request from the list
+        this.requests.deliveryRequests.refreshRequest(this.currentRequest).then(request => {
+            this.currentRequest = request;
+            if (request.completed_by_id) {
+                this.pendingRequests = this.pendingRequests.filter(i => i.id !== request.id);
+                this.clearCurrentRequest();
+            } else {
+                this.toastController.create({
+                    message: 'This request has not been assigned yet.'
+                }).then(toast => {
+                    toast.present();
+                });
+            }
+        });
     }
 }
