@@ -77,7 +77,7 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
                     this.loadPendingRequestsPage(1);
                 });
             });
-            if (this.platform.is('tablet')) {
+            if (this.platform.is('tablet') || this.platform.is('ipad')) {
                 this.checkIfInLandscape();
                 this.screenOrientation.onChange().subscribe({
                     next: () => this.checkIfInLandscape(),
@@ -91,7 +91,11 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
      */
     checkIfInLandscape()
     {
-        this.horizontalTablet = this.screenOrientation.type === this.screenOrientation.ORIENTATIONS.LANDSCAPE;
+        this.horizontalTablet = [
+            this.screenOrientation.ORIENTATIONS.LANDSCAPE,
+            this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY,
+            this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY,
+        ].indexOf(this.screenOrientation.type) !== -1;
     }
 
     /**
