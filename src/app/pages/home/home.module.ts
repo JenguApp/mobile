@@ -1,56 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import {RouterModule, Routes} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { IonicModule } from '@ionic/angular';
+
 import {ComponentsModule} from '../../components/components.module';
+import {HomePage} from './home.page';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: HomePage,
-        children: [
-            {
-                path: 'browsing-deliveries',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../browsing-deliveries/browsing-deliveries.module#BrowsingDeliveriesPageModule'
-                    }
-                ]
-            },
-            {
-                path: 'locations-map',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../locations-map/locations-map.module#LocationsMapPageModule'
-                    }
-                ]
-            },
-            {
-                path: 'requesting-deliveries',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: '../requesting-deliveries/requesting-deliveries.module#RequestingDeliveriesPageModule'
-                    }
-                ]
-            },
-        ]
-    }
+  {
+    path: '',
+    component: HomePage,
+  }
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        ComponentsModule,
-        RouterModule.forChild(routes)
-    ],
-    declarations: [HomePage]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    ComponentsModule,
+    ReactiveFormsModule,
+  ],
+  declarations: [HomePage]
 })
-export class HomePageModule {}
+export class LocationsMapPageModule {}

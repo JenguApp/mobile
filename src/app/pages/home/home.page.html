@@ -1,18 +1,5 @@
-<app-logged-in-header [isHome]=true></app-logged-in-header>
+<app-logged-in-header [isHome]="true"></app-logged-in-header>
 
-<ion-tabs #tabs>
-    <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="browsing-deliveries">
-            <ion-icon name="medkit-outline"></ion-icon>
-            <ion-label>Browse Local Requests</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="locations-map">
-            <ion-icon name="search-outline"></ion-icon>
-            <ion-label>Browse Locations</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="requesting-deliveries">
-            <ion-icon name="briefcase-outline"></ion-icon>
-            <ion-label>Request A Delivery</ion-label>
-        </ion-tab-button>
-    </ion-tab-bar>
-</ion-tabs>
+<ion-content id="wrapper">
+    <app-location-browse-map *ngIf="currentPosition" [startingLatitude]="currentPosition.coords.latitude" [startingLongitude]="currentPosition.coords.longitude"></app-location-browse-map>
+</ion-content>

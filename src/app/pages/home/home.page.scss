@@ -1,7 +1,12 @@
-ion-content > div {
-  height: 100%;
-  app-state-requesting-deliveries,
-  app-state-delivery {
-    height: 100%;
-  }
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
+app-location-browse-map {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
 }
