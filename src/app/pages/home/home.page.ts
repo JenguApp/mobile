@@ -41,10 +41,10 @@ export class HomePage extends BaseRequestPage implements OnInit
      * @param stateManager
      * @param locationManager
      */
-    constructor(private requests: RequestsProvider,
-                private navController: NavController,
-                private userService: UserService,
-                private currentRequestService: CurrentRequestService,
+    constructor(protected requests: RequestsProvider,
+                protected navController: NavController,
+                protected userService: UserService,
+                protected currentRequestService: CurrentRequestService,
                 private stateManager: StateManagerService,
                 private locationManager: LocationManagerService) {
         super(requests, navController, userService, currentRequestService);

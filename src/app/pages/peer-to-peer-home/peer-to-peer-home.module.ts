@@ -53,4 +53,4 @@ const routes: Routes = [
     ],
     declarations: [PeerToPeerHomePage]
 })
-export class HomePageModule {}
+export class PeerToPeerHomePageModule {}

@@ -26,4 +26,4 @@ const routes: Routes = [
   ],
   declarations: [HomePage]
 })
-export class LocationsMapPageModule {}
+export class HomePageModule {}
