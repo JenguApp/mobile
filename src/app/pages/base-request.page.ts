@@ -6,7 +6,6 @@ import {NavController, ViewWillEnter} from '@ionic/angular';
 import {UserService} from '../services/user.service';
 import {CurrentRequestService} from '../services/data-services/current-request.service';
 import {Page} from '../models/page';
-import {OnInit} from '@angular/core';
 
 /**
  * This class is used as our base class for all pages the interact with requests
