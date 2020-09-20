@@ -5,7 +5,7 @@
         <ion-list>
             <ion-list-header>Requested Items</ion-list-header>
             <ion-item *ngFor="let requestedItem of completingRequest.requested_items;">
-                {{requestedItem.name}}
+                {{requestedItem.getProperName()}}
                 <img *ngIf="requestedItem?.asset?.url" [src]="requestedItem.asset.url" slot="end" (click)="openImage(requestedItem.asset)">
             </ion-item>
         </ion-list>

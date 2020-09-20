@@ -81,6 +81,7 @@ export default class DeliveryRequests {
             'requestedBy',
             'requestedItems',
             'requestedItems.asset',
+            'requestedItems.parentRequestedItem',
         ], null, null, null, null, null, {
             'order[created_at]': 'DESC',
         }).then(data => {

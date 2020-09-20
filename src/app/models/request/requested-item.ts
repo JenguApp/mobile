@@ -55,6 +55,14 @@ export class RequestedItem extends BaseModel {
     }
 
     /**
+     * Gets the proper name of the item
+     */
+    getProperName(): string
+    {
+        return this.parentRequestedItem ? this.parentRequestedItem.name : this.name;
+    }
+
+    /**
      * replaces the asset properly
      * @param requests
      * @param entity
