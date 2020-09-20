@@ -81,9 +81,11 @@ export default class DeliveryRequests {
             'requestedBy',
             'requestedItems',
             'requestedItems.asset',
-        ]).then(data => {
+        ], null, null, null, null, null, {
+            'order[created_at]': 'DESC',
+        }).then(data => {
             return Promise.resolve(new Page(data, Request));
-        })
+        });
     }
 
     /**
@@ -113,7 +115,7 @@ export default class DeliveryRequests {
             cancel: true,
         }).then(data => {
             return Promise.resolve(new Request(data));
-        })
+        });
     }
 
     /**

@@ -84,7 +84,7 @@ export class HomePage extends BaseRequestPage implements OnInit
      */
     findCurrentRequest(page: Page<Request>): Request
     {
-        return page.data.find(request => request.completed_at == null);
+        return page.data.find(request => request.completed_at == null && request.canceled_at == null);
     }
 
     /**

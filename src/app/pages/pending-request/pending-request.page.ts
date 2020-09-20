@@ -88,7 +88,8 @@ export class PendingRequestPage extends BaseRequestingDeliveriesPage implements 
      */
     cancelRequest(request: Request)
     {
-        this.requests.deliveryRequests.cancelRequest(this.me, request).then(() => {
+        this.requests.deliveryRequests.cancelRequest(this.me, request).then(updated => {
+            console.log('updated', updated);
             this.toastController.create({
                 message: 'Your request has been cancelled!',
                 duration: 2000
