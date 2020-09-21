@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {environment} from '../environments/environment';
+import {ApplicationModes} from './application-modes';
 
 const routes: Routes = [
     {
@@ -9,7 +11,9 @@ const routes: Routes = [
     },
     {
         path: 'home',
-        loadChildren: './pages/home/home.module#HomePageModule'
+        loadChildren: environment.mode === ApplicationModes.DISTRIBUTION_CENTER ?
+            './pages/home/home.module#HomePageModule' :
+            './pages/peer-to-peer-home/peer-to-peer-home.module#PeerToPeerHomePageModule'
     },
     {
         path: 'organization-creation',

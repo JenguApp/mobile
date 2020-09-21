@@ -1,6 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import {ApplicationModes} from '../app/application-modes';
 
 export const environment = {
     production: false,
@@ -13,6 +14,7 @@ export const environment = {
     sign_up_enabled: true,
     subscriptions_enabled: false,
     organizations_enabled: true,
+    mode: ApplicationModes.DISTRIBUTION_CENTER,
 };
 
 /*

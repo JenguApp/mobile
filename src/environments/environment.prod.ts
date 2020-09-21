@@ -1,3 +1,5 @@
+import {ApplicationModes} from '../app/application-modes';
+
 export const environment = {
     production: true,
     api_url: 'http://api.jengu.app/v1/',
@@ -9,4 +11,5 @@ export const environment = {
     sign_up_enabled: true,
     subscriptions_enabled: false,
     organizations_enabled: true,
+    mode: ApplicationModes.DISTRIBUTION_CENTER,
 };
