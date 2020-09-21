@@ -110,6 +110,10 @@ export class LocationPendingRequestsPage extends BasePage implements OnInit{
             this.pendingRequests = page.mergeData(this.pendingRequests);
             if (page.current_page < page.last_page) {
                 this.loadPendingRequestsPage(pageNumber + 1);
+            } else {
+                setTimeout(() => {
+                    this.loadPendingRequestsPage(1);
+                }, 60 * 1000);
             }
         });
     }
