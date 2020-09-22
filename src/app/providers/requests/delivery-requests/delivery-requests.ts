@@ -93,13 +93,15 @@ export default class DeliveryRequests {
      * Allows the currently logged inu ser to accept the request
      *
      * @param request
+     * @param showLoading
      */
-    async refreshRequest(request: Request): Promise<Request> {
-        return this.requestHandler.get('requests/' + request.id, true, false, [
+    async refreshRequest(request: Request, showLoading = false): Promise<Request> {
+        return this.requestHandler.get('requests/' + request.id, true, showLoading, [
             'completedBy',
             'requestedBy',
             'requestedItems',
             'requestedItems.asset',
+            'requestedItems.parentRequestedItem',
         ]).then(data => {
             return Promise.resolve(new Request(data));
         });

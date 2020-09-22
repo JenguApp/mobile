@@ -13,7 +13,7 @@
             <h4>Requested at: {{currentRequest.formatCreatedAtDate()}}</h4>
             <ion-list>
                 <ng-container *ngFor="let requestedItem of currentRequest.requested_items">
-                    <ion-label *ngIf="getRequestedItemName(requestedItem)">{{getRequestedItemName(requestedItem)}} - {{requestedItem.quantity}}</ion-label>
+                    <ion-item *ngIf="getRequestedItemName(requestedItem)">{{getRequestedItemName(requestedItem)}} - {{requestedItem.quantity}}</ion-item>
                 </ng-container>
             </ion-list>
             <div class="submit-wrapper" *ngIf="!horizontalTablet">

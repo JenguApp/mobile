@@ -89,8 +89,10 @@ export class QRScannerPage extends BasePage implements ViewWillEnter, ViewWillLe
                         duration: 2000,
                     }).then(toast => toast.present());
                 }).then(acceptedRequest => {
-                    this.currentRequestService.setCurrentRequest(acceptedRequest);
-                    this.stateManagerService.navigateToCurrentPage(this.navController, acceptedRequest).catch(console.error);
+                    this.requests.deliveryRequests.refreshRequest(acceptedRequest, true).then(fullRequest => {
+                        this.currentRequestService.setCurrentRequest(fullRequest);
+                        this.stateManagerService.navigateToCurrentPage(this.navController, fullRequest).catch(console.error);
+                    });
                 });
                 return;
             }
