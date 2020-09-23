@@ -8,6 +8,8 @@ import {LocationAvailableItemsComponent} from '../../components/location-availab
 import {Mode, RequestCreationService} from '../../services/data-services/request-creation.service';
 import {RequestedItem} from '../../models/request/requested-item';
 import {LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
+import {environment} from '../../../environments/environment';
+import {ApplicationModes} from '../../application-modes';
 
 @Component({
     selector: 'app-location',
@@ -102,7 +104,8 @@ export class LocationPage extends BasePage implements OnInit
         } else {
             this.requestCreationService.setLocationModel(this.location);
             this.requestCreationService.storeInitialInformation(Mode.LOCATION, description, requestedItems);
-            this.navController.navigateForward('location-selection').catch(console.error);
+            const url = environment.mode === ApplicationModes.DISTRIBUTION_CENTER ?  'request-review' : 'location-selection';
+            this.navController.navigateForward(url).catch(console.error);
         }
     }
 }

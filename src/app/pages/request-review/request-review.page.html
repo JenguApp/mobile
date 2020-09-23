@@ -2,8 +2,13 @@
 
 <ion-content class="ion-padding">
     <app-request-form reviewForm="true" #requestForm></app-request-form>
-    <app-location-review-map *ngIf="latitude && longitude" [startingLatitude]="latitude" [startingLongitude]="longitude"></app-location-review-map>
-    <ion-textarea placeholder="Add Some Drop Off Instructions" #dropOffNotes></ion-textarea>
+    <ng-container *ngIf="isDistributionCenter(); else notDistribution">
+        <ion-textarea placeholder="Please enter a description of your car, including liscense plate number." #dropOffNotes></ion-textarea>
+    </ng-container>
+    <ng-template #notDistribution>
+        <app-location-review-map *ngIf="latitude && longitude" [startingLatitude]="latitude" [startingLongitude]="longitude"></app-location-review-map>
+        <ion-textarea placeholder="Add Some Drop Off Instructions" #dropOffNotes></ion-textarea>
+    </ng-template>
     <div id="submit-wrapper">
         <ion-button (click)="submit()">Submit</ion-button>
     </div>

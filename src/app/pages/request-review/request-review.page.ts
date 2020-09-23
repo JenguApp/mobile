@@ -1,9 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { RequestCreationService } from '../../services/data-services/request-creation.service';
+import {RequestCreationService} from '../../services/data-services/request-creation.service';
 import {IonTextarea, NavController} from '@ionic/angular';
 import {RequestFormComponent} from '../../components/request-form/request-form.component';
 import {RequestsProvider} from '../../providers/requests/requests';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {environment} from '../../../environments/environment';
+import {ApplicationModes} from '../../application-modes';
 
 @Component({
     selector: 'app-request-review',
@@ -76,5 +78,13 @@ export class RequestReviewPage implements OnInit {
         }).catch(error => {
             //TODO handle error properly
         });
+    }
+
+    /**
+     * Whether or not this is a distribution center
+     */
+    isDistributionCenter(): boolean
+    {
+        return environment.mode === ApplicationModes.DISTRIBUTION_CENTER;
     }
 }
