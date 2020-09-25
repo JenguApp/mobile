@@ -10,6 +10,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {GoogleMaps} from '@ionic-native/google-maps/ngx';
+import {Marker} from '@ionic-native/google-maps';
 
 describe('LocationCreationPage', () => {
     let component: LocationCreationPage;
@@ -20,6 +22,16 @@ describe('LocationCreationPage', () => {
     const requestsProvider: RequestsProvider = new RequestsProviderMock();
 
     beforeEach(async(() => {
+        GoogleMaps.create = jasmine.createSpy().and.callFake(function (name) {
+            return {
+                one: () => {
+                    return Promise.resolve();
+                },
+                addMarkerSync: (markerData) => {
+                    return {} as Marker;
+                }
+            } as any;
+        });
         navController = jasmine.createSpyObj('NavController', ['goBack']);
         alertController = new AlertController();
         activatedRoute = {};

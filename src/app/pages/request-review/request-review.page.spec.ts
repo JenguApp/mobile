@@ -28,7 +28,7 @@ describe('RequestReviewPage', () => {
     const camera: Camera = new Camera();
 
     beforeEach(async(() => {
-        const spy = jasmine.createSpy().and.callFake(function (name) {
+        GoogleMaps.create = jasmine.createSpy().and.callFake(function (name) {
             return {
                 one: () => {
                     return Promise.resolve();
@@ -39,7 +39,6 @@ describe('RequestReviewPage', () => {
             } as any;
         });
         const storageProvider = new StorageProvider(new NativeStorageMock());
-        GoogleMaps.create = spy;
         navController = jasmine.createSpyObj('NavController', ['navigateBack']);
         activatedRoute = {};
         activatedRoute.snapshot = {};

@@ -14,6 +14,8 @@ import {StorageProvider} from '../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../test-config/mocks/plugins';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {CurrentRequestService} from '../../services/data-services/current-request.service';
+import {GoogleMaps} from '@ionic-native/google-maps/ngx';
+import {Marker} from '@ionic-native/google-maps';
 
 describe('LocationSelectionPage', () => {
     let component: LocationSelectionPage;
@@ -25,6 +27,16 @@ describe('LocationSelectionPage', () => {
     const fileOpener: FileOpener = new FileOpener();
 
     beforeEach(async(() => {
+        GoogleMaps.create = jasmine.createSpy().and.callFake(function (name) {
+            return {
+                one: () => {
+                    return Promise.resolve();
+                },
+                addMarkerSync: (markerData) => {
+                    return {} as Marker;
+                }
+            } as any;
+        });
         navController = jasmine.createSpyObj('NavController', ['navigateBack']);
         activatedRoute = {};
         activatedRoute.snapshot = {};

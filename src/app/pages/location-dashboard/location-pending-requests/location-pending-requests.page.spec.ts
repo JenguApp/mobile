@@ -10,6 +10,7 @@ import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
 import {LocationPendingRequestsPage} from './location-pending-requests.page';
 import {QRCodeModule} from 'angularx-qrcode';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
 describe('LocationPendingRequestsPage', () => {
     let component: LocationPendingRequestsPage;
@@ -38,6 +39,7 @@ describe('LocationPendingRequestsPage', () => {
                 {provide: NavController, useValue: navController},
                 {provide: ActivatedRoute, useValue: activatedRoute},
                 { provide: RequestsProvider, useValue: requestsProvider},
+                { provide: ScreenOrientation, useValue: new ScreenOrientation() },
                 { provide: StorageProvider, useValue: new StorageProvider(new NativeStorageMock()) },
             ],
             declarations: [
