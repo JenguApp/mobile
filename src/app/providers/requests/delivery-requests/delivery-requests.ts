@@ -34,8 +34,6 @@ export default class DeliveryRequests {
     async createDeliveryRequest(description: string, dropOffLocation: string, longitude: number, latitude: number,
                                 requestedItems: RequestedItem[], assets: number[], location: Location = null): Promise<Request> {
         const data: any = {
-            longitude: longitude,
-            latitude: latitude,
             requested_items: requestedItems.map(item => {
                 const itemData: any = {};
                 if (item.name && item.name.length) {
@@ -54,6 +52,14 @@ export default class DeliveryRequests {
                 return itemData;
             }).filter((i => i != {})),
         };
+
+        if (longitude) {
+            data.longitude = longitude;
+        }
+
+        if (latitude) {
+            data.lattitude = latitude;
+        }
 
         if (description && description.length) {
             data.description = description;
