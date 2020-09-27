@@ -42,7 +42,7 @@ export class RequestedItem extends BaseModel {
     /**
      * The potential parent requested item if set
      */
-    parentRequestedItem?: RequestedItem;
+    parent_requested_item?: RequestedItem;
 
     /**
      * Default Constructor
@@ -59,7 +59,7 @@ export class RequestedItem extends BaseModel {
      */
     getProperName(): string
     {
-        return this.parentRequestedItem ? this.parentRequestedItem.name : this.name;
+        return this.parent_requested_item ? this.parent_requested_item.name : this.name;
     }
 
     /**
