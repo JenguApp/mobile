@@ -21,6 +21,7 @@ import {RequestedItemEditorComponent} from './requested-item-editor/requested-it
 import {LocationBrowseMapComponent} from './map/location-browse-map/location-browse-map.component';
 import {LocationAvailableItemsComponent} from './location-available-items/location-available-items.component';
 import {OverlayWindowComponent} from './overlay-window/overlay-window.component';
+import {MenuComponent} from './menu/menu.component';
 
 @NgModule({
     imports: [
@@ -43,6 +44,7 @@ import {OverlayWindowComponent} from './overlay-window/overlay-window.component'
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
+        MenuComponent,
         OrganizationLocationManagementComponent,
         RequestFormComponent,
         RequestedItemsEditableListComponent,
@@ -64,6 +66,7 @@ import {OverlayWindowComponent} from './overlay-window/overlay-window.component'
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
+        MenuComponent,
         OrganizationLocationManagementComponent,
         RequestFormComponent,
         RequestedItemsEditableListComponent,
