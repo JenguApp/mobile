@@ -22,6 +22,7 @@ import {LocationBrowseMapComponent} from './map/location-browse-map/location-bro
 import {LocationAvailableItemsComponent} from './location-available-items/location-available-items.component';
 import {OverlayWindowComponent} from './overlay-window/overlay-window.component';
 import {MenuComponent} from './menu/menu.component';
+import {MenuButtonWithNotificationsComponent} from './menu-button-with-notifications/menu-button-with-notifications.component';
 
 @NgModule({
     imports: [
@@ -35,8 +36,12 @@ import {MenuComponent} from './menu/menu.component';
         CountrySelectComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
+        MenuComponent,
+        MenuButtonWithNotificationsComponent,
         OrganizationUsersManagementComponent,
+        OverlayWindowComponent,
         RatingBarComponent,
+
         DeliveryCompletedComponent,
         DeliveryMapComponent,
         LocationAvailableItemsComponent,
@@ -44,12 +49,10 @@ import {MenuComponent} from './menu/menu.component';
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
-        MenuComponent,
         OrganizationLocationManagementComponent,
         RequestFormComponent,
         RequestedItemsEditableListComponent,
         RequestedItemEditorComponent,
-        OverlayWindowComponent,
     ],
     exports: [
         ArticleEditorComponent,
@@ -57,8 +60,12 @@ import {MenuComponent} from './menu/menu.component';
         CountrySelectComponent,
         LoggedInHeaderComponent,
         LoggedOutHeaderComponent,
+        MenuComponent,
+        MenuButtonWithNotificationsComponent,
         OrganizationUsersManagementComponent,
+        OverlayWindowComponent,
         RatingBarComponent,
+
         DeliveryCompletedComponent,
         DeliveryMapComponent,
         LocationAvailableItemsComponent,
@@ -66,12 +73,10 @@ import {MenuComponent} from './menu/menu.component';
         LocationReviewMapComponent,
         LocationSelectMapComponent,
         MapComponent,
-        MenuComponent,
         OrganizationLocationManagementComponent,
         RequestFormComponent,
         RequestedItemsEditableListComponent,
         RequestedItemEditorComponent,
-        OverlayWindowComponent,
     ],
 })
 export class ComponentsModule {}

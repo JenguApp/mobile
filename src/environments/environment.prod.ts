@@ -11,5 +11,6 @@ export const environment = {
     sign_up_enabled: true,
     subscriptions_enabled: false,
     organizations_enabled: true,
+    social_media_enabled: false,
     mode: ApplicationModes.DISTRIBUTION_CENTER,
 };

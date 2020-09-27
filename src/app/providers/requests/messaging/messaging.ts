@@ -2,6 +2,7 @@ import {RequestHandlerProvider} from '../../request-handler/request-handler';
 import {User} from '../../../models/user/user';
 import {Thread} from '../../../models/user/thread';
 import {Message} from '../../../models/user/message';
+import {Page} from '../../../models/page';
 
 /**
  * All requests needed for dealing with messaging
@@ -20,15 +21,11 @@ export default class Messaging {
      * @param me
      * @param showLoading
      */
-    async getThreads(me: User, showLoading: boolean): Promise<Thread[]> {
+    async getThreads(me: User, showLoading: boolean): Promise<Page<Thread>> {
         return this.requestHandler.get('users/' + me.id + '/threads', true, showLoading, [
             'users',
-        ], {}, {}, {}, 100 , null, {subject_type: 'private_message'}).then(response => {
-            if (response && response.data) {
-                return Promise.resolve(response.data.map(data => new Thread(data)));
-            }
-
-            return Promise.reject();
+        ], {}, {}, {}, 100).then(response => {
+            return Promise.resolve(new Page(response, Thread));
         });
     }
 
@@ -40,7 +37,6 @@ export default class Messaging {
     async createThread(me: User, user: User): Promise<Thread> {
         return this.requestHandler.post('users/' + me.id + '/threads', true, true, {
             users: [user.id],
-            subject_type: 'private_message',
         }).then(response => {
             return Promise.resolve(new Thread(response));
         });
