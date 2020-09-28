@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommonModule } from "@angular/common";
 import { AlertController, IonicModule, NavController } from "@ionic/angular";
-import {GoogleMaps, Marker} from '@ionic-native/google-maps';
+import {GoogleMaps, ILatLng, Marker} from '@ionic-native/google-maps';
 import {LocationBrowseMapComponent} from './location-browse-map.component';
 import {RequestsProvider} from '../../../providers/requests/requests';
 import RequestsProviderMock from '../../../providers/requests/requests.mock';
@@ -10,6 +10,7 @@ import {LocationAvailableItemsComponent} from '../../location-available-items/lo
 import {OverlayWindowComponent} from '../../overlay-window/overlay-window.component';
 import {StorageProvider} from '../../../providers/storage/storage';
 import {NativeStorageMock} from '../../../../../test-config/mocks/plugins';
+import {Observable} from 'rxjs';
 
 describe('LocationBrowseMapComponent', () => {
     let component: LocationBrowseMapComponent;
@@ -25,6 +26,15 @@ describe('LocationBrowseMapComponent', () => {
                 },
                 addMarkerSync: (markerData) => {
                     return {} as Marker;
+                },
+                addEventListener: (event) => {
+                    return new Observable();
+                },
+                getCameraTarget: () => {
+                    return {
+                        lat: 0,
+                        lng: 0,
+                    } as ILatLng;
                 }
             } as any;
         });
