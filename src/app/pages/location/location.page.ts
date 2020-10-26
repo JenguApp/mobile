@@ -83,7 +83,7 @@ export class LocationPage extends BasePage implements OnInit
     /**
      * Posts the request to the server
      */
-    requestDelivery(): void
+    submitRequest(): void
     {
         const description = this.descriptionTextArea.value;
         const requestedItems = this.availableItemsComponent.enteredQuantities

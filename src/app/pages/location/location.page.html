@@ -3,12 +3,12 @@
 <ion-content *ngIf="location" class="ion-padding">
     <h2>{{location.name}}</h2>
     <h3 *ngIf="location.delivery_available">Request a delivery</h3>
-    <ion-textarea #descriptionTextArea *ngIf="location.delivery_available" placeholder="Add a small greeting here" auto-grow="true"></ion-textarea>
+    <ion-textarea #descriptionTextArea *ngIf="location.delivery_available" placeholder="Add a small greeting here (optional)" auto-grow="true"></ion-textarea>
     <h4>Available Items. Enter Quantities Below.</h4>
     <app-location-available-items #availableItemsComponent [locationId]="location.id" [deliveryAvailable]="location.delivery_available">
     </app-location-available-items>
     <div class="actions">
         <ion-button (click)="getDirections()">Get Directions</ion-button>
-        <ion-button *ngIf="location.delivery_available" (click)="requestDelivery()">Request Delivery</ion-button>
+        <ion-button *ngIf="location.delivery_available" (click)="submitRequest()">Submit Request</ion-button>
     </div>
 </ion-content>
